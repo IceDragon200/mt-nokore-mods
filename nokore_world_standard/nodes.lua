@@ -1,0 +1,6 @@
+dofile(nokore_world_standard.modpath .. "/nodes/dirt.lua")
+dofile(nokore_world_standard.modpath .. "/nodes/grass.lua")
+dofile(nokore_world_standard.modpath .. "/nodes/stone.lua")
+dofile(nokore_world_standard.modpath .. "/nodes/cobblestone.lua")
+dofile(nokore_world_standard.modpath .. "/nodes/sand.lua")
+dofile(nokore_world_standard.modpath .. "/nodes/gravel.lua")
