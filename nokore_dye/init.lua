@@ -62,4 +62,4 @@ if not dye.dyes then
 end
 
 dofile(mod.modpath .. "/items/dye.lua")
-dofile(mod.modpath .. "/items/recipes.lua")
+dofile(mod.modpath .. "/recipes.lua")
