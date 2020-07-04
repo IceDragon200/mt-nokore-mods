@@ -20,7 +20,7 @@ mod:register_node("ice", {
 
 -- Mapgen-placed ice with 'is ground content = true' to contain tunnels
 mod:register_node("cave_ice", {
-  description = S("Cave Ice"),
+  description = mod.S("Cave Ice"),
 
   groups = {
     cracky = 3,

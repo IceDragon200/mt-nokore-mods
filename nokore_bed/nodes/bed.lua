@@ -13,7 +13,7 @@ for _, row in ipairs(colors) do
   local description = row[2]
 
   mod:register_bed("bed_" .. color, {
-    description = m.S(description .. " Bed"),
+    description = mod.S(description .. " Bed"),
 
     groups = {
       bed = 1,
