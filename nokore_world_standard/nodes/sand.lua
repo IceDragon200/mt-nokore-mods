@@ -7,7 +7,7 @@ mod:register_node("sand", {
   groups = { crumbly = 3, falling_node = 1, sand = 1 },
 
   tiles = {
-    "world_desert_sand.png",
+    "world_sand.png",
   },
 
   sounds = nokore.node_sounds:build("sand"),

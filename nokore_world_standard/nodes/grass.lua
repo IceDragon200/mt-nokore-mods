@@ -81,6 +81,35 @@ mod:register_node("dirt_with_rainforest_litter", {
   }),
 })
 
+mod:register_node("dirt_with_coniferous_litter", {
+  description = mod.S("Dirt with Coniferous Litter"),
+
+  groups = {
+    crumbly = 3,
+    soil = 1,
+    spreading_dirt_type = 1,
+  },
+
+  drop = "nokore_world_standard:dirt",
+
+  tiles = {
+    "world_coniferous_litter.png",
+    "world_dirt.png",
+    {
+      name = "world_dirt.png^world_coniferous_litter_side.png",
+      tileable_vertical = false
+    }
+  },
+
+  sounds = nokore.node_sounds:build("dirt", {
+    sounds = {
+      footstep = { name = "default_grass_footstep", gain = 0.4 },
+    },
+  }),
+})
+
+
+
 mod:register_node("dry_dirt", {
   description = mod.S("Savanna Dirt"),
 

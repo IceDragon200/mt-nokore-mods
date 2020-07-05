@@ -43,7 +43,7 @@ mod:register_node("snow", {
   end,
 })
 
-mod:register_node("snowblock", {
+mod:register_node("snow_block", {
   description = mod.S("Snow Block"),
 
   groups = {
