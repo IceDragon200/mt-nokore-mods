@@ -1,5 +1,5 @@
 --
---
+-- NoKore - World Snow
 --
 local mod = nokore.new_module("nokore_world_snow", "0.1.0")
 
