@@ -19,6 +19,13 @@ mod:register_node("bamboo_stalk", {
     }
   },
 
+  selection_box = {
+    type = "fixed",
+    fixed = {
+      -7 / 16, -0.5, -7 / 16, 7 / 16, 0.5, 7 / 16
+    }
+  },
+
   tiles = {
     "nokore_bamboo_stalk_top.png",
     "nokore_bamboo_stalk_top.png",
