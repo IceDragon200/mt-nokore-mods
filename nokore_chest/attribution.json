@@ -1,0 +1,14 @@
+{
+  "authors": {
+    "@minetest/minetest_game": {
+      "name": "Minetest Game",
+      "notes": "The resource originally belonged to minetest_game"
+    }
+  },
+  "items": {
+    "/models/nokore_chest_open.obj": {
+      "author": "@minetest/minetest_game",
+      "note": "This is a copy of the chest_open.obj in default"
+    }
+  }
+}

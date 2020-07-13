@@ -1,6 +1,6 @@
 local mod = nokore_world_bone
 
-mod:register_node("bone", {
+mod:register_node("bone_block", {
   description = mod.S("Bone"),
 
   groups = {

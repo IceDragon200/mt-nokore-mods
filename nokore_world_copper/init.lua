@@ -1,5 +1,5 @@
 --
--- NoKore - World Copper
+-- NoKore - World - Copper
 --
 local mod = nokore.new_module("nokore_world_copper", "0.1.0")
 

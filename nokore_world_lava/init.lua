@@ -1,5 +1,5 @@
 --
---
+-- NoKore - World - Lava
 --
 local mod = nokore.new_module("nokore_world_lava", "0.1.0")
 
