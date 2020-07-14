@@ -28,5 +28,5 @@ mod:register_node("vine", {
     type = "wallmounted",
   },
 
-  sounds = nokore.node_sounds:build("leaves"),
+  sounds = nokore.node_sounds:build("vine"),
 })

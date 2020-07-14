@@ -73,5 +73,5 @@ mod:register_node("waterlily", {
     return itemstack
   end,
 
-  sounds = nokore.node_sounds:build("leaves"),
+  sounds = nokore.node_sounds:build("waterlily"),
 })
