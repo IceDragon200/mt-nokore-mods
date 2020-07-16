@@ -1,3 +1,6 @@
 local mod = nokore_sieve
 
--- TODO
+mod:register_node("oak_sieve", {
+  description = mod.S("Oak Sieve"),
+
+})

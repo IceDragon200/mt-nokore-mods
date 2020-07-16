@@ -13,6 +13,14 @@ mod:register_node("cactus", {
     "world_cactus_side.png",
   },
 
+  drawtype = "nodebox",
+  node_box = {
+    type = "fixed",
+    fixed = {
+      -7 / 16, -8 / 16, -7 / 16, 7 / 16, 8 / 16, -7 / 16
+    },
+  },
+
   paramtype2 = "facedir",
 
   sounds = nokore.node_sounds:build("wood"),

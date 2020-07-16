@@ -3,4 +3,4 @@
 --
 local mod = nokore.new_module("nokore_world_flower", "0.1.0")
 
-dofile(mod.modpath .. "/flowers.lua")
+dofile(mod.modpath .. "/nodes/flowers.lua")

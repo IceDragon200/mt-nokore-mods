@@ -13,3 +13,15 @@ mod:register_node("stone_with_coal", {
     "world_stone.png^world_mineral_coal.png",
   },
 })
+
+mod:register_node("coal_block", {
+  description = mod.S("Coal Block"),
+
+  groups = {
+    cracky = 2,
+  },
+
+  tiles = {
+    "world_coal_block.png",
+  },
+})

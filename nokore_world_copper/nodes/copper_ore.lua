@@ -13,3 +13,15 @@ mod:register_node("stone_with_copper", {
     "world_stone.png^world_mineral_copper.png",
   },
 })
+
+mod:register_node("copper_block", {
+  description = mod.S("Copper Block"),
+
+  groups = {
+    cracky = 1,
+  },
+
+  tiles = {
+    "world_copper_block.png",
+  },
+})

@@ -1,6 +1,6 @@
 local mod = nokore_world_fern
 
-mod:register_mod("fern", {
+mod:register_node("fern", {
   description = mod.S("Fern"),
 
   groups = {
@@ -13,7 +13,7 @@ mod:register_mod("fern", {
   },
 })
 
-mod:register_mod("fern_short", {
+mod:register_node("fern_short", {
   description = mod.S("Short Fern"),
 
   groups = {
