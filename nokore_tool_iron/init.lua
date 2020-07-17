@@ -5,8 +5,10 @@
 local mod = nokore.new_module("nokore_tool_iron", "0.1.0")
 
 mod:register_tool("pick", {
-  description = S("Bronze Pickaxe"),
-  inventory_image = "default_tool_bronzepick.png",
+  description = mod.S("Iron Pickaxe"),
+
+  inventory_image = "nokore_tool_iron_pickaxe.png",
+
   tool_capabilities = {
     full_punch_interval = 1.0,
     max_drop_level=1,
@@ -15,6 +17,7 @@ mod:register_tool("pick", {
     },
     damage_groups = {fleshy=4},
   },
+
   sound = {breaks = "default_tool_breaks"},
   groups = {pickaxe = 1}
 })
