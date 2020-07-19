@@ -92,3 +92,26 @@ if nokore.is_module_present("nokore_world_water") and
     humidity_point = 40,
   })
 end
+
+minetest.register_decoration({
+  deco_type = "simple",
+  place_on = {
+    "nokore_world_snow:permafrost_with_moss",
+    "nokore_world_snow:permafrost_with_stones",
+    "nokore_world_standard:stone",
+    "nokore_world_standard:gravel"
+  },
+  sidelen = 4,
+  noise_params = {
+    offset = 0,
+    scale = 1.0,
+    spread = {x = 100, y = 100, z = 100},
+    seed = 172555,
+    octaves = 3,
+    persist = 1.0
+  },
+  biomes = {"tundra", "tundra_beach"},
+  y_max = 50,
+  y_min = 1,
+  decoration = "nokore_world_snow:snow",
+})

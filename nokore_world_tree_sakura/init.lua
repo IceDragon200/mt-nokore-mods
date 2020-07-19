@@ -7,3 +7,5 @@ dofile(mod.modpath .. "/nodes/sakura_log.lua")
 dofile(mod.modpath .. "/nodes/sakura_leaves.lua")
 dofile(mod.modpath .. "/nodes/sakura_planks.lua")
 dofile(mod.modpath .. "/nodes/sakura_sapling.lua")
+
+--dofile(mod.modpath .. "/schematics.lua")

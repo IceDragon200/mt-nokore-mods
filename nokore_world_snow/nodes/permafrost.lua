@@ -10,6 +10,7 @@ mod:register_node("permafrost", {
   tiles = {
     "world_permafrost.png",
   },
+
   sounds = nokore.node_sounds:build("dirt"),
 })
 

@@ -6,10 +6,10 @@ local mod = nokore.new_module("nokore_biome_icesheet", "0.1.0")
 
 minetest.register_biome({
   name = "icesheet",
-  node_dust = "nokore_world_snow:snowblock",
-  node_top = "nokore_world_snow:snowblock",
+  node_dust = "nokore_world_snow:snow_block",
+  node_top = "nokore_world_snow:snow_block",
   depth_top = 1,
-  node_filler = "nokore_world_snow:snowblock",
+  node_filler = "nokore_world_snow:snow_block",
   depth_filler = 3,
   node_stone = "nokore_world_snow:cave_ice",
   node_water_top = "nokore_world_snow:ice",
@@ -28,7 +28,7 @@ minetest.register_biome({
 if nokore.is_module_present("nokore_world_water") then
   minetest.register_biome({
     name = "icesheet_ocean",
-    node_dust = "nokore_world_snow:snowblock",
+    node_dust = "nokore_world_snow:snow_block",
     node_top = "nokore_world_standard:sand",
     depth_top = 1,
     node_filler = "nokore_world_standard:sand",

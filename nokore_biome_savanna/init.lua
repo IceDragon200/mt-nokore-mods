@@ -76,3 +76,23 @@ if nokore.is_module_present("nokore_world_water") and
     humidity_point = 42,
   })
 end
+
+minetest.register_decoration({
+  deco_type = "simple",
+  place_on = {"nokore_world_standard:dry_dirt_with_dry_grass"},
+  sidelen = 4,
+  noise_params = {
+    offset = -1.5,
+    scale = -1.5,
+    spread = {x = 200, y = 200, z = 200},
+    seed = 329,
+    octaves = 4,
+    persist = 1.0
+  },
+  biomes = {"savanna"},
+  y_max = 31000,
+  y_min = 1,
+  decoration = "nokore_world_standard:dry_dirt",
+  place_offset_y = -1,
+  flags = "force_placement",
+})

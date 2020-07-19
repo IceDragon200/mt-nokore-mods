@@ -45,7 +45,7 @@ mod:register_node("dirt_with_dry_grass", {
     }
   },
 
-  drop = "default:dirt",
+  drop = "nokore_world_standard:dirt",
 
   sounds = nokore.node_sounds:build("dirt", {
     sounds = {

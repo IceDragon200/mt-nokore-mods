@@ -7,3 +7,5 @@ dofile(mod.modpath .. "/nodes/birch_log.lua")
 dofile(mod.modpath .. "/nodes/birch_leaves.lua")
 dofile(mod.modpath .. "/nodes/birch_planks.lua")
 dofile(mod.modpath .. "/nodes/birch_sapling.lua")
+
+--dofile(mod.modpath .. "/schematics.lua")

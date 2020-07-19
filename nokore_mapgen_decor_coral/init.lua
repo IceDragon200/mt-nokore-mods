@@ -1,7 +1,6 @@
 --
 -- NoKore - Mapgen Decoration - Corals
 --
--- Furnaces!
 local mod = nokore.new_module("nokore_mapgen_decor_corals", "0.1.0")
 
 minetest.register_decoration({
