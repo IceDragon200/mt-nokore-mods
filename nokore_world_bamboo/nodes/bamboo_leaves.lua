@@ -33,7 +33,7 @@ mod:register_node("bamboo_leaves", {
   paramtype = "light",
   is_ground_content = false,
 
-  sounds = nokore.node_sounds:build("leaves"),
+  sounds = nokore.node_sounds:build("bamboo_leaves"),
 
   after_place_node = after_place_leaves,
 })

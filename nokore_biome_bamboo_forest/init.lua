@@ -52,7 +52,7 @@ minetest.register_biome({
   depth_riverbed = 2,
   node_dungeon = "nokore_world_standard:cobblestone",
   node_dungeon_alt = "nokore_world_standard:mossy_cobblestone",
-  --node_dungeon_stair = "stairs:stair_cobble",
+  node_dungeon_stair = "nokore_world_standard:cobblestone_stair",
   y_max = 31000,
   y_min = 6,
   heat_point = 45,

@@ -21,7 +21,7 @@ mod:register_node("reed", {
   paramtype = "light",
   sunlight_propagates = true,
   walkable = false,
-  sounds = nokore.node_sounds:build("leaves"),
+  sounds = nokore.node_sounds:build("reeds"),
 
   after_dig_node = function (pos, node, metadata, digger)
     --default.dig_up(pos, node, digger)

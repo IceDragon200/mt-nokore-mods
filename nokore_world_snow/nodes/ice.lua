@@ -6,6 +6,7 @@ mod:register_node("ice", {
 
   groups = {
     cracky = 3,
+    ice = 1,
     cools_lava = 1,
     slippery = 3,
   },
@@ -24,6 +25,7 @@ mod:register_node("cave_ice", {
 
   groups = {
     cracky = 3,
+    ice = 1,
     cools_lava = 1,
     slippery = 3,
     not_in_creative_inventory = 1,
@@ -37,3 +39,29 @@ mod:register_node("cave_ice", {
 
   sounds = nokore.node_sounds:build("ice"),
 })
+
+if nokore.is_module_present("nokore_stairs") then
+  nokore_stairs.build_and_register_nodes("nokore_world_snow:ice", {
+    -- base
+    _ = {
+      groups = {cracky = 3, ice = 1, cools_lava = 1, slippery = 3},
+      tiles = "world_ice.png",
+      sounds = nokore.node_sounds:build("ice"),
+    },
+    plate = {
+      description = mod.S("Ice Plate"),
+    },
+    slab = {
+      description = mod.S("Ice Slab"),
+    },
+    stair = {
+      description = mod.S("Ice Stair"),
+    },
+    stair_inner = {
+      description = mod.S("Ice Stair Inner"),
+    },
+    stair_outer = {
+      description = mod.S("Ice Stair Outer"),
+    },
+  })
+end

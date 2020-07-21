@@ -295,21 +295,49 @@ function mod.build_stair_outer(old_def)
   }, def)
 end
 
--- @spec nokore_stairs.build_stairs(NodeDefinition) :: Table
-function mod.build_stairs(def)
-  return {
-    plate = mod.build_plate(def.plate or def._),
-    slab = mod.build_slab(def.slab or def._),
-    stair = mod.build_stair(def.stair or def._),
-    stair_outer = mod.build_stair_outer(def.stair_outer or def._),
-    stair_inner = mod.build_stair_inner(def.stair_inner or def._),
-  }
+-- @spec nokore_stairs.build_nodes({type = NodeDefinition}) :: Table
+function mod.build_nodes(data)
+  local result = {}
+
+  if data.plate ~= false then
+    local plate_def = table_merge(data._ or {}, data.plate or {})
+    result.plate = mod.build_plate(plate_def)
+  end
+
+  if data.slab ~= false then
+    local slab_def = table_merge(data._ or {}, data.slab or {})
+    result.slab = mod.build_slab(slab_def)
+  end
+
+  if data.stair ~= false then
+    local stair_def = table_merge(data._ or {}, data.stair or {})
+    result.stair = mod.build_stair(stair_def)
+  end
+
+  if data.stair_outer ~= false then
+    local stair_outer_def = table_merge(data._ or {}, data.stair_outer or {})
+    result.stair_outer = mod.build_stair_outer(stair_outer_def)
+  end
+
+  if data.stair_inner ~= false then
+    local stair_inner_def = table_merge(data._ or {}, data.stair_inner or {})
+    result.stair_inner = mod.build_stair_inner(stair_inner_def)
+  end
+
+  return result
 end
 
 -- Helper function for registering nodes from the build_stairs function
 -- it's actually quite generic and could be used for any table of nodes definitions.
-function mod.register_nodes(name, state)
+function mod.register_nodes(basename, state)
   for key,def in pairs(state) do
-    minetest.register_node(name .. "_" .. key, def)
+    minetest.register_node(basename .. "_" .. key, def)
   end
+  return state
+end
+
+function mod.build_and_register_nodes(basename, state)
+  local result = mod.build_nodes(state)
+
+  return mod.register_nodes(basename, state)
 end

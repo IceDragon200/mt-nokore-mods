@@ -25,3 +25,16 @@ mod:register_node("desert_sand", {
 
   sounds = nokore.node_sounds:build("sand"),
 })
+
+-- The silvery kind of sand...
+mod:register_node("silver_sand", {
+  description = mod.S("Silver Sand"),
+
+  groups = { crumbly = 3, falling_node = 1, sand = 1 },
+
+  tiles = {
+    "world_silver_sand.png",
+  },
+
+  sounds = nokore.node_sounds:build("sand"),
+})

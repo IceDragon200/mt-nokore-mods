@@ -63,7 +63,7 @@ mod:register_node("coral_green", {
   },
   node_dig_prediction = "nokore_world_coral:coral_skeleton",
   node_placement_prediction = "",
-  sounds = nokore.node_sounds:build("stone", {
+  sounds = nokore.node_sounds:build("coral", {
     sounds = {
       dig = {name = "default_dig_snappy", gain = 0.2},
       dug = {name = "default_grass_footstep", gain = 0.25},
@@ -99,7 +99,7 @@ mod:register_node("coral_pink", {
   },
   node_dig_prediction = "nokore_world_coral:coral_skeleton",
   node_placement_prediction = "",
-  sounds = nokore.node_sounds:build("stone", {
+  sounds = nokore.node_sounds:build("coral", {
     sounds = {
       dig = {name = "default_dig_snappy", gain = 0.2},
       dug = {name = "default_grass_footstep", gain = 0.25},
@@ -135,7 +135,7 @@ mod:register_node("coral_cyan", {
   },
   node_dig_prediction = "nokore_world_coral:coral_skeleton",
   node_placement_prediction = "",
-  sounds = nokore.node_sounds:build("stone", {
+  sounds = nokore.node_sounds:build("coral", {
     sounds = {
       dig = {name = "default_dig_snappy", gain = 0.2},
       dug = {name = "default_grass_footstep", gain = 0.25},
@@ -158,7 +158,7 @@ mod:register_node("coral_brown", {
     "world_coral_brown.png"
   },
   drop = "nokore_world_coral:coral_skeleton",
-  sounds = nokore.node_sounds:build("stone"),
+  sounds = nokore.node_sounds:build("coral"),
 })
 
 mod:register_node("coral_orange", {
@@ -170,7 +170,7 @@ mod:register_node("coral_orange", {
     "world_coral_orange.png",
   },
   drop = "nokore_world_coral:coral_skeleton",
-  sounds = nokore.node_sounds:build("stone"),
+  sounds = nokore.node_sounds:build("coral"),
 })
 
 mod:register_node("coral_skeleton", {
@@ -181,5 +181,5 @@ mod:register_node("coral_skeleton", {
   tiles = {
     "world_coral_skeleton.png",
   },
-  sounds = nokore.node_sounds:build("stone"),
+  sounds = nokore.node_sounds:build("coral"),
 })

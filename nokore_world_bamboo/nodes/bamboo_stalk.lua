@@ -36,7 +36,7 @@ mod:register_node("bamboo_stalk", {
 
   is_ground_content = false,
 
-  sounds = nokore.node_sounds:build("wood"),
+  sounds = nokore.node_sounds:build("bamboo"),
 
   on_place = minetest.rotate_node,
 })

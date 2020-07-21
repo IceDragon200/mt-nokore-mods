@@ -23,7 +23,7 @@ mod:register_node("cactus", {
 
   paramtype2 = "facedir",
 
-  sounds = nokore.node_sounds:build("wood"),
+  sounds = nokore.node_sounds:build("cactus"),
 
   on_place = minetest.rotate_node,
 })

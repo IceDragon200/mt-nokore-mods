@@ -28,5 +28,5 @@ mod:register_node("bamboo_shoot", {
   sunlight_propagates = true,
   walkable = false,
 
-  sounds = nokore.node_sounds:build("leaves"),
+  sounds = nokore.node_sounds:build("bamboo_leaves"),
 })
