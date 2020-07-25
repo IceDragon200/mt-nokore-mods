@@ -5,16 +5,18 @@ local mod = nokore.new_module("nokore_mapgen_decor_tree_sakura", "0.1.0")
 
 --dofile(mod.modpath .. "/schematics.lua")
 
+local seed = nokore_mapgen.tree_seed
+
 minetest.register_decoration({
   name = "nokore_mapgen_decor_tree_sakura:sakura_tree",
   deco_type = "schematic",
   place_on = {"nokore_world_standard:dirt_with_grass"},
   sidelen = 16,
   noise_params = {
-    offset = 0.024,
-    scale = 0.015,
-    spread = {x = 250, y = 250, z = 250},
-    seed = 2,
+    offset = 0.0125,
+    scale = 0.012,
+    spread = {x = 256, y = 256, z = 256},
+    seed = seed,
     octaves = 3,
     persist = 0.66
   },
@@ -32,10 +34,10 @@ minetest.register_decoration({
   place_on = {"nokore_world_standard:dirt_with_grass"},
   sidelen = 16,
   noise_params = {
-    offset = 0.024,
-    scale = -0.015,
-    spread = {x = 250, y = 250, z = 250},
-    seed = 2,
+    offset = 0.0125,
+    scale = -0.012,
+    spread = {x = 256, y = 256, z = 256},
+    seed = seed,
     octaves = 3,
     persist = 0.66
   },

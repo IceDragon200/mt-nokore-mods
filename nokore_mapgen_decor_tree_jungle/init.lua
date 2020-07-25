@@ -5,6 +5,8 @@ local mod = nokore.new_module("nokore_mapgen_decor_tree_jungle", "0.1.0")
 
 --dofile(mod.modpath .. "/schematics.lua")
 
+local seed = nokore_mapgen.tree_seed
+
 -- Jungle tree and log
 minetest.register_decoration({
   name = "nokore_mapgen_decor_tree_jungle:jungle_tree",
@@ -31,7 +33,7 @@ minetest.register_decoration({
     offset = 0.0,
     scale = -0.1,
     spread = {x = 200, y = 200, z = 200},
-    seed = 354,
+    seed = seed,
     octaves = 1,
     persist = 0.5
   },

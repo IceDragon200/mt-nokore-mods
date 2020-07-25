@@ -5,6 +5,8 @@ local mod = nokore.new_module("nokore_mapgen_decor_tree_birch", "0.1.0")
 
 --dofile(mod.modpath .. "/schematics.lua")
 
+local seed = nokore_mapgen.tree_seed
+
 minetest.register_decoration({
   name = "nokore_mapgen_decor_tree_birch:birch_tree",
   deco_type = "schematic",
@@ -12,9 +14,9 @@ minetest.register_decoration({
   sidelen = 16,
   noise_params = {
     offset = 0.0,
-    scale = -0.015,
+    scale = -0.017,
     spread = {x = 250, y = 250, z = 250},
-    seed = 2,
+    seed = seed,
     octaves = 3,
     persist = 0.66
   },
@@ -33,9 +35,9 @@ minetest.register_decoration({
   sidelen = 16,
   noise_params = {
     offset = 0.0,
-    scale = -0.015,
+    scale = -0.017,
     spread = {x = 250, y = 250, z = 250},
-    seed = 2,
+    seed = seed,
     octaves = 3,
     persist = 0.66
   },

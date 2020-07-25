@@ -5,6 +5,8 @@ local mod = nokore.new_module("nokore_mapgen_decor_tree_spruce", "0.1.0")
 
 --dofile(mod.modpath .. "/schematics.lua")
 
+local seed = nokore_mapgen.tree_seed
+
 minetest.register_decoration({
   name = "nokore_mapgen_decor_tree_spruce:spruce_tree",
   deco_type = "schematic",
@@ -14,7 +16,7 @@ minetest.register_decoration({
     offset = 0.010,
     scale = 0.048,
     spread = {x = 250, y = 250, z = 250},
-    seed = 2,
+    seed = seed,
     octaves = 3,
     persist = 0.66
   },
@@ -35,7 +37,7 @@ minetest.register_decoration({
     offset = 0.010,
     scale = -0.048,
     spread = {x = 250, y = 250, z = 250},
-    seed = 2,
+    seed = seed,
     octaves = 3,
     persist = 0.66
   },

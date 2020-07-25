@@ -3,7 +3,10 @@ local mod = nokore_world_standard
 mod:register_node("cobblestone", {
   description = mod.S("Cobblestone"),
 
-  groups = {cracky = 3, stone = 2},
+  groups = {
+    cracky = 3,
+    stone = 2,
+  },
 
   tiles = {
     "world_cobblestone.png"
@@ -15,7 +18,11 @@ mod:register_node("cobblestone", {
 mod:register_node("mossy_cobblestone", {
   description = mod.S("Mossy Cobblestone"),
 
-  groups = {cracky = 3, stone = 2, mossy_stone = 1},
+  groups = {
+    cracky = 3,
+    stone = 2,
+    mossy_stone = 1,
+  },
 
   tiles = {
     "world_mossy_cobblestone.png"
