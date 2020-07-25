@@ -132,6 +132,9 @@ function mod.build_plate(old_def)
   end
   def.groups = nil
 
+  local tiles = maybe_backface_cull_tiles(def)
+  def.tiles = nil
+
   return table_merge({
     groups = groups,
 
@@ -141,7 +144,7 @@ function mod.build_plate(old_def)
     node_box = {
       type = "fixed",
       fixed = {
-        {-0.5, -0.5, -0.5, 0.5, 0, 0.5}
+        {-0.5, -0.5, -0.5, 0.5, -7/16, 0.5},
       },
     },
 
@@ -163,6 +166,9 @@ function mod.build_slab(old_def)
     groups.slab = 1
   end
   def.groups = nil
+
+  local tiles = maybe_backface_cull_tiles(def)
+  def.tiles = nil
 
   return table_merge({
     groups = groups,
@@ -331,7 +337,8 @@ end
 -- it's actually quite generic and could be used for any table of nodes definitions.
 function mod.register_nodes(basename, state)
   for key,def in pairs(state) do
-    minetest.register_node(basename .. "_" .. key, def)
+    local name = basename .. "_" .. key
+    minetest.register_node(name, def)
   end
   return state
 end
@@ -339,5 +346,5 @@ end
 function mod.build_and_register_nodes(basename, state)
   local result = mod.build_nodes(state)
 
-  return mod.register_nodes(basename, state)
+  return mod.register_nodes(basename, result)
 end
