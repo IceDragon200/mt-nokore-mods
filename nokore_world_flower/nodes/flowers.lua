@@ -1,6 +1,6 @@
 local mod = nokore_world_flower
 
-mod:register_node("flower_allium", {
+mod:register_node("allium", {
   description = mod.S("Allium"),
 
   groups = {
@@ -22,7 +22,7 @@ mod:register_node("flower_allium", {
   buildable_to = true,
 })
 
-mod:register_node("flower_blue_orchid", {
+mod:register_node("blue_orchid", {
   description = mod.S("Blue Orchid"),
 
   groups = {
@@ -38,7 +38,7 @@ mod:register_node("flower_blue_orchid", {
   }
 })
 
-mod:register_node("flower_dandelion", {
+mod:register_node("dandelion", {
   description = mod.S("Dandelion"),
 
   groups = {
@@ -54,7 +54,7 @@ mod:register_node("flower_dandelion", {
   }
 })
 
-mod:register_node("flower_houstonia", {
+mod:register_node("houstonia", {
   description = mod.S("Houstonia"),
 
   groups = {
@@ -70,7 +70,7 @@ mod:register_node("flower_houstonia", {
   }
 })
 
-mod:register_node("flower_oxeye_daisy", {
+mod:register_node("oxeye_daisy", {
   description = mod.S("Oxeye Daisy"),
 
   groups = {
@@ -86,7 +86,7 @@ mod:register_node("flower_oxeye_daisy", {
   }
 })
 
-mod:register_node("flower_rose", {
+mod:register_node("rose", {
   description = mod.S("Rose"),
 
   groups = {
@@ -102,7 +102,7 @@ mod:register_node("flower_rose", {
   }
 })
 
-mod:register_node("flower_tulip_orange", {
+mod:register_node("tulip_orange", {
   description = mod.S("Orange Tulip"),
 
   groups = {
@@ -118,7 +118,7 @@ mod:register_node("flower_tulip_orange", {
   }
 })
 
-mod:register_node("flower_tulip_pink", {
+mod:register_node("tulip_pink", {
   description = mod.S("Pink Tulip"),
 
   groups = {
@@ -134,7 +134,7 @@ mod:register_node("flower_tulip_pink", {
   }
 })
 
-mod:register_node("flower_tulip_red", {
+mod:register_node("tulip_red", {
   description = mod.S("Red Tulip"),
 
   groups = {
@@ -150,7 +150,7 @@ mod:register_node("flower_tulip_red", {
   }
 })
 
-mod:register_node("flower_tulip_white", {
+mod:register_node("tulip_white", {
   description = mod.S("White Tulip"),
 
   groups = {
