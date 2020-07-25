@@ -23,12 +23,12 @@ for wood_name, description in pairs(wood) do
     },
 
     tiles = {
-      "chest_top.png",
-      "chest_top.png",
-      "chest_side.png",
-      "chest_side.png",
-      "chest_front.png",
-      "chest_inside.png",
+      "chest_wood_" .. wood_name .. "_top.png",
+      "chest_wood_" .. wood_name .. "_top.png",
+      "chest_wood_" .. wood_name .. "_side.png",
+      "chest_wood_" .. wood_name .. "_side.png",
+      "chest_wood_" .. wood_name .. "_front.png",
+      "chest_wood_" .. wood_name .. "_inside.png",
     },
   })
 end
