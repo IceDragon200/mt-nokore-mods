@@ -62,6 +62,7 @@ fill_plus(b, 3, 5, L) -- major
 fill_plus(b, 2, 6, L) -- minor
 fill_plus(b, 1, 7, L) -- minor
 b:put_node(v(0,8,0), L) -- top-top
+b:fill_range(v(0,0,0), v(0,7,0), Y)
 
 local schematic = b:to_schematic()
 schematic.yslice_prob = {

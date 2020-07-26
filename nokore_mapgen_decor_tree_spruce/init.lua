@@ -13,12 +13,12 @@ minetest.register_decoration({
   place_on = {"nokore_world_snow:dirt_with_snow", "nokore_world_standard:dirt_with_coniferous_litter"},
   sidelen = 16,
   noise_params = {
-    offset = 0.012,
-    scale = 0.070,
+    offset = 0.0,
+    scale = 0.005,
     spread = {x = 250, y = 250, z = 250},
     seed = seed,
     octaves = 3,
-    persist = 0.66
+    persist = 0.5,
   },
   biomes = {"taiga", "coniferous_forest"},
   y_max = 31000,
@@ -34,12 +34,12 @@ minetest.register_decoration({
   place_on = {"nokore_world_snow:dirt_with_snow", "nokore_world_standard:dirt_with_coniferous_litter"},
   sidelen = 16,
   noise_params = {
-    offset = 0.012,
-    scale = -0.070,
+    offset = 0.0,
+    scale = 0.011,
     spread = {x = 250, y = 250, z = 250},
     seed = seed,
     octaves = 3,
-    persist = 0.66
+    persist = 0.5,
   },
   biomes = {"taiga", "coniferous_forest"},
   y_max = 31000,
@@ -55,12 +55,12 @@ minetest.register_decoration({
   place_on = {"nokore_world_snow:dirt_with_snow", "nokore_world_standard:dirt_with_coniferous_litter"},
   sidelen = 16,
   noise_params = {
-    offset = 0.010,
-    scale = 0.048,
+    offset = 0.0,
+    scale = 0.017,
     spread = {x = 250, y = 250, z = 250},
     seed = seed,
-    octaves = 3,
-    persist = 0.66
+    octaves = 2,
+    persist = 0.5
   },
   biomes = {"taiga", "coniferous_forest"},
   y_max = 31000,
@@ -76,12 +76,12 @@ minetest.register_decoration({
   place_on = {"nokore_world_snow:dirt_with_snow", "nokore_world_standard:dirt_with_coniferous_litter"},
   sidelen = 16,
   noise_params = {
-    offset = 0.010,
-    scale = -0.048,
+    offset = 0.0,
+    scale = 0.028,
     spread = {x = 250, y = 250, z = 250},
     seed = seed,
-    octaves = 3,
-    persist = 0.66
+    octaves = 1,
+    persist = 0.5
   },
   biomes = {"taiga", "coniferous_forest"},
   y_max = 31000,
