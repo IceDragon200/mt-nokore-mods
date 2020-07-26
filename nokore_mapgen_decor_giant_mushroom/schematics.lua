@@ -82,15 +82,15 @@ minetest.safe_file_write(minetest.get_worldpath() .. "/nokore_brown_giant_mushro
 
 -- an extra large brown mushroom
 b:clear_data()
-b:fill_range(v(-5,8,-5), v(5,9,5), F) -- the cap itself
-b:fill_range(v(-4,8,-4), v(4,8,4), I) -- the fleshy insides itself
-b:fill_range(v(-3,8,-3), v(3,8,3), nil) -- carve inside
+b:fill_range(v(-4,7,-4), v(4,8,4), F) -- the cap itself
+b:fill_range(v(-3,7,-3), v(3,7,3), I) -- the fleshy insides itself
+b:fill_range(v(-2,7,-2), v(2,7,2), nil) -- carve inside
 -- finally the stem
-b:fill_range(v(0,0,0), v(0,8,0), S) -- add the stem core
-b:fill_range(v(1,0,0), v(1,8,0), S) -- more stem
-b:fill_range(v(-1,0,0), v(-1,8,0), S) -- more stem
-b:fill_range(v(0,0,1), v(0,8,1), S) -- more stem
-b:fill_range(v(0,0,-1), v(0,8,-1), S) -- more stem
+b:fill_range(v(0,0,0), v(0,7,0), S) -- add the stem core
+b:fill_range(v(1,0,0), v(1,7,0), S) -- more stem
+b:fill_range(v(-1,0,0), v(-1,7,0), S) -- more stem
+b:fill_range(v(0,0,1), v(0,7,1), S) -- more stem
+b:fill_range(v(0,0,-1), v(0,7,-1), S) -- more stem
 
 local result = minetest.serialize_schematic(b:to_schematic(), 'mts', {})
 minetest.safe_file_write(minetest.get_worldpath() .. "/nokore_brown_giant_mushroom_large.mts", result)
