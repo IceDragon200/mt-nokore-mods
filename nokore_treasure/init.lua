@@ -3,7 +3,7 @@
 --
 -- Adds the placeholder treasure node which is replaced by an LBM on load
 -- Treasure nodes are intended to be used by worldgen to generate containers.
-local mod = nokore.new_module("nokore_treasure", "0.1.0")
+local mod = foundation.new_module("nokore_treasure", "0.1.0")
 
 -- The treasure system allows mod creators to register various treasure lists
 -- treasure lists are weighted lists containing various item stacks

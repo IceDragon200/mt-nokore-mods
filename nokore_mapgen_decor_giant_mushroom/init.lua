@@ -1,7 +1,7 @@
 --
 -- NoKore - Mapgen Decoration / Giant Mushroom
 --
-local mod = nokore.new_module("nokore_mapgen_decor_giant_mushroom", "0.1.0")
+local mod = foundation.new_module("nokore_mapgen_decor_giant_mushroom", "0.1.0")
 
 --dofile(mod.modpath .. "/schematics.lua")
 
@@ -65,7 +65,7 @@ minetest.register_decoration({
   biomes = {"mushroom_forest", "coniferous_forest"},
   y_max = 31000,
   y_min = 1,
-  schematic = mod.modpath .. "/schematics/nokore_blue_giant_large.mts",
+  schematic = mod.modpath .. "/schematics/nokore_blue_giant_mushroom_large.mts",
   flags = "place_center_x, place_center_z",
   rotation = "random",
 })

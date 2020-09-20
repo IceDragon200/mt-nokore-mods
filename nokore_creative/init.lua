@@ -2,7 +2,7 @@
 -- NoKore - Creative
 --
 -- Creative
-local mod = nokore.new_module("nokore_creative", "0.1.0")
+local mod = foundation.new_module("nokore_creative", "0.1.0")
 
 local creative = {
   registered_items = {},
@@ -39,14 +39,12 @@ local function create_player_creative_inventory(player)
 end
 
 local function remove_player_creative_inventory(player)
-  creative.inventories[player:get_player_name()] = nil
   minetest.remove_detached_inventory("nokore_creative_" .. player:get_player_name())
+  creative.inventories[player:get_player_name()] = nil
 end
 
 minetest.register_on_joinplayer(create_player_creative_inventory)
-
 minetest.register_on_leaveplayer(remove_player_creative_inventory)
-
 minetest.register_on_mods_loaded(function ()
   local registered_item_names = {}
   local i = 0

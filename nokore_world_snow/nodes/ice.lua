@@ -40,7 +40,7 @@ mod:register_node("cave_ice", {
   sounds = nokore.node_sounds:build("ice"),
 })
 
-if nokore.is_module_present("nokore_stairs") then
+if foundation.is_module_present("nokore_stairs") then
   nokore_stairs.build_and_register_nodes("nokore_world_snow:ice", {
     -- base
     _ = {

@@ -2,7 +2,7 @@
 -- NoKore - Biome : Tundra
 --
 -- This module adds the tundra biome(s)
-local mod = nokore.new_module("nokore_biome_tundra", "0.1.0")
+local mod = foundation.new_module("nokore_biome_tundra", "0.1.0")
 
 minetest.register_biome({
   name = "tundra_highland",
@@ -54,7 +54,7 @@ minetest.register_biome({
   humidity_point = 40,
 })
 
-if nokore.is_module_present("nokore_world_water") then
+if foundation.is_module_present("nokore_world_water") then
   minetest.register_biome({
     name = "tundra_ocean",
     node_top = "nokore_world_standard:sand",
@@ -75,8 +75,8 @@ if nokore.is_module_present("nokore_world_water") then
   })
 end
 
-if nokore.is_module_present("nokore_world_water") and
-   nokore.is_module_present("nokore_world_lava") then
+if foundation.is_module_present("nokore_world_water") and
+   foundation.is_module_present("nokore_world_lava") then
   minetest.register_biome({
     name = "tundra_under",
     node_cave_liquid = {

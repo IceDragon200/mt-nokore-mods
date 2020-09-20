@@ -31,7 +31,7 @@ mod:register_node("mossy_cobblestone", {
   sounds = nokore.node_sounds:build("stone"),
 })
 
-if nokore.is_module_present("nokore_stairs") then
+if foundation.is_module_present("nokore_stairs") then
   nokore_stairs.build_and_register_nodes("nokore_world_standard:cobblestone", {
     -- base
     _ = {

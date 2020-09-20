@@ -2,7 +2,7 @@
 -- NoKore - Biome : Taiga
 --
 -- This module adds the taiga biome(s)
-local mod = nokore.new_module("nokore_biome_taiga", "0.1.0")
+local mod = foundation.new_module("nokore_biome_taiga", "0.1.0")
 
 minetest.register_biome({
   name = "taiga",
@@ -22,7 +22,7 @@ minetest.register_biome({
   humidity_point = 70,
 })
 
-if nokore.is_module_present("nokore_world_water") then
+if foundation.is_module_present("nokore_world_water") then
   minetest.register_biome({
     name = "taiga_ocean",
     node_dust = "nokore_world_snow:snow",
@@ -44,8 +44,8 @@ if nokore.is_module_present("nokore_world_water") then
   })
 end
 
-if nokore.is_module_present("nokore_world_water") and
-   nokore.is_module_present("nokore_world_lava") then
+if foundation.is_module_present("nokore_world_water") and
+   foundation.is_module_present("nokore_world_lava") then
   minetest.register_biome({
     name = "taiga_under",
     node_cave_liquid = {

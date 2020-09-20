@@ -1,7 +1,7 @@
 --
 -- NoKore - Mapgen Decoration / Tree / Sakura
 --
-local mod = nokore.new_module("nokore_mapgen_decor_tree_sakura", "0.1.0")
+local mod = foundation.new_module("nokore_mapgen_decor_tree_sakura", "0.1.0")
 
 --dofile(mod.modpath .. "/schematics.lua")
 

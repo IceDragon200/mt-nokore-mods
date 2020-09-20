@@ -2,7 +2,7 @@
 -- NoKore - Biome : Bamboo Forest
 --
 -- This module adds the bamboo forest biome(s)
-local mod = nokore.new_module("nokore_biome_bamboo_forest", "0.1.0")
+local mod = foundation.new_module("nokore_biome_bamboo_forest", "0.1.0")
 
 --
 -- Schematic

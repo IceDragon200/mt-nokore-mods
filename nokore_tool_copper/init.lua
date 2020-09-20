@@ -2,7 +2,7 @@
 -- NoKore - Tool / Copper
 --
 -- Adds copper tools
-local mod = nokore.new_module("nokore_tool_copper", "0.1.0")
+local mod = foundation.new_module("nokore_tool_copper", "0.1.0")
 
 mod:register_tool("pick", {
   description = mod.S("Copper Pickaxe"),

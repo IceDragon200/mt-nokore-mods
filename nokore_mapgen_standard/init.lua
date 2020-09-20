@@ -2,7 +2,7 @@
 -- NoKore - Mapgen Standard
 --
 -- Adds the standard nodes as mapgen aliases
-local mod = nokore.new_module("nokore_mapgen_standard", "0.1.0")
+local mod = foundation.new_module("nokore_mapgen_standard", "0.1.0")
 
 -- Common
 minetest.register_alias("mapgen_stone", "nokore_world_standard:stone")

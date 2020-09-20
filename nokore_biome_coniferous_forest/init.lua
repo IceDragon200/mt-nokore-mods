@@ -2,7 +2,7 @@
 -- NoKore - Biome : Coniferous Forest
 --
 -- This module adds the coniferous forest biome(s)
-local mod = nokore.new_module("nokore_biome_coniferous_forest", "0.1.0")
+local mod = foundation.new_module("nokore_biome_coniferous_forest", "0.1.0")
 
 minetest.register_biome({
   name = "coniferous_forest",
@@ -39,7 +39,7 @@ minetest.register_biome({
   humidity_point = 70,
 })
 
-if nokore.is_module_present("nokore_world_water") then
+if foundation.is_module_present("nokore_world_water") then
   minetest.register_biome({
     name = "coniferous_forest_ocean",
     node_top = "nokore_world_standard:sand",
@@ -59,8 +59,8 @@ if nokore.is_module_present("nokore_world_water") then
   })
 end
 
-if nokore.is_module_present("nokore_world_water") and
-   nokore.is_module_present("nokore_world_lava") then
+if foundation.is_module_present("nokore_world_water") and
+   foundation.is_module_present("nokore_world_lava") then
   minetest.register_biome({
     name = "coniferous_forest_under",
     node_cave_liquid = {

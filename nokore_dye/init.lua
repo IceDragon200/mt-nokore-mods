@@ -1,7 +1,7 @@
 --
 -- NoKore - Dye
 --
-local mod = nokore.new_module("nokore_dye", "0.1.0")
+local mod = foundation.new_module("nokore_dye", "0.1.0")
 
 -- I have my reservations about using minetests game's dye colors...
 -- I would honestly prefer a 16 color system

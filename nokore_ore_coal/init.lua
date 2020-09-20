@@ -2,7 +2,7 @@
 -- NoKore - Ore / Coal
 --
 -- Adds clay ores to the world gen
-local mod = nokore.new_module("nokore_ore_coal", "0.1.0")
+local mod = foundation.new_module("nokore_ore_coal", "0.1.0")
 
 -- Coal
 minetest.register_ore({

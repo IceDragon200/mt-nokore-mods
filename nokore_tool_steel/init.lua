@@ -2,7 +2,7 @@
 -- NoKore - Tool / Steel
 --
 -- Adds steel tools
-local mod = nokore.new_module("nokore_tool_steel", "0.1.0")
+local mod = foundation.new_module("nokore_tool_steel", "0.1.0")
 
 mod:register_tool("pick", {
   description = mod.S("Steel Pickaxe"),

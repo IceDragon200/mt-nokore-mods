@@ -2,7 +2,7 @@
 -- NoKore - Biome : Desert
 --
 -- This module adds the desert biome(s)
-local mod = nokore.new_module("nokore_biome_desert", "0.1.0")
+local mod = foundation.new_module("nokore_biome_desert", "0.1.0")
 
 minetest.register_biome({
   name = "desert",
@@ -55,7 +55,7 @@ minetest.register_biome({
   humidity_point = 0,
 })
 
-if nokore.is_module_present("nokore_world_water") then
+if foundation.is_module_present("nokore_world_water") then
   minetest.register_biome({
     name = "desert_ocean",
     node_top = "nokore_world_standard:sand",

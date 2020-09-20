@@ -1,7 +1,7 @@
 --
 -- Nokore - World - Clay
 --
-local mod = nokore.new_module("nokore_world_clay", "0.1.0")
+local mod = foundation.new_module("nokore_world_clay", "0.1.0")
 
 nokore.node_sounds:register("clay", {})
 nokore.node_sounds:register("clay_brick", {})

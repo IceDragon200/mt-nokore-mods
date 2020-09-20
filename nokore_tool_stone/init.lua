@@ -2,7 +2,7 @@
 -- NoKore - Tool / Stone
 --
 -- Adds stone tools
-local mod = nokore.new_module("nokore_tool_stone", "0.1.0")
+local mod = foundation.new_module("nokore_tool_stone", "0.1.0")
 
 mod:register_tool("pick", {
   description = mod.S("Stone Pickaxe"),

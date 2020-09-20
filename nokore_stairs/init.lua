@@ -4,7 +4,7 @@
 -- For lack of a better name, adds APIs for generating stairs, slabs, and plates
 -- Unlike minetest_game's stairs this will not register, but instead returns the
 -- node definition to the caller.
-local mod = nokore.new_module("nokore_stairs", "0.1.0")
+local mod = foundation.new_module("nokore_stairs", "0.1.0")
 
 -- @spec table_merge(...tables: [Table]) :: Table
 local function table_merge(...)

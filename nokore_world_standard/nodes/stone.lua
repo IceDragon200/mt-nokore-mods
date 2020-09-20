@@ -52,7 +52,7 @@ mod:register_node("desert_stone_brick", {
   sounds = nokore.node_sounds:build("stone"),
 })
 
-if nokore.is_module_present("nokore_stairs") then
+if foundation.is_module_present("nokore_stairs") then
   nokore_stairs.build_and_register_nodes("nokore_world_standard:stone_brick", {
     -- base
     _ = {

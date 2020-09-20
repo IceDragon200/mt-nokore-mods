@@ -2,7 +2,7 @@
 -- NoKore - UI
 --
 -- This mod wraps up the formspec system into nice to manage classes
-local mod = nokore.new_module("nokore_ui", "0.1.0")
+local mod = foundation.new_module("nokore_ui", "0.1.0")
 
 local FormspecBindings = {}
 FormspecBindings.instance_class = {}

@@ -2,7 +2,7 @@
 -- NoKore - Biome : Snowy Grassland
 --
 -- This module adds the desert biome(s)
-local mod = nokore.new_module("nokore_biome_snowy_grassland", "0.1.0")
+local mod = foundation.new_module("nokore_biome_snowy_grassland", "0.1.0")
 
 minetest.register_biome({
   name = "snowy_grassland",
@@ -22,7 +22,7 @@ minetest.register_biome({
   humidity_point = 35,
 })
 
-if nokore.is_module_present("nokore_world_water") then
+if foundation.is_module_present("nokore_world_water") then
   minetest.register_biome({
     name = "snowy_grassland_ocean",
     node_dust = "nokore_world_snow:snow",
@@ -44,8 +44,8 @@ if nokore.is_module_present("nokore_world_water") then
   })
 end
 
-if nokore.is_module_present("nokore_world_water") and
-   nokore.is_module_present("nokore_world_lava") then
+if foundation.is_module_present("nokore_world_water") and
+   foundation.is_module_present("nokore_world_lava") then
   minetest.register_biome({
     name = "snowy_grassland_under",
     node_cave_liquid = {

@@ -1,4 +1,4 @@
 --
 -- NoKore - World - Melon
 --
-local mod = nokore.new_module("nokore_world_melon", "0.1.0")
+local mod = foundation.new_module("nokore_world_melon", "0.1.0")

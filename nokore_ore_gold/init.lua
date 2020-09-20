@@ -2,7 +2,7 @@
 -- NoKore - Ore / Gold
 --
 -- Adds gold ores to the world gen
-local mod = nokore.new_module("nokore_ore_gold", "0.1.0")
+local mod = foundation.new_module("nokore_ore_gold", "0.1.0")
 
 minetest.register_ore({
   ore_type       = "scatter",

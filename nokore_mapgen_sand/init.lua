@@ -2,7 +2,7 @@
 -- NoKore - Mapgen / Sand
 --
 -- For general mapgen related changes with sand
-local mod = nokore.new_module("nokore_mapgen_sand", "0.1.0")
+local mod = foundation.new_module("nokore_mapgen_sand", "0.1.0")
 
 -- Silver sandstone
 
