@@ -17,10 +17,11 @@ mod:register_node("cactus", {
   node_box = {
     type = "fixed",
     fixed = {
-      -7 / 16, -8 / 16, -7 / 16, 7 / 16, 8 / 16, -7 / 16
+      {-7/16, -8/16, -7/16, 7/16, 8/16, 7/16}
     },
   },
 
+  paramtype = "light",
   paramtype2 = "facedir",
 
   sounds = nokore.node_sounds:build("cactus"),
