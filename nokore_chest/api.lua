@@ -22,10 +22,10 @@ function nokore_chest.get_formspec(pos, player)
   local spos = pos.x .. "," .. pos.y .. "," .. pos.z
 
   local formspec =
-    "size[10,8]" ..
+    "size["..nokore_player_inv.player_hotbar_size..",9]" ..
     "list[nodemeta:" .. spos .. ";main;0,0.3;10,4;]" ..
-    ""
-    -- TODO: import player inventory
+    nokore_player_inv.player_inventory_formspec({ x = 0, y = 5.5 }) ..
+    "listring[]"
 
   return formspec
 end
