@@ -109,12 +109,13 @@ function mod.make_player_inventory_formspec(player)
   end
   local tab_captions_str = table.concat(tab_captions, ",")
 
+  local header_config = "formspec_version[2]"
   local header = "tabheader[0,0;player_nav;"..tab_captions_str..";"..data.current_tab_index.."]"
   local tab_name = data.tabs_index[data.current_tab_index]
   local tab = mod.tabs[tab_name]
 
   local tab_formspec = tab.render_formspec(player, data.assigns, data.tabs[tab_name])
-  local formspec = tab_formspec .. header
+  local formspec = header_config .. tab_formspec .. header
   return formspec
 end
 
@@ -191,10 +192,12 @@ nokore_player_inv.register_player_inventory_tab("default", {
 
   render_formspec = function (player, assigns, tab_state)
     local mod = nokore_player_inv
-    return "size["..mod.player_hotbar_size..",9]" ..
-           mod.player_inventory_formspec({ x = 0, y = 5.5 }) ..
-           "list[current_player;craft;3,0;3,3;]" ..
+    local w = 0.25 + mod.player_hotbar_size * 1.25
+    return "size["..w..",9]" ..
+           mod.player_inventory_formspec({ x = 0.25, y = 6.5 }) ..
+           "list[current_player;craft;3,0.25;3,3;]" ..
            "listring[]" ..
-           "list[current_player;craftpreview;7,1;1,1;]"
+           "list[current_player;craftpreview;7,1.25;1,1;]" ..
+           "listring[current_player;main]"
   end,
 })
