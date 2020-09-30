@@ -115,14 +115,12 @@ function mod.make_player_inventory_formspec(player)
 
   local tab_formspec = tab.render_formspec(player, data.assigns, data.tabs[tab_name])
   local formspec = tab_formspec .. header
-  print(formspec)
   return formspec
 end
 
 -- This is a helper function for creating a formspec snippet exposing the player inventory
 function mod.player_inventory_formspec(pos, options)
-  -- TODO: expose player main inventory
-  return "list[current_player;main;" .. pos.x .. "," .. pos.y .. ";" .. mod.player_hotbar_size .. ",1;]"
+  return "list[current_player;main;" .. pos.x .. "," .. pos.y .. ";" .. mod.player_hotbar_size .. ","..mod.player_inventory_rows..";]"
 end
 
 function mod.refresh_player_inventory_formspec(player)
@@ -194,7 +192,7 @@ nokore_player_inv.register_player_inventory_tab("default", {
   render_formspec = function (player, assigns, tab_state)
     local mod = nokore_player_inv
     return "size["..mod.player_hotbar_size..",9]" ..
-           "list[current_player;main;0,5.5;"..mod.player_hotbar_size..","..mod.player_inventory_rows..";]" ..
+           mod.player_inventory_formspec({ x = 0, y = 5.5 }) ..
            "list[current_player;craft;3,0;3,3;]" ..
            "listring[]" ..
            "list[current_player;craftpreview;7,1;1,1;]"
