@@ -16,6 +16,12 @@ for basename,name in pairs(wood) do
   mod:register_node(basename .. "_sieve", {
     description = mod.S(name .. " Sieve"),
 
+    groups = {
+      sieve = 1,
+      choppy = 1,
+      oddly_breakable_by_hand = 2,
+    },
+
     drawtype = "nodebox",
     node_box = {
       type = "fixed",
