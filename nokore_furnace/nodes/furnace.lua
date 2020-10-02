@@ -6,6 +6,15 @@ mod:register_node("furnace_off", {
   groups = {
     cracky = 2,
   },
+
+  tiles = {
+    "nokore_furnace_top.png",
+    "nokore_furnace_side.png",
+    "nokore_furnace_side.png",
+    "nokore_furnace_side.png",
+    "nokore_furnace_side.png",
+    "nokore_furnace_front_off.png",
+  },
 })
 
 mod:register_node("furnace_on", {
@@ -14,5 +23,14 @@ mod:register_node("furnace_on", {
   groups = {
     cracky = 2,
     not_in_creative_inventory = 1,
+  },
+
+  tiles = {
+    "nokore_furnace_top.png",
+    "nokore_furnace_side.png",
+    "nokore_furnace_side.png",
+    "nokore_furnace_side.png",
+    "nokore_furnace_side.png",
+    "nokore_furnace_front_on.png",
   },
 })
