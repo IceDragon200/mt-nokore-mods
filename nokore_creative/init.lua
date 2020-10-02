@@ -98,6 +98,11 @@ minetest.register_on_mods_loaded(function ()
        def.groups.not_in_creative_inventory > 0 then
       should_include = false
     end
+
+    if name == "" then
+      should_include = false
+    end
+
     if should_include then
       i = i + 1
       registered_item_names[i] = name
@@ -135,7 +140,7 @@ nokore_player_inv.register_player_inventory_tab("creative", {
 
     local page_size = mod.player_hotbar_size * 4
     local inventory_name = creative.get_player_creative_inventory_name(player)
-    local inventory_offset = 1 + (tab_state.page_index - 1) * page_size
+    local inventory_offset = (tab_state.page_index - 1) * page_size
 
     local inv = creative.inventories[player:get_player_name()]
     local total = inv:get_size("main")
@@ -156,7 +161,8 @@ nokore_player_inv.register_player_inventory_tab("creative", {
            "field[1.5,"..y..";"..(w-5.5)..",1;search_query;;"..minetest.formspec_escape(tab_state.search_query).."]" ..
            "field_close_on_enter[search_query;false]" ..
            "button["..(w-3.75)..","..y..";1,1;creative_prev_page;<]" ..
-           "label["..(w-2.5)..","..(y+0.5)..";"..minetest.formspec_escape(tab_state.page_index.."/"..tab_state.page_count).."]" ..
+           "label["..(w-2.5)..","..(y)..";"..minetest.formspec_escape(tab_state.page_index.."/"..tab_state.page_count).."]" ..
+           "label["..(w-2.5)..","..(y+0.5)..";"..minetest.formspec_escape(inventory_offset.."/"..total).."]" ..
            "button["..(w-1.25)..","..y..";1,1;creative_next_page;>]"
   end,
 
