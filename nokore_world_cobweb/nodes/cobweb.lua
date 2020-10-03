@@ -12,4 +12,9 @@ mod:register_node("cobweb", {
   tiles = {
     "world_cobweb.png",
   },
+  use_texture_alpha = true,
+
+  paramtype = "light",
+
+  walkable = false,
 })
