@@ -5,8 +5,8 @@ local mod = foundation.new_module("nokore_world_clay", "0.1.0")
 
 nokore.node_sounds:register("clay", {})
 nokore.node_sounds:register("clay_brick", {})
-nokore.node_sounds:register("hardened_clay", {})
+nokore.node_sounds:register("terracota", {})
 
-dofile(mod.modpath .. "/nodes/clay.lua")
-dofile(mod.modpath .. "/nodes/clay_brick.lua")
-dofile(mod.modpath .. "/nodes/hardened_clay.lua")
+mod:require("nodes/clay.lua")
+mod:require("nodes/clay_brick.lua")
+mod:require("nodes/terracota.lua")

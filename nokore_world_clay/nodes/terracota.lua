@@ -1,17 +1,19 @@
 local mod = nokore_world_clay
 
-mod:register_node("hardened", {
-  description = mod.S("Hardened Clay"),
+mod:register_node("terracota", {
+  description = mod.S("Terracota"),
 
-  groups = {cracky = 2},
+  groups = {
+    cracky = 2,
+  },
 
   tiles = {
-    "world_hardened_clay.png"
+    "world_terracota.png"
   },
 
   is_ground_content = false,
 
-  sounds = nokore.node_sounds:build("hardened_clay"),
+  sounds = nokore.node_sounds:build("terracota"),
 })
 
 --mod:register_node("hardened_stained", {
