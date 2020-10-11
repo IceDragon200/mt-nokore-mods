@@ -85,7 +85,7 @@ function mod.refresh_player_tabs(player)
       end
     end
     if tab.check_player_enabled then
-      is_enabled = tab.check_player_enabled(player, data.tabs[tab_name])
+      is_enabled = tab.check_player_enabled(player, data.assigns, data.tabs[tab_name])
     end
     if is_enabled then
       data.tabs_index[index] = tab_name
@@ -166,7 +166,11 @@ minetest.register_on_player_receive_fields(function (player, form_name, fields)
       local tab = mod.tabs[tab_name]
 
       if tab.on_player_receive_fields then
-        local break_bubble, should_refresh = tab.on_player_receive_fields(player, player_data.assigns, fields, player_data.tabs[tab_name])
+        local break_bubble, should_refresh =
+          tab.on_player_receive_fields(player,
+                                       player_data.assigns,
+                                       fields,
+                                       player_data.tabs[tab_name])
         if should_refresh then
           mod.refresh_player_inventory_formspec(player)
         end
