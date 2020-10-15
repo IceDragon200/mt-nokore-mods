@@ -7,6 +7,7 @@
 --
 -- You may recognize this is similar to sfinv, and you'd be kind of right.
 local table_key_of = assert(foundation.com.table_key_of)
+local fspec = assert(foundation.com.formspec.api)
 
 local mod = foundation.new_module("nokore_player_inv", "0.1.0")
 
@@ -122,6 +123,11 @@ end
 -- This is a helper function for creating a formspec snippet exposing the player inventory
 function mod.player_inventory_formspec(pos, options)
   return "list[current_player;main;" .. pos.x .. "," .. pos.y .. ";" .. mod.player_hotbar_size .. ","..mod.player_inventory_rows..";]"
+end
+
+-- @spec player_inventory_lists_fragment(PlayerRef, Number, Number) :: (formspec::String, height::Integer)
+function mod.player_inventory_lists_fragment(_player, x, y)
+  return fspec.list("current_player", "main", x, y, mod.player_hotbar_size, mod.player_inventory_rows), mod.player_inventory_rows
 end
 
 function mod.refresh_player_inventory_formspec(player)
