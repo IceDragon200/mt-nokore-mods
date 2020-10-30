@@ -12,6 +12,7 @@ mod.colors = {
   { name = "black",      description = "Black" },
   { name = "violet",     description = "Violet" },
   { name = "blue",       description = "Blue" },
+  { name = "light_blue", description = "Light Blue" },
   { name = "cyan",       description = "Cyan" },
   { name = "dark_green", description = "Dark Green" },
   { name = "green",      description = "Green" },
@@ -49,6 +50,7 @@ mod.mixtures = {
   { from = {"white", "red"}, to = "pink" },
   { from = {"white", "dark_grey"}, to = "grey" },
   { from = {"white", "dark_green"}, to = "green" },
+  { from = {"white", "blue"}, to = "light_blue" },
 }
 
 -- Just patch dye in for backwards compat
