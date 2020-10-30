@@ -187,6 +187,9 @@ minetest.register_on_player_receive_fields(function (player, form_name, fields)
 end)
 
 minetest.register_on_joinplayer(function (player)
+  player:hud_set_hotbar_image("gui_hotbar_base.png")
+  player:hud_set_hotbar_selected_image("gui_hotbar_selected.png")
+
   player:get_inventory():set_size("main", mod.player_hotbar_size *
                                           mod.player_inventory_rows)
   player:hud_set_hotbar_itemcount(mod.player_hotbar_size)
