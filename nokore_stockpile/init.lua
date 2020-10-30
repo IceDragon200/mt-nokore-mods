@@ -6,5 +6,5 @@
 -- standard inventory
 local mod = foundation.new_module("nokore_stockpile", "0.1.0")
 
-dofile(mod.modpath .. "/api.lua")
-dofile(mod.modpath .. "/nodes/stockpile.lua")
+mod:require("api.lua")
+mod:require("nodes/stockpile.lua")

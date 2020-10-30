@@ -1,3 +1,7 @@
+if not rawget(_G, "nokore") then
+  nokore = {}
+end
+
 local function table_merge(...)
   local result = {}
   for _,t in ipairs({...}) do
