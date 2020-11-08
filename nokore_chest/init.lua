@@ -4,6 +4,6 @@
 -- Chests allow players to store items
 local mod = foundation.new_module("nokore_chest", "0.1.0")
 
-dofile(mod.modpath .. "/api.lua")
+mod:require("api.lua")
 
-dofile(mod.modpath .. "/nodes/chests.lua")
+mod:require("nodes/chests.lua")
