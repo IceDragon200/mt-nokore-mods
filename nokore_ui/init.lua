@@ -3,6 +3,7 @@
 --
 -- This mod wraps up the formspec system into nice to manage classes
 local mod = foundation.new_module("nokore_ui", "0.1.0")
+nokore = rawget(_G, "nokore") or {}
 
 local FormspecBindings = {}
 FormspecBindings.instance_class = {}
