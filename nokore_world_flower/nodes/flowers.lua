@@ -10,6 +10,8 @@ mod:register_node("allium", {
 
   dye_color = "purple", -- I think
 
+  inventory_image = "world_flower_allium.png",
+
   drawtype = "plantlike",
   tiles = {
     "world_flower_allium.png",
@@ -32,6 +34,8 @@ mod:register_node("blue_orchid", {
 
   dye_color = "blue",
 
+  inventory_image = "world_flower_blue_orchid.png",
+
   drawtype = "plantlike",
   tiles = {
     "world_flower_blue_orchid.png",
@@ -47,6 +51,8 @@ mod:register_node("dandelion", {
   },
 
   dye_color = "yellow",
+
+  inventory_image = "world_flower_dandelion.png",
 
   drawtype = "plantlike",
   tiles = {
@@ -64,6 +70,8 @@ mod:register_node("houstonia", {
 
   dye_color = "light_blue", -- I think?
 
+  inventory_image = "world_flower_houstonia.png",
+
   drawtype = "plantlike",
   tiles = {
     "world_flower_houstonia.png",
@@ -79,6 +87,8 @@ mod:register_node("oxeye_daisy", {
   },
 
   dye_color = "white",
+
+  inventory_image = "world_flower_oxeye_daisy.png",
 
   drawtype = "plantlike",
   tiles = {
@@ -96,6 +106,8 @@ mod:register_node("rose", {
 
   dye_color = "red",
 
+  inventory_image = "world_flower_rose.png",
+
   drawtype = "plantlike",
   tiles = {
     "world_flower_rose.png",
@@ -111,6 +123,8 @@ mod:register_node("tulip_orange", {
   },
 
   dye_color = "orange",
+
+  inventory_image = "world_flower_tulip_orange.png",
 
   drawtype = "plantlike",
   tiles = {
@@ -128,6 +142,8 @@ mod:register_node("tulip_pink", {
 
   dye_color = "pink",
 
+  inventory_image = "world_flower_tulip_pink.png",
+
   drawtype = "plantlike",
   tiles = {
     "world_flower_tulip_pink.png",
@@ -144,6 +160,8 @@ mod:register_node("tulip_red", {
 
   dye_color = "red",
 
+  inventory_image = "world_flower_tulip_red.png",
+
   drawtype = "plantlike",
   tiles = {
     "world_flower_tulip_red.png",
@@ -159,6 +177,8 @@ mod:register_node("tulip_white", {
   },
 
   dye_color = "white",
+
+  inventory_image = "world_flower_tulip_white.png",
 
   drawtype = "plantlike",
   tiles = {
