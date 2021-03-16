@@ -9,11 +9,13 @@ local ic = KVStore.instance_class
 
 function ic:initialize()
   self.data = {}
+  self.dirty = false
 end
 
 function ic:clear()
   -- it is faster to replace the data than it would be to nullify each pair
   self.data = {}
+  self.dirty = true
   return self
 end
 
@@ -25,12 +27,14 @@ end
 -- @spec :put(String(), Value()) :: self()
 function ic:put(key, value)
   self.data[key] = value
+  self.dirty = true
   return self
 end
 
 -- @spec :delete(String()) :: self()
 function ic:delete(key)
   self.data[key] = nil
+  self.dirty = true
   return self
 end
 
