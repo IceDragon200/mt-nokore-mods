@@ -19,9 +19,13 @@ function ic:clear()
   return self
 end
 
--- @spec :get(String()) :: Value()
-function ic:get(key)
-  return self.data[key]
+-- @spec :get(String(), Value()) :: Value()
+function ic:get(key, default)
+  local value = self.data[key]
+  if value == nil then
+    return default
+  end
+  return value
 end
 
 -- @spec :put(String(), Value()) :: self()

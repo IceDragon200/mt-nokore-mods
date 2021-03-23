@@ -16,7 +16,10 @@ function ic:initialize()
   self.expired_blocks = {} -- block_id => true
   self.range = 2
 
-  self.root_dir = minetest.get_worldpath() .. "/nokore/block_data"
+  self.nokore_dir = minetest.get_worldpath() .. "/nokore"
+  self.block_data_dir = self.nokore_dir .. "/block_data"
+
+  minetest.mkdir(self.block_data_dir)
 
   if KVStore.instance_class.marshall_dump then
     self.persistance_type = 'MRSH'
@@ -124,14 +127,14 @@ function ic:upsert_or_refresh_block(block_pos)
 
     local filename
 
-    if persistance_type == 'MRSH' then
-      filename = self.root_dir .. "/" .. block.basename .. ".mrsh"
+    if self.persistance_type == 'MRSH' then
+      filename = self.block_data_dir .. "/" .. basename .. ".mrsh"
       local f = io.open(filename, 'r')
       if f then
         kv:marshall_load(f)
       end
-    elseif persistance_type == 'ASCI' then
-      filename = self.root_dir .. "/" .. block.basename .. ".asci"
+    elseif self.persistance_type == 'ASCI' then
+      filename = self.block_data_dir .. "/" .. basename .. ".asci"
       local f = io.open(filename, 'r')
       if f then
         kv:apack_load(f)
@@ -157,19 +160,19 @@ end
 function ic:persist_block(block)
   if block.kv.dirty then
     block.kv.dirty = false
-    if persistance_type == 'MRSH' then
-      minetest.mkdir(self.root_dir)
+    if self.persistance_type == 'MRSH' then
+      minetest.mkdir(self.block_data_dir)
       local buffer = Buffer:new('', 'w')
       block.kv:marshall_dump(buffer)
       buffer:close()
       minetest.safe_file_write(block.filename, buffer:blob())
-    elseif persistance_type == 'ASCI' then
-      minetest.mkdir(self.root_dir)
+    elseif self.persistance_type == 'ASCI' then
+      minetest.mkdir(self.block_data_dir)
       local buffer = Buffer:new('', 'w')
       block.kv:apack_dump(buffer)
       buffer:close()
       minetest.safe_file_write(block.filename, buffer:blob())
-    elseif persistance_type == 'NONE' then
+    elseif self.persistance_type == 'NONE' then
       -- can't persist
     end
   end
