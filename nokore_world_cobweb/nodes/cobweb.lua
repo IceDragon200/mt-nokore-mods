@@ -12,7 +12,7 @@ mod:register_node("cobweb", {
   tiles = {
     "world_cobweb.png",
   },
-  use_texture_alpha = true,
+  use_texture_alpha = "clip",
 
   paramtype = "light",
 

@@ -16,7 +16,7 @@ mod:register_node("glass", {
   tiles = {
     "glass.png",
   },
-  use_texture_alpha = true,
+  use_texture_alpha = "blend",
 
   paramtype = "light",
   sunlight_propagates = true,
@@ -74,7 +74,7 @@ mod:register_node("glass_pane", {
     "glass_pane_top.png",
     "glass.png",
   },
-  use_texture_alpha = true,
+  use_texture_alpha = "blend",
   connects_to = table.copy(pane_connects_to),
 
   paramtype = "light",
@@ -111,7 +111,7 @@ for _, row in ipairs(colors) do
     tiles = {
       "glass_" .. color .. ".png",
     },
-    use_texture_alpha = true,
+    use_texture_alpha = "blend",
 
     paramtype = "light",
     sunlight_propagates = true,
@@ -141,7 +141,7 @@ for _, row in ipairs(colors) do
       "glass_pane_top_" .. color .. ".png",
       "glass_" .. color .. ".png",
     },
-    use_texture_alpha = true,
+    use_texture_alpha = "blend",
     connects_to = table.copy(pane_connects_to),
 
     paramtype = "light",

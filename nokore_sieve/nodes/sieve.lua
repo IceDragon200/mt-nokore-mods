@@ -49,6 +49,7 @@ for basename,name in pairs(wood) do
       "nokore_sieve_wood_" .. basename .. "_side.png",
       "nokore_sieve_wood_" .. basename .. "_side.png",
     },
+    use_texture_alpha = "blend",
 
     paramtype = "light",
   })
