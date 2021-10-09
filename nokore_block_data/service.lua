@@ -132,12 +132,14 @@ function ic:upsert_or_refresh_block(block_pos)
       local f = io.open(filename, 'r')
       if f then
         kv:marshall_load(f)
+        f:close()
       end
     elseif self.persistance_type == 'ASCI' then
       filename = self.block_data_dir .. "/" .. basename .. ".asci"
       local f = io.open(filename, 'r')
       if f then
         kv:apack_load(f)
+        f:close()
       end
     end
 
