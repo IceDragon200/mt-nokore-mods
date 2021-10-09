@@ -10,6 +10,7 @@ mod:register_node("dirt_with_snow", {
     snowy = 1,
   },
 
+  use_texture_alpha = "opaque",
   tiles = {
     "world_snow.png",
     "world_dirt.png",

@@ -11,6 +11,7 @@ mod:register_node("ice", {
     slippery = 3,
   },
 
+  use_texture_alpha = "opaque",
   tiles = {"world_ice.png"},
 
   is_ground_content = false,
@@ -31,6 +32,7 @@ mod:register_node("cave_ice", {
     not_in_creative_inventory = 1,
   },
 
+  use_texture_alpha = "opaque",
   tiles = {"world_ice.png"},
 
   paramtype = "light",
@@ -45,6 +47,7 @@ if foundation.is_module_present("nokore_stairs") then
     -- base
     _ = {
       groups = {cracky = 3, ice = 1, cools_lava = 1, slippery = 3},
+      use_texture_alpha = "opaque",
       tiles = "world_ice.png",
       sounds = nokore.node_sounds:build("ice"),
     },

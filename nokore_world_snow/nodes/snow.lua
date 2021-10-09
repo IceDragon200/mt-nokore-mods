@@ -9,6 +9,7 @@ mod:register_node("snow", {
     snowy = 1,
   },
 
+  use_texture_alpha = "opaque",
   tiles = {
     "world_snow.png",
   },
@@ -52,6 +53,7 @@ mod:register_node("snow_block", {
     snowy = 1,
   },
 
+  use_texture_alpha = "opaque",
   tiles = {
     "world_snow.png",
   },

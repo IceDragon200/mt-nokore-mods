@@ -7,6 +7,7 @@ mod:register_node("permafrost", {
     cracky = 3,
   },
 
+  use_texture_alpha = "opaque",
   tiles = {
     "world_permafrost.png",
   },
@@ -21,6 +22,7 @@ mod:register_node("permafrost_with_stones", {
     cracky = 3,
   },
 
+  use_texture_alpha = "opaque",
   tiles = {
     "world_permafrost.png^world_stones.png",
     "world_permafrost.png",

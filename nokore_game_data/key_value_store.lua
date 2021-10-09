@@ -5,7 +5,7 @@
 local KVStore = foundation.com.Class:extends("nokore.KVStore")
 local ic = KVStore.instance_class
 
--- @type Value :: Integer() | String() | Table() | Boolean()
+-- @type Value: Integer | String | Table | Boolean
 
 function ic:initialize()
   self.data = {}

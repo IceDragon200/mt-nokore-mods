@@ -1,6 +1,6 @@
-dofile(nokore_world_snow.modpath .. "/nodes/snow.lua")
-dofile(nokore_world_snow.modpath .. "/nodes/ice.lua")
-dofile(nokore_world_snow.modpath .. "/nodes/permafrost.lua")
+nokore_world_snow:require("nodes/snow.lua")
+nokore_world_snow:require("nodes/ice.lua")
+nokore_world_snow:require("nodes/permafrost.lua")
 if foundation.is_module_present("nokore_world_standard") then
-  dofile(nokore_world_snow.modpath .. "/nodes/dirt_with_snow.lua")
+  nokore_world_snow:require("nodes/dirt_with_snow.lua")
 end
