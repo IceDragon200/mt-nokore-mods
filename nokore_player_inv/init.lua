@@ -9,7 +9,7 @@
 local table_key_of = assert(foundation.com.table_key_of)
 local fspec = assert(foundation.com.formspec.api)
 
-local mod = foundation.new_module("nokore_player_inv", "0.1.0")
+local mod = foundation.new_module("nokore_player_inv", "0.2.0")
 
 -- Default minetest bar size
 mod.player_hotbar_size = 8
@@ -125,9 +125,10 @@ function mod.player_inventory_formspec(pos, options)
   return "list[current_player;main;" .. pos.x .. "," .. pos.y .. ";" .. mod.player_hotbar_size .. ","..mod.player_inventory_rows..";]"
 end
 
--- @spec player_inventory_lists_fragment(PlayerRef, Number, Number) :: (formspec::String, height::Integer)
+-- @spec player_inventory_lists_fragment(PlayerRef, Number, Number): (formspec: String, dimensions: Vector2)
 function mod.player_inventory_lists_fragment(_player, x, y)
-  return fspec.list("current_player", "main", x, y, mod.player_hotbar_size, mod.player_inventory_rows), mod.player_inventory_rows
+  local dims = { x = mod.player_hotbar_size, y = mod.player_inventory_rows }
+  return fspec.list("current_player", "main", x, y, mod.player_hotbar_size, mod.player_inventory_rows), dims
 end
 
 function mod.refresh_player_inventory_formspec(player)
