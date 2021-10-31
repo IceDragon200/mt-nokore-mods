@@ -125,9 +125,14 @@ function mod.player_inventory_formspec(pos, options)
   return "list[current_player;main;" .. pos.x .. "," .. pos.y .. ";" .. mod.player_hotbar_size .. ","..mod.player_inventory_rows..";]"
 end
 
+-- @spec player_inventory_size2(Player): Vector2
+function mod.player_inventory_size2(_player)
+  return { x = mod.player_hotbar_size, y = mod.player_inventory_rows }
+end
+
 -- @spec player_inventory_lists_fragment(PlayerRef, Number, Number): (formspec: String, dimensions: Vector2)
-function mod.player_inventory_lists_fragment(_player, x, y)
-  local dims = { x = mod.player_hotbar_size, y = mod.player_inventory_rows }
+function mod.player_inventory_lists_fragment(player, x, y)
+  local dims = mod.player_inventory_size2(player)
   return fspec.list("current_player", "main", x, y, mod.player_hotbar_size, mod.player_inventory_rows), dims
 end
 
