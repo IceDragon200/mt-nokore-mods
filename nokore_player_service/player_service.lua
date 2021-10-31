@@ -101,10 +101,8 @@ function ic:update(dt)
     self.m_players[player:get_player_name()] = player
   end
 
-  for _name, callback in pairs(self.m_update_cbs) do
-    for player_name, player in pairs(self.m_players) do
-      callback(player, dt, self.m_player_assigns[player_name])
-    end
+  for _callback_name, callback in pairs(self.m_update_cbs) do
+    callback(self.m_players, dt, self.m_player_assigns)
   end
 
   return self
