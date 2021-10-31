@@ -48,7 +48,7 @@ function nokore.player_hud:register_on_init_player_hud_element(
   if not self.m_on_init_player_hud_element_cbs[hud_element_name] then
     self.m_on_init_player_hud_element_cbs[hud_element_name] = {}
   end
-  self.m_on_init_player_hud_element_cbs[hud_element_name][name] = callback
+  self.m_on_init_player_hud_element_cbs[hud_element_name][hud_element_name] = callback
 
   return self
 end
