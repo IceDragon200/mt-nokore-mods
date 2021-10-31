@@ -26,6 +26,7 @@ mod:register_node("bamboo_stalk", {
     }
   },
 
+  use_texture_alpha = "opaque",
   tiles = {
     "nokore_bamboo_stalk_top.png",
     "nokore_bamboo_stalk_top.png",

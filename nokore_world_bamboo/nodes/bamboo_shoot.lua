@@ -12,6 +12,8 @@ mod:register_node("bamboo_shoot", {
   },
 
   drawtype = "plantlike",
+
+  use_texture_alpha = "blend",
   tiles = {
     "nokore_bamboo_shoot.png"
   },

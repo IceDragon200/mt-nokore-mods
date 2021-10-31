@@ -7,6 +7,7 @@ mod:register_node("cactus", {
     choppy = 3,
   },
 
+  use_texture_alpha = "clip",
   tiles = {
     "world_cactus_top.png",
     "world_cactus_bottom.png",

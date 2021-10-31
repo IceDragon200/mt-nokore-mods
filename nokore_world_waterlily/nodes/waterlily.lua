@@ -10,6 +10,8 @@ mod:register_node("waterlily", {
   },
 
   drawtype = "nodebox",
+
+  use_texture_alpha = "clip",
   tiles = {
     "world_waterlily.png",
     "world_waterlily.png",

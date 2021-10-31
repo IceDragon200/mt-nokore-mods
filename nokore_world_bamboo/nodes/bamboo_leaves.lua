@@ -23,6 +23,8 @@ mod:register_node("bamboo_leaves", {
 
   drawtype = "allfaces_optional",
   waving = 1,
+
+  use_texture_alpha = "blend",
   tiles = {
     "nokore_leaves_bamboo.png",
   },
