@@ -180,6 +180,8 @@ end
 -- If the callback returns true, then the kv store is persisted immediately
 -- otherwise it will be persisted whenever the service runs its persistence
 -- loop.
+--
+-- @spec #with_player_domain_kv(String, String, Function/1): Boolean
 function ic:with_player_domain_kv(player_name, domain_name, callback)
   local domains = self.m_registered_domains[player_name]
 
@@ -196,8 +198,12 @@ function ic:with_player_domain_kv(player_name, domain_name, callback)
       if save_after then
         persist_domain(domain_name, domain)
       end
+
+      return true
     end
   end
+
+  return false
 end
 
 nokore.PlayerDataService = PlayerDataService
