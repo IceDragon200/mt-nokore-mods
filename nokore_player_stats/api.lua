@@ -4,6 +4,16 @@
 local PlayerStatsService = foundation.com.Class:extends("nokore_player_stats.PlayerStatsService")
 local ic = PlayerStatsService.instance_class
 
+-- The definition table that should be used for register_stat.
+-- calc/1 is the main function that will be called when a stat needs be recalculated.
+-- cached is a flag that will tell the stats service whether or not the specific
+-- stat should ever be cached, if true it will calculate once and then cache it.
+--
+-- @type StatDefinition: {
+--   calc: function(self, player: Player) => Any,
+--   cached?: Boolean,
+-- }
+
 -- @spec #initialize(): void
 function ic:initialize()
   self.m_stats = {}
@@ -15,7 +25,7 @@ end
 -- It is up the stat to provide a calculation function and how those
 -- calculations will be performed are up to the implementation.
 --
--- @spec #register_stat(name: String, def: Table): void
+-- @spec #register_stat(name: String, def: StatDefinition): void
 function ic:register_stat(name, def)
   assert(type(name) == "string", "expected a name of the stat")
   assert(type(def) == "table", "expected a stat definition table")
@@ -42,22 +52,31 @@ end
 --
 -- @spec #get_player_stat(player: Player, name: String, should_recache?: Boolean): Any
 function ic:get_player_stat(player, name, should_recache)
-  local player_name = player:get_player_name()
-  local player_stat_cache = self.m_player_stat_cache[player_name]
-  if not player_stat_cache then
-    player_stat_cache = {}
-    self.m_player_stat_cache[player_name] = player_stat_cache
+  local stat = self.m_stats[name]
+  if stat then
+    if stat.cached then
+      local player_name = player:get_player_name()
+      local player_stat_cache = self.m_player_stat_cache[player_name]
+      if not player_stat_cache then
+        player_stat_cache = {}
+        self.m_player_stat_cache[player_name] = player_stat_cache
+      end
+      local cached = player_stat_cache[name]
+
+      if not should_recache and cached then
+        return cached
+      end
+
+      cached = self:calc_player_stat(player, name)
+
+      player_stat_cache[name] = cached
+      return cached
+    else
+      return self:calc_player_stat(player, name)
+    end
   end
-  local cached = player_stat_cache[name]
 
-  if not should_recache and cached then
-    return cached
-  end
-
-  cached = self:calc_player_stat(player, name)
-
-  player_stat_cache[name] = cached
-  return cached
+  return nil
 end
 
 -- Clears any cached stats for the specified player by name
