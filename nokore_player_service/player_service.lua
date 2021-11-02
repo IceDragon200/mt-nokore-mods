@@ -38,6 +38,9 @@ end
 --
 -- @spec #register_on_player_join(String, Function/2): self
 function ic:register_on_player_join(name, callback)
+  assert(type(name) == "string", "expected a registration name")
+  assert(type(callback) == "function", "expected a callback")
+
   self.m_on_player_join_cbs[name] = callback
 
   return self
@@ -47,6 +50,9 @@ end
 --
 -- @spec #register_on_player_leave(String, Function/2): self
 function ic:register_on_player_leave(name, callback)
+  assert(type(name) == "string", "expected a registration name")
+  assert(type(callback) == "function", "expected a callback")
+
   self.m_on_player_leave_cbs[name] = callback
 
   return self
@@ -56,6 +62,9 @@ end
 --
 -- @spec register_update(String, Function/3): self
 function ic:register_update(name, callback)
+  assert(type(name) == "string", "expected a registration name")
+  assert(type(callback) == "function", "expected a callback")
+
   self.m_update_cbs[name] = callback
 
   return self
@@ -66,6 +75,8 @@ end
 -- @spec #on_player_join(Player, last_login: Any): self
 function ic:on_player_join(player, last_login)
   local name = player:get_player_name()
+
+  print("player_service", "on_player_join", name)
 
   self.m_players[name] = player
   self.m_player_assigns[name] = {}
@@ -80,6 +91,8 @@ end
 -- @spec #on_player_leave(Player, timed_out: Boolean): self
 function ic:on_player_leave(player, timed_out)
   local name = player:get_player_name()
+
+  print("player_service", "on_player_leave", name)
 
   self.m_players[name] = nil
   self.m_player_assigns[name] = nil
