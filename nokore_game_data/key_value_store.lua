@@ -2,6 +2,12 @@
 -- Key-Value Store
 --
 -- Simple class for defining a key-value store
+-- @namespace nokore
+local path_dirname = assert(foundation.com.path_dirname)
+local Buffer = assert(foundation.com.BinaryBuffer or foundation.com.StringBuffer,
+                      "expected some kind of buffer")
+
+-- @class KVStore
 local KVStore = foundation.com.Class:extends("nokore.KVStore")
 local ic = KVStore.instance_class
 
@@ -141,6 +147,24 @@ if ascii_file_pack and ascii_file_unpack then
       error("Cannot reload table, magic bytes do not match (expected:NKKV, got:" .. magic .. ")")
     end
   end
+
+  function ic:apack_dump_file(filename)
+    minetest.mkdir(path_dirname(filename))
+    local buffer = Buffer:new('', 'w')
+    self:apack_dump(buffer)
+    buffer:close()
+    minetest.safe_file_write(filename, buffer:blob())
+  end
+
+  function ic:apack_load_file(filename)
+    local f = io.open(filename, 'r')
+    if f then
+      self:apack_load(f)
+      f:close()
+      return true
+    end
+    return false
+  end
 else
   minetest.log("warning", "ascii pack functions are not available for key-value store")
 end
@@ -241,6 +265,24 @@ if ByteBuf and MarshallValue then
     else
       error("Cannot reload table, magic bytes do not match (expected:NKKV, got:" .. magic .. ")")
     end
+  end
+
+  function ic:marshall_dump_file(filename)
+    minetest.mkdir(path_dirname(filename))
+    local buffer = Buffer:new('', 'w')
+    self:marshall_dump(buffer)
+    buffer:close()
+    minetest.safe_file_write(filename, buffer:blob())
+  end
+
+  function ic:marshall_load_file(filename)
+    local f = io.open(filename, 'r')
+    if f then
+      self:marshall_load(f)
+      f:close()
+      return true
+    end
+    return false
   end
 else
   minetest.log("warning", "marshall functions are not available for key-value store")
