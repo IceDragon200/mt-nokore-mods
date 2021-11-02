@@ -4,7 +4,7 @@
 -- A service mod that watches players on the map and determines which blocks are loaded
 -- all while providing a metadata table via game data's KeyValueStore
 --
-local mod = foundation.new_module("nokore_block_data", "1.0.0")
+local mod = foundation.new_module("nokore_block_data", "1.1.0")
 
 mod:require("service.lua")
 

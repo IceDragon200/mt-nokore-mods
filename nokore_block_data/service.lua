@@ -2,7 +2,6 @@ local BlockDataService = foundation.com.Class:extends("nokore_block_data.BlockDa
 local ic = BlockDataService.instance_class
 
 local KVStore = nokore.KVStore
-local Buffer = foundation.com.BinaryBuffer or foundation.com.StringBuffer
 
 local Trace = assert(foundation.com.Trace)
 
@@ -129,18 +128,10 @@ function ic:upsert_or_refresh_block(block_pos)
 
     if self.persistance_type == 'MRSH' then
       filename = self.block_data_dir .. "/" .. basename .. ".mrsh"
-      local f = io.open(filename, 'r')
-      if f then
-        kv:marshall_load(f)
-        f:close()
-      end
+      kv:marshall_load_file(filename)
     elseif self.persistance_type == 'ASCI' then
       filename = self.block_data_dir .. "/" .. basename .. ".asci"
-      local f = io.open(filename, 'r')
-      if f then
-        kv:apack_load(f)
-        f:close()
-      end
+      kv:apack_load_file(filename)
     end
 
     local block = {
@@ -163,17 +154,9 @@ function ic:persist_block(block)
   if block.kv.dirty then
     block.kv.dirty = false
     if self.persistance_type == 'MRSH' then
-      minetest.mkdir(self.block_data_dir)
-      local buffer = Buffer:new('', 'w')
-      block.kv:marshall_dump(buffer)
-      buffer:close()
-      minetest.safe_file_write(block.filename, buffer:blob())
+      block.kv:marshall_dump_file(block.filename)
     elseif self.persistance_type == 'ASCI' then
-      minetest.mkdir(self.block_data_dir)
-      local buffer = Buffer:new('', 'w')
-      block.kv:apack_dump(buffer)
-      buffer:close()
-      minetest.safe_file_write(block.filename, buffer:blob())
+      block.kv:apack_dump_file(block.filename)
     elseif self.persistance_type == 'NONE' then
       -- can't persist
     end
