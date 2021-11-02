@@ -164,11 +164,11 @@ function nokore.player_hud:remove_player_hud_eleemnt(player, hud_element_name)
   return false
 end
 
-nokore.player_service:register_on_player_leave(function (player)
+nokore.player_service:register_on_player_leave("nokore_player_hud:player_left", function (player)
   nokore.player_hud.hud_ids[player:get_player_name()] = nil
 end)
 
-nokore.player_service:register_on_player_join(function (player)
+nokore.player_service:register_on_player_join("nokore_player_hud:player_joined", function (player)
   --player:hud_set_hotbar_image("gui_hotbar_base.png")
   --player:hud_set_hotbar_selected_image("gui_hotbar_selected.png")
 
