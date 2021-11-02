@@ -110,8 +110,11 @@ function ic:update(dt)
 
   -- update the players every step
   self.m_players = {}
+  local player_name
   for _i, player in pairs(minetest.get_connected_players()) do
-    self.m_players[player:get_player_name()] = player
+    player_name = player:get_player_name()
+    self.m_players[player_name] = player
+    self.m_player_assigns[player_name] = self.m_player_assigns[player_name] or {}
   end
 
   for _callback_name, callback in pairs(self.m_update_cbs) do
