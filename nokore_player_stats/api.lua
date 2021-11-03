@@ -1,8 +1,65 @@
 -- @namespace nokore_player_stats
 
+local ic
+
+--
+-- @private.class Stat
+local Stat = foundation.com.Class:extends("nokore_player_stats.Stat")
+ic = Stat.instance_class
+
+-- @spec #initialize(Table): void
+function ic:initialize(def)
+  self.calc = assert(def.calc)
+  self.cached = def.cached or false
+  self.set = def.set
+
+  -- Modifiers are optional to implement for a stat, if they are
+  -- they are normally applied in the order, base, add and then mul:
+  --   base - the 'base' value of the stat that every other modifier will apply to (can be replaced)
+  --   add - any additional additions to be made to the base (modifiers should only add/sub)
+  --   multiplier - any multipliers that should be applied to the value at the end of calculations
+  self.m_modifiers = {}
+end
+
+-- @spec #apply_modifiers(Player, value: T): T
+function ic:apply_modifiers(player, value)
+  local result = self:apply_modifier(player, "base", value)
+  result = self:apply_modifier(player, "add", result)
+  return self:apply_modifier(player, "mul", result)
+end
+
+-- @spec #apply_modifier(Player, type: String, value: T): T
+function ic:apply_modifier(player, modtype, value)
+  assert(player, "expected a player")
+  assert(type(modtype) == "string", "expected a modifier type")
+
+  local modifiers = self.m_modifiers[modtype]
+
+  if modifiers then
+    for _name, callback in pairs(modifiers) do
+      value = callback(player, value)
+    end
+  end
+
+  return value
+end
+
+-- @spec #register_modifier(name: String, modtype: "base" | "add" | "mul", Function/2): self
+function ic:register_modifier(name, modtype, callback)
+  assert(type(name) == "string", "expected a name for the modifier callback")
+  assert(modtype == "add" or
+         modtype == "mul" or
+         modtype == "base", "expected a modifier type to be either add, mul or base")
+  assert(type(callback) == "function", "expected a function")
+
+  self.m_modifiers[modtype] = self.m_modifiers[modtype] or {}
+  self.m_modifiers[modtype][name] = callback
+  return self
+end
+
 -- @class PlayerStatsService
 local PlayerStatsService = foundation.com.Class:extends("nokore_player_stats.PlayerStatsService")
-local ic = PlayerStatsService.instance_class
+ic = PlayerStatsService.instance_class
 
 -- The definition table that should be used for register_stat.
 -- calc/1 is the main function that will be called when a stat needs be recalculated.
@@ -25,13 +82,27 @@ end
 -- It is up the stat to provide a calculation function and how those
 -- calculations will be performed are up to the implementation.
 --
--- @spec #register_stat(name: String, def: StatDefinition): void
+-- @spec #register_stat(name: String, def: StatDefinition): Stat
 function ic:register_stat(name, def)
   assert(type(name) == "string", "expected a name of the stat")
   assert(type(def) == "table", "expected a stat definition table")
-  assert(type(def.calc) == "function", "expected a stat calc function")
 
-  self.m_stats[name] = def
+  self.m_stats[name] = Stat:new(def)
+
+  return self.m_stats[name]
+end
+
+-- @spec #register_stat_modifier(name: String, "base" | "add" | "mul", Function/2): Stat
+function ic:register_stat_modifier(name, callback_name, modtype, callback)
+  assert(type(name) == "string", "expected a name of the stat to register modifier under")
+
+  local stat = self.m_stats[name]
+
+  if stat then
+    return stat:register_modifier(callback_name, modtype, callback)
+  else
+    error("stat `" .. name .. "` does not exist")
+  end
 end
 
 -- Calculates and returns the value for the player stat, this will bypass
@@ -77,6 +148,15 @@ function ic:get_player_stat(player, name, should_recache)
   end
 
   return nil
+end
+
+-- @spec #set_player_stat(player: Player, name: String, value: Any): Boolean
+function ic:set_player_stat(player, name, value)
+  local stat = self.m_stats[name]
+  if stat then
+    return stat:set(player, value)
+  end
+  return false
 end
 
 -- Clears any cached stats for the specified player by name
