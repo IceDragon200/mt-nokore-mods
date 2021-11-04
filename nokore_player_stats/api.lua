@@ -170,6 +170,12 @@ function ic:on_player_join(player)
   self.m_player_stat_cache[player:get_player_name()] = {}
 end
 
+function ic:after_player_join(player)
+  for stat_name, _ in pairs(self.registered_stats) do
+    self:get_player_stat(player, stat_name, true)
+  end
+end
+
 function ic:on_player_leave(player)
   self.m_player_stat_cache[player:get_player_name()] = nil
 end
