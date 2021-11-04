@@ -12,6 +12,7 @@ function ic:initialize()
   self.m_player_assigns = {}
 
   self.m_on_player_join_cbs = {}
+  self.m_after_player_join_cbs = {}
   self.m_on_player_leave_cbs = {}
 
   self.m_update_cbs = {}
@@ -26,14 +27,27 @@ end
 
 -- @spec #trigger_on_player_join(Player, last_login: Any): void
 function ic:trigger_on_player_join(player, last_login)
-  for _key, callback in pairs(self.m_on_player_join_cbs) do
+  local player_name = player:get_player_name()
+  for callback_name, callback in pairs(self.m_on_player_join_cbs) do
+    print("player_service", "on_player_join", player_name, "callback", callback_name)
+    callback(player, last_login)
+  end
+end
+
+-- @spec #trigger_after_player_join(Player, last_login: Any): void
+function ic:trigger_after_player_join(player, last_login)
+  local player_name = player:get_player_name()
+  for callback_name, callback in pairs(self.m_after_player_join_cbs) do
+    print("player_service", "after_player_join", player_name, "callback", callback_name)
     callback(player, last_login)
   end
 end
 
 -- @spec #trigger_on_player_leave(Player, timed_out: Boolean): void
 function ic:trigger_on_player_leave(player, timed_out)
-  for _key, callback in pairs(self.m_on_player_leave_cbs) do
+  local player_name = player:get_player_name()
+  for callback_name, callback in pairs(self.m_on_player_leave_cbs) do
+    print("player_service", "on_player_leave", player_name, "callback", callback_name)
     callback(player, timed_out)
   end
 end
@@ -46,6 +60,19 @@ function ic:register_on_player_join(name, callback)
   assert(type(callback) == "function", "expected a callback")
 
   self.m_on_player_join_cbs[name] = callback
+
+  return self
+end
+
+-- Register a callback to the player service for a joined player
+-- These are triggered AFTER the on_player_join callbacks are finished
+--
+-- @spec #register_after_player_join(String, Function/2): self
+function ic:register_after_player_join(name, callback)
+  assert(type(name) == "string", "expected a registration name")
+  assert(type(callback) == "function", "expected a callback")
+
+  self.m_after_player_join_cbs[name] = callback
 
   return self
 end
@@ -86,6 +113,7 @@ function ic:on_player_join(player, last_login)
   self.m_player_assigns[name] = {}
 
   self:trigger_on_player_join(player, last_login)
+  self:trigger_after_player_join(player, last_login)
 
   return self
 end
