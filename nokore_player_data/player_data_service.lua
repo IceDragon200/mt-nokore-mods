@@ -74,6 +74,7 @@ function ic:register_domain(domain_name, def)
     error("expected domain save_method to be either apack or marshall")
   end
 
+  print("nokore_player_data", "register_domain", domain_name)
   self.m_registered_domains[domain_name] = def
 end
 
@@ -84,7 +85,8 @@ function ic:on_player_join(player)
   local domain
   local filename
 
-  for domain_name, domain_def in pairs(self.m_player_domains) do
+  print("nokore_player_data", "on_player_join", player_name, "loading data domains")
+  for domain_name, domain_def in pairs(self.m_registered_domains) do
     filename = path_join(path_join(self.m_dirname, fs_safe_name(player_name)), domain_name)
 
     domain = {
@@ -103,6 +105,7 @@ function ic:on_player_join(player)
     --  domain.kv:json_load_file(domain.filename)
     end
 
+    print("nokore_player_data", "on_player_join", player_name, "init.domain", domain_name)
     domains[domain_name] = domain
   end
 
@@ -162,7 +165,10 @@ end
 --
 -- @spec #get_player_domain_kv(player_name: String, domain_name: String)
 function ic:get_player_domain_kv(player_name, domain_name)
-  local domains = self.m_registered_domains[player_name]
+  assert(type(player_name) == "string", "expected a player name")
+  assert(type(domain_name) == "string", "expected a domain name")
+
+  local domains = self.m_player_domains[player_name]
 
   if domains then
     local domain = domains[domain_name]
@@ -170,6 +176,8 @@ function ic:get_player_domain_kv(player_name, domain_name)
     if domain then
       return domain.kv
     end
+  else
+    --minetest.log("warn", "domains not available for player_name=" .. player_name)
   end
 
   return nil
@@ -183,7 +191,10 @@ end
 --
 -- @spec #with_player_domain_kv(String, String, Function/1): Boolean
 function ic:with_player_domain_kv(player_name, domain_name, callback)
-  local domains = self.m_registered_domains[player_name]
+  assert(type(player_name) == "string", "expected a player name")
+  assert(type(domain_name) == "string", "expected a domain name")
+  assert(type(callback) == "function", "expected a callback function")
+  local domains = self.m_player_domains[player_name]
 
   if domains then
     local domain = domains[domain_name]
@@ -201,6 +212,8 @@ function ic:with_player_domain_kv(player_name, domain_name, callback)
 
       return true
     end
+  else
+    --minetest.log("warn", "domains not available for player_name=" .. player_name)
   end
 
   return false

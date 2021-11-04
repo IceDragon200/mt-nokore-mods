@@ -162,6 +162,7 @@ if ascii_file_pack and ascii_file_unpack then
   end
 
   function ic:apack_dump_file(filename)
+    --print("apack_dump_file", filename)
     minetest.mkdir(path_dirname(filename))
     local buffer = Buffer:new('', 'w')
     self:apack_dump(buffer)
@@ -170,6 +171,7 @@ if ascii_file_pack and ascii_file_unpack then
   end
 
   function ic:apack_load_file(filename)
+    --print("apack_load_file", filename)
     local f = io.open(filename, 'r')
     if f then
       self:apack_load(f)
@@ -281,6 +283,7 @@ if ByteBuf and MarshallValue then
   end
 
   function ic:marshall_dump_file(filename)
+    --print("marshall_dump_file", filename)
     minetest.mkdir(path_dirname(filename))
     local buffer = Buffer:new('', 'w')
     self:marshall_dump(buffer)
@@ -289,6 +292,7 @@ if ByteBuf and MarshallValue then
   end
 
   function ic:marshall_load_file(filename)
+    --print("marshall_load_file", filename)
     local f = io.open(filename, 'r')
     if f then
       self:marshall_load(f)
