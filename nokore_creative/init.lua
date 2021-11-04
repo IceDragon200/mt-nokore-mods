@@ -3,6 +3,7 @@
 --
 -- Creative
 local mod = foundation.new_module("nokore_creative", "0.1.0")
+local fspec = assert(foundation.com.formspec.api)
 
 local creative = {
   trash_inventory = nil,
@@ -140,11 +141,11 @@ nokore_player_inv.register_player_inventory_tab("creative", {
   end,
 
   render_formspec = function (player, assigns, tab_state)
-    local mod = nokore_player_inv
-    local w = 0.25 + mod.player_hotbar_size * 1.25
+    local nokore_player_inv = nokore_player_inv
+    local w = 0.25 + nokore_player_inv.player_hotbar_size * 1.25
 
     if minetest.is_creative_enabled(player:get_player_name()) then
-      local page_size = mod.player_hotbar_size * 4
+      local page_size = nokore_player_inv.player_hotbar_size * 4
       local inventory_name = creative.get_player_creative_inventory_name(player)
       local inventory_offset = (tab_state.page_index - 1) * page_size
 
@@ -156,11 +157,12 @@ nokore_player_inv.register_player_inventory_tab("creative", {
         tab_state.page_count = tab_state.page_count + 1
       end
 
+      local dims = nokore_player_inv.player_inventory_size2(player)
       local y = 0.25 + 4 * 1.25
 
-      return "size["..w..",9]" ..
-             "list[detached:"..inventory_name..";main;0.25,0.25;"..mod.player_hotbar_size..",4;"..inventory_offset.."]" ..
-             mod.player_inventory_formspec({ x = 0.25, y = 6.5 }) ..
+      return fspec.size(w, 6 + dims.y * 1.25) ..
+             "list[detached:"..inventory_name..";main;0.25,0.25;"..dims.x..",4;"..inventory_offset.."]" ..
+             nokore_player_inv.player_inventory_lists_fragment(player, 0.25, 6.5) ..
              "listring[]" ..
              "list[detached:nokore_creative_trash;main;0.25,"..y..";1,1;]" ..
              "field[1.5,"..y..";"..(w-5.5)..",1;search_query;;"..minetest.formspec_escape(tab_state.search_query).."]" ..
