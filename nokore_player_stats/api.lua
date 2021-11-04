@@ -73,7 +73,7 @@ ic = PlayerStatsService.instance_class
 
 -- @spec #initialize(): void
 function ic:initialize()
-  self.m_stats = {}
+  self.registered_stats = {}
 
   self.m_player_stat_cache = {}
 end
@@ -87,16 +87,16 @@ function ic:register_stat(name, def)
   assert(type(name) == "string", "expected a name of the stat")
   assert(type(def) == "table", "expected a stat definition table")
 
-  self.m_stats[name] = Stat:new(def)
+  self.registered_stats[name] = Stat:new(def)
 
-  return self.m_stats[name]
+  return self.registered_stats[name]
 end
 
 -- @spec #register_stat_modifier(name: String, "base" | "add" | "mul", Function/2): Stat
 function ic:register_stat_modifier(name, callback_name, modtype, callback)
   assert(type(name) == "string", "expected a name of the stat to register modifier under")
 
-  local stat = self.m_stats[name]
+  local stat = self.registered_stats[name]
 
   if stat then
     return stat:register_modifier(callback_name, modtype, callback)
@@ -110,7 +110,7 @@ end
 --
 -- @spec #calc_player_stat(player: Player, name: String): Any
 function ic:calc_player_stat(player, name)
-  local stat = self.m_stats[name]
+  local stat = self.registered_stats[name]
   if stat then
     return stat:calc(player)
   end
@@ -123,7 +123,7 @@ end
 --
 -- @spec #get_player_stat(player: Player, name: String, should_recache?: Boolean): Any
 function ic:get_player_stat(player, name, should_recache)
-  local stat = self.m_stats[name]
+  local stat = self.registered_stats[name]
   if stat then
     if stat.cached then
       local player_name = player:get_player_name()
@@ -134,7 +134,7 @@ function ic:get_player_stat(player, name, should_recache)
       end
       local cached = player_stat_cache[name]
 
-      if not should_recache and cached then
+      if not should_recache and cached ~= nil then
         return cached
       end
 
@@ -152,7 +152,7 @@ end
 
 -- @spec #set_player_stat(player: Player, name: String, value: Any): Boolean
 function ic:set_player_stat(player, name, value)
-  local stat = self.m_stats[name]
+  local stat = self.registered_stats[name]
   if stat then
     return stat:set(player, value)
   end

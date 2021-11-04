@@ -20,3 +20,5 @@ nokore.player_service:register_on_player_leave(
   "nokore_player_stats:player_left",
   nokore.player_stats:method("on_player_leave")
 )
+
+mod:require("chat_commands.lua")
