@@ -115,6 +115,7 @@ end
 
 -- @spec player_inventory_size2(Player): Vector2
 function mod.player_inventory_size2(player)
+  assert(player, "expected a player")
   local inv = player:get_inventory()
   local rows = math.ceil(inv:get_size("main") / mod.player_hotbar_size)
   return { x = mod.player_hotbar_size, y = rows }
