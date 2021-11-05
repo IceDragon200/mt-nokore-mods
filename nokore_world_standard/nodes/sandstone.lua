@@ -69,6 +69,9 @@ if foundation.is_module_present("nokore_stairs") then
       tiles = "world_sandstone.png",
       sounds = nokore.node_sounds:build("stone"),
     },
+    column = {
+      description = mod.S("Sandstone Column"),
+    },
     plate = {
       description = mod.S("Sandstone Plate"),
     },
@@ -92,6 +95,9 @@ if foundation.is_module_present("nokore_stairs") then
       groups = {cracky = 3, stone = 1},
       tiles = "world_sandstone_brick.png",
       sounds = nokore.node_sounds:build("stone"),
+    },
+    column = {
+      description = mod.S("Sandstone Brick Column"),
     },
     plate = {
       description = mod.S("Sandstone Brick Plate"),
@@ -117,6 +123,9 @@ if foundation.is_module_present("nokore_stairs") then
       tiles = "world_desert_sandstone.png",
       sounds = nokore.node_sounds:build("stone"),
     },
+    column = {
+      description = mod.S("Desert Sandstone Column"),
+    },
     plate = {
       description = mod.S("Desert Sandstone Plate"),
     },
@@ -141,6 +150,9 @@ if foundation.is_module_present("nokore_stairs") then
       tiles = "world_silver_sandstone.png",
       sounds = nokore.node_sounds:build("stone"),
     },
+    column = {
+      description = mod.S("Silver Sandstone Column"),
+    },
     plate = {
       description = mod.S("Silver Sandstone Plate"),
     },
@@ -164,6 +176,9 @@ if foundation.is_module_present("nokore_stairs") then
       groups = {cracky = 3, stone = 1},
       tiles = "world_silver_sandstone_brick.png",
       sounds = nokore.node_sounds:build("stone"),
+    },
+    column = {
+      description = mod.S("Silver Sandstone Brick Column"),
     },
     plate = {
       description = mod.S("Silver Sandstone Brick Plate"),

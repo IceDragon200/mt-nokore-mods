@@ -60,6 +60,9 @@ if foundation.is_module_present("nokore_stairs") then
       tiles = "world_stone_brick.png",
       sounds = nokore.node_sounds:build("stone"),
     },
+    column = {
+      description = mod.S("Stone Brick Column"),
+    },
     plate = {
       description = mod.S("Stone Brick Plate"),
     },
@@ -83,6 +86,9 @@ if foundation.is_module_present("nokore_stairs") then
       groups = {cracky = 3, stone = 1},
       tiles = "world_desert_stone_brick.png",
       sounds = nokore.node_sounds:build("stone"),
+    },
+    column = {
+      description = mod.S("Desert Stone Brick Column"),
     },
     plate = {
       description = mod.S("Desert Stone Brick Plate"),

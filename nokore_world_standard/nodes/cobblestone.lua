@@ -39,6 +39,9 @@ if foundation.is_module_present("nokore_stairs") then
       tiles = "world_cobblestone.png",
       sounds = nokore.node_sounds:build("stone"),
     },
+    column = {
+      description = mod.S("Cobblestone Column"),
+    },
     plate = {
       description = mod.S("Cobblestone Plate"),
     },
@@ -62,6 +65,9 @@ if foundation.is_module_present("nokore_stairs") then
       groups = {cracky = 3, stone = 2, mossy_stone = 1},
       tiles = "world_mossy_cobblestone.png",
       sounds = nokore.node_sounds:build("stone"),
+    },
+    column = {
+      description = mod.S("Mossy Cobblestone Column"),
     },
     plate = {
       description = mod.S("Mossy Cobblestone Plate"),

@@ -51,6 +51,9 @@ if foundation.is_module_present("nokore_stairs") then
       tiles = "world_ice.png",
       sounds = nokore.node_sounds:build("ice"),
     },
+    column = {
+      description = mod.S("Ice Column"),
+    },
     plate = {
       description = mod.S("Ice Plate"),
     },
