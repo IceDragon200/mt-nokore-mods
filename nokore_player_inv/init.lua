@@ -70,7 +70,7 @@ nokore_player_inv.register_player_inventory_tab("default", {
     local mod = nokore_player_inv
     local dims = mod.player_inventory_size2(player)
     local w = 0.25 + dims.x * 1.25
-    local h = 0.25 + (4 + dims.y) * 1.25
+    local h = 0.5 + (4 + dims.y) * 1.25
     local cio = fspec.calc_inventory_offset
 
     return fspec.size(w, h) ..

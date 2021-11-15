@@ -145,7 +145,8 @@ nokore_player_inv.register_player_inventory_tab("creative", {
     local w = 0.25 + nokore_player_inv.player_hotbar_size * 1.25
 
     if minetest.is_creative_enabled(player:get_player_name()) then
-      local page_size = nokore_player_inv.player_hotbar_size * 4
+      local inv_row_count = 8
+      local page_size = nokore_player_inv.player_hotbar_size * inv_row_count
       local inventory_name = creative.get_player_creative_inventory_name(player)
       local inventory_offset = (tab_state.page_index - 1) * page_size
 
@@ -158,21 +159,21 @@ nokore_player_inv.register_player_inventory_tab("creative", {
       end
 
       local dims = nokore_player_inv.player_inventory_size2(player)
-      local y = 0.25 + 4 * 1.25
+      local y = 0.25 + inv_row_count * 1.25
 
-      return fspec.size(w, 6 + dims.y * 1.25) ..
-             "list[detached:"..inventory_name..";main;0.25,0.25;"..dims.x..",4;"..inventory_offset.."]" ..
-             nokore_player_inv.player_inventory_lists_fragment(player, 0.25, 6.5) ..
+      return fspec.size(w, 0.25 + (inv_row_count + 1 + dims.y) * 1.25) ..
+             fspec.list("detached:"..inventory_name, "main", 0.25, 0.25, dims.x, inv_row_count, inventory_offset) ..
+             nokore_player_inv.player_inventory_lists_fragment(player, 0.25, y + 1.25) ..
              "listring[]" ..
              "list[detached:nokore_creative_trash;main;0.25,"..y..";1,1;]" ..
              "field[1.5,"..y..";"..(w-5.5)..",1;search_query;;"..minetest.formspec_escape(tab_state.search_query).."]" ..
              "field_close_on_enter[search_query;false]" ..
              "button["..(w-3.75)..","..y..";1,1;creative_prev_page;<]" ..
-             "label["..(w-2.5)..","..(y)..";"..minetest.formspec_escape(tab_state.page_index.."/"..tab_state.page_count).."]" ..
-             "label["..(w-2.5)..","..(y+0.5)..";"..minetest.formspec_escape(inventory_offset.."/"..total).."]" ..
+             "label["..(w-2.5)..","..(y+0.25)..";"..minetest.formspec_escape(tab_state.page_index.."/"..tab_state.page_count).."]" ..
+             "label["..(w-2.5)..","..(y+0.75)..";"..minetest.formspec_escape(inventory_offset.."/"..total).."]" ..
              "button["..(w-1.25)..","..y..";1,1;creative_next_page;>]"
     else
-      return "size["..w..",9]" ..
+      return fspec.size(w, 9) ..
              "label[0,0;Creative Unavailable]"
     end
   end,
