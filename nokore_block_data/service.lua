@@ -33,14 +33,15 @@ function ic:initialize()
 end
 
 function ic:terminate()
-  local trace = Trace.new('nokore_block_data/terminate')
+  local trace = Trace:new('nokore_block_data/terminate')
+  local span
   for block_id, block in pairs(self.blocks) do
-    local ot = Trace.span_start(trace, 'blocks/'..block_id)
-    self:persist_block(block)
-    Trace.span_end(ot)
+    span = trace:span_start('blocks/'..block_id)
+    self:persist_block(block, span)
+    span:span_end()
   end
-  Trace.span_end(trace)
-  Trace.inspect(trace)
+  trace:span_end()
+  trace:inspect()
   self.blocks = {}
 end
 
@@ -59,7 +60,7 @@ function ic:reduce_blocks(acc, callback)
   return acc
 end
 
-function ic:update(delta)
+function ic:update(delta, trace)
   self.monotonic_time = self.monotonic_time + delta
 
   local expires_at = self.monotonic_time + self.expires_duration
@@ -99,11 +100,19 @@ function ic:update(delta)
   end
 
   local expired = false
+  local block
+  local span
   for block_id,_ in pairs(self.expired_blocks) do
     expired = true
-    local block = self.blocks[block_id]
+    block = self.blocks[block_id]
     self.blocks[block_id] = nil
-    self:persist_block(block)
+    if trace then
+      span = trace:span_start("expired_block:" .. block_id)
+    end
+    self:persist_block(block, span)
+    if span then
+      span:span_end()
+    end
   end
 
   if expired then
@@ -150,13 +159,13 @@ function ic:upsert_or_refresh_block(block_pos)
   end
 end
 
-function ic:persist_block(block)
+function ic:persist_block(block, trace)
   if block.kv.dirty then
     block.kv.dirty = false
     if self.persistance_type == 'MRSH' then
-      block.kv:marshall_dump_file(block.filename)
+      block.kv:marshall_dump_file(block.filename, trace)
     elseif self.persistance_type == 'ASCI' then
-      block.kv:apack_dump_file(block.filename)
+      block.kv:apack_dump_file(block.filename, trace)
     elseif self.persistance_type == 'NONE' then
       -- can't persist
     end

@@ -1,5 +1,4 @@
 -- @namespace nokore
-local Trace = assert(foundation.com.Trace)
 
 -- @class PlayerService
 local PlayerService = foundation.com.Class:extends("nokore_player_service.PlayerService")
@@ -16,9 +15,6 @@ function ic:initialize()
   self.m_on_player_leave_cbs = {}
 
   self.m_update_cbs = {}
-
-  self.m_profiling_enabled = false
-  self.m_profile_timer = 0
 end
 
 -- @spec #terminate(): void
@@ -134,24 +130,7 @@ function ic:on_player_leave(player, timed_out)
   return self
 end
 
--- Ticking update
---
--- @spec #update(Float): self
-function ic:update(dt)
-  self.m_uptime = self.m_uptime + dt
-  self.m_profile_timer = self.m_profile_timer + dt
-
-  local trace
-  local span
-
-  if self.m_profiling_enabled then
-    trace = Trace.new("player_service.update")
-  end
-
-  if trace then
-    span = Trace.span_start(trace, "update players")
-  end
-
+function ic:update_players_list(dt, trace)
   -- update the players every step
   --self.m_players = {}
   local player_name
@@ -162,28 +141,38 @@ function ic:update(dt)
       self.m_player_assigns[player_name] = {}
     end
   end
+end
+
+-- Ticking update
+--
+-- @spec #update(Float, trace?: Trace): self
+function ic:update(dt, trace)
+  self.m_uptime = self.m_uptime + dt
+
+  local span
+
+  if trace then
+    span = trace:span_start("update players")
+  end
+
+  self:update_players_list(dt, span)
 
   if span then
-    Trace.span_end(span)
+    span:span_end()
   end
 
   for callback_name, callback in pairs(self.m_update_cbs) do
     if trace then
-      span = Trace.span_start(trace, callback_name)
+      span = trace:span_start(callback_name)
     end
     callback(self.m_players, dt, self.m_player_assigns)
     if span then
-      Trace.span_end(span)
+      span:span_end()
     end
   end
 
   if trace then
-    Trace.span_end(trace)
-
-    if self.m_profile_timer > 10 then
-      self.m_profile_timer = 0
-      Trace.inspect(trace)
-    end
+    trace:span_end()
   end
 
   return self

@@ -161,13 +161,35 @@ if ascii_file_pack and ascii_file_unpack then
     end
   end
 
-  function ic:apack_dump_file(filename)
+  function ic:apack_dump_file(filename, trace)
     --print("apack_dump_file", filename)
+    local span
+    if trace then
+      span = trace:span_start("mkdir")
+    end
     minetest.mkdir(path_dirname(filename))
+    if span then
+      span:span_end()
+    end
+
     local buffer = Buffer:new('', 'w')
+    if trace then
+      span = trace:span_start("apack_dump")
+    end
     self:apack_dump(buffer)
+    if span then
+      span:span_end()
+    end
+
     buffer:close()
+
+    if trace then
+      span = trace:span_start("safe_file_write")
+    end
     minetest.safe_file_write(filename, buffer:blob())
+    if span then
+      span:span_end()
+    end
   end
 
   function ic:apack_load_file(filename)
@@ -282,13 +304,34 @@ if ByteBuf and MarshallValue then
     end
   end
 
-  function ic:marshall_dump_file(filename)
+  function ic:marshall_dump_file(filename, trace)
     --print("marshall_dump_file", filename)
+    local span
+    if trace then
+      span = trace:span_start("mkdir")
+    end
     minetest.mkdir(path_dirname(filename))
+    if span then
+      span:span_end()
+    end
+
     local buffer = Buffer:new('', 'w')
+    if trace then
+      span = trace:span_start("marshall_dump")
+    end
     self:marshall_dump(buffer)
+    if span then
+      span:span_end()
+    end
     buffer:close()
+
+    if trace then
+      span = trace:span_start("safe_file_write")
+    end
     minetest.safe_file_write(filename, buffer:blob())
+    if span then
+      span:span_end()
+    end
   end
 
   function ic:marshall_load_file(filename)
