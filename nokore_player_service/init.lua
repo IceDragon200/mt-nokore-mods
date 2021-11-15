@@ -14,5 +14,5 @@ nokore.player_service = mod.PlayerService:new()
 
 minetest.register_on_joinplayer(nokore.player_service:method("on_player_join"))
 minetest.register_on_leaveplayer(nokore.player_service:method("on_player_leave"))
-minetest.register_globalstep(nokore.player_service:method("update"))
+nokore_proxy.register_globalstep("nokore_player_service.update/2", nokore.player_service:method("update"))
 minetest.register_on_shutdown(nokore.player_service:method("terminate"))

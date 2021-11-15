@@ -11,5 +11,5 @@ mod:require("service.lua")
 nokore = rawget(_G, "nokore") or {}
 nokore.block_data_service = nokore.BlockDataService:new()
 
-minetest.register_globalstep(nokore.block_data_service:method("update"))
+nokore_proxy.register_globalstep("nokore_block_data.update/1", nokore.block_data_service:method("update"))
 minetest.register_on_shutdown(nokore.block_data_service:method("terminate"))
