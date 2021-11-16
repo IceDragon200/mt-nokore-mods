@@ -66,7 +66,7 @@ mod:register_node("backpack", {
     if not is_blank(source_inv_list) then
       local dumped = minetest.deserialize(source_inv_list)
       local list = target_inv:get_list("main")
-      list = InventorySerializer.deserialize_list(dumped, list)
+      list = InventorySerializer.load_list(dumped, list)
       target_inv:set_list("main", list)
     end
   end,
@@ -80,7 +80,7 @@ mod:register_node("backpack", {
     local old_inv = old_meta:get_inventory()
     local list = old_inv:get_list("main")
 
-    local dumped = yatm.items.InventorySerializer.serialize(list)
+    local dumped = yatm.items.InventorySerializer.dump_list(list)
 
     --print("preserve_metadata", dump(dumped))
     new_meta:set_string("inventory_dump", minetest.serialize(dumped))
