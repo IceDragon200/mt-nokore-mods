@@ -2,6 +2,7 @@
 -- NoKore - Rail
 --
 -- Adds rails and mine carts
-local mod = foundation.new_module("nokore_rail", "0.1.0")
+local mod = foundation.new_module("nokore_rail", "0.2.0")
 
-dofile(mod.modpath .. "/nodes/rail.lua")
+mod:require("api.lua")
+mod:require("nodes.lua")

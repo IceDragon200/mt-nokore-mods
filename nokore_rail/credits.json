@@ -1,0 +1,36 @@
+{
+  "authors": {
+    "@IceDragon200": {
+      "url": "https://github.com/IceDragon200"
+    },
+    "PixelPerfection": {
+      "url": "https://github.com/Wallbraker/PixelPerfection"
+    }
+  },
+  "files": {
+    "textures/nokore_rail.corner.png": {
+      "authors": ["PixelPerfection"],
+    },
+    "textures/nokore_rail.png": {
+      "authors": ["PixelPerfection"],
+    },
+    "textures/nokore_rail_activator.on.png": {
+      "authors": ["PixelPerfection"],
+    },
+    "textures/nokore_rail_activator.png": {
+      "authors": ["PixelPerfection"],
+    },
+    "textures/nokore_rail_detector.on.png": {
+      "authors": ["PixelPerfection"],
+    },
+    "textures/nokore_rail_detector.png": {
+      "authors": ["PixelPerfection"],
+    },
+    "textures/nokore_rail_powered.on.png": {
+      "authors": ["PixelPerfection"],
+    },
+    "textures/nokore_rail_powered.png": {
+      "authors": ["PixelPerfection"],
+    }
+  }
+}
