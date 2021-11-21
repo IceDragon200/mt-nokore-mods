@@ -14,12 +14,19 @@ rails:register_rail_node(mod:make_name("rail_powered_off"), {
     "nokore_rail_powered.tee.png",
     "nokore_rail_powered.cross.png"
   },
+
+  inventory_image = "nokore_rail_powered.png",
+  wield_image = "nokore_rail_powered.png",
 })
 
 rails:register_rail_node(mod:make_name("rail_powered_on"), {
   description = mod.S("Powered Rail"),
 
-  groups = rails:build_rail_groups(),
+  groups = rails:build_rail_groups({
+    not_in_creative_inventory = 1,
+  }),
+
+  drop = mod:make_name("rail_powered_off"),
 
   tiles = {
     "nokore_rail_powered.on.png",
@@ -27,4 +34,7 @@ rails:register_rail_node(mod:make_name("rail_powered_on"), {
     "nokore_rail_powered.on.tee.png",
     "nokore_rail_powered.on.cross.png"
   },
+
+  inventory_image = "nokore_rail_powered.on.png",
+  wield_image = "nokore_rail_powered.on.png",
 })
