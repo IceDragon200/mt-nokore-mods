@@ -5,9 +5,23 @@ local mod = foundation.new_module("nokore_player_hud", "0.2.0")
 
 local table_deep_copy = assert(foundation.com.table_deep_copy)
 
--- @namespace nokore_player_hud
+-- @namespace nokore.player_hud
 
--- @callback cb_on_init_player_hud_element(Player, hud_element_name: String, hud_def: Table): Table
+-- @type OnInitPlayerHudElementCallback: function(
+--   Player,
+--   hud_element_name: String,
+--   hud_def: Table
+-- ) => Table
+
+-- @type PlayerHudIds: { [player_name: String]: { [hud_item_name: String]: ID} }
+
+-- @type RegisteredElements: { [name: String]: HudDef }
+
+-- @type OnInitPlayerHudElementCallbacks: {
+--   [hud_element_name: String]: {
+--     [callback_name: OnInitPlayerHudElementCallback]
+--   }
+-- }
 
 nokore.player_hud = {
   DIRECTION_LEFT_RIGHT = 0,
@@ -15,13 +29,13 @@ nokore.player_hud = {
   DIRECTION_TOP_BOTTOM = 2,
   DIRECTION_BOTTOM_TOP = 3,
 
-  -- @type { [player_name: String]: { [hud_item_name: String]: ID} }
+  -- @member player_hud_ids: PlayerHudIds
   m_player_hud_ids = {},
 
-  -- @type { [name: String]: HudDef }
+  -- @member registered_elements: RegisteredElements
   m_registered_elements = {},
 
-  -- @type { [hud_element_name: String]: { [callback_name: Function/3] } }
+  -- @member on_init_player_hud_element_cbs: OnInitPlayerHudElementCallbacks
   m_on_init_player_hud_element_cbs = {},
 }
 
@@ -39,7 +53,7 @@ end
 --         callback_name: String,
 --         hud_element_name: String,
 --         callback: cb_on_init_player_hud_element
---       )
+--       ): void
 function nokore.player_hud:register_on_init_player_hud_element(
           callback_name,
           hud_element_name,

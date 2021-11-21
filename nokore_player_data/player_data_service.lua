@@ -163,7 +163,7 @@ end
 -- Any changes to the kv-store will not be noticed by the service.
 -- If immediate persistence is needed, call #persist_domain/2
 --
--- @spec #get_player_domain_kv(player_name: String, domain_name: String)
+-- @spec #get_player_domain_kv(player_name: String, domain_name: String): nil | KeyValueStore
 function ic:get_player_domain_kv(player_name, domain_name)
   assert(type(player_name) == "string", "expected a player name")
   assert(type(domain_name) == "string", "expected a domain name")

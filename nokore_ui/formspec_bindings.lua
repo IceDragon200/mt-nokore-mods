@@ -35,7 +35,7 @@ end
 -- @spec #show_formspec(player_name: String,
 --                      form_name: String,
 --                      formspec: String,
---                      options: ShowFormspecOptions) :: (form: Table)
+--                      options: ShowFormspecOptions): (form: Table)
 function ic:show_formspec(player_name, form_name, formspec, options)
   assert(type(player_name) == "string", "expected a player name")
   assert(type(form_name) == "string", "expected a form name")

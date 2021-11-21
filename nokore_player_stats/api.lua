@@ -2,8 +2,14 @@
 
 local ic
 
+-- Modtypes:
+--   * "base"
+--   * "add"
+--   * "mul"
+-- @type ModType: String
+
 --
--- @private.class Stat
+-- @class Stat
 local Stat = foundation.com.Class:extends("nokore_player_stats.Stat")
 ic = Stat.instance_class
 
@@ -44,7 +50,8 @@ function ic:apply_modifier(player, modtype, value)
   return value
 end
 
--- @spec #register_modifier(name: String, modtype: "base" | "add" | "mul", Function/2): self
+--
+-- @spec #register_modifier(name: String, ModType, Function/2): self
 function ic:register_modifier(name, modtype, callback)
   assert(type(name) == "string", "expected a name for the modifier callback")
   assert(modtype == "add" or
@@ -92,7 +99,7 @@ function ic:register_stat(name, def)
   return self.registered_stats[name]
 end
 
--- @spec #register_stat_modifier(name: String, "base" | "add" | "mul", Function/2): Stat
+-- @spec #register_stat_modifier(name: String, callback_name: String, ModType, Function/2): Stat
 function ic:register_stat_modifier(name, callback_name, modtype, callback)
   assert(type(name) == "string", "expected a name of the stat to register modifier under")
 
