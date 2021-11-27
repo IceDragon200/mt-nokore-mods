@@ -7,6 +7,7 @@ local Groups = assert(foundation.com.Groups)
 
 nokore = rawget(_G, "nokore") or {}
 
+-- @namespace nokore.rails
 nokore.rails = nokore.rails or {}
 
 local function vox_manip_get_node_name(pos)

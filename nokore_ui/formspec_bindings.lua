@@ -1,3 +1,4 @@
+-- @namespace nokore
 nokore = rawget(_G, "nokore") or {}
 
 -- @class FormspecBindings

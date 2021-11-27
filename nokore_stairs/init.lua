@@ -4,6 +4,8 @@
 -- For lack of a better name, adds APIs for generating stairs, slabs, and plates
 -- Unlike minetest_game's stairs this will not register, but instead returns the
 -- node definition to the caller.
+
+-- @namespace nokore_stairs
 local mod = foundation.new_module("nokore_stairs", "0.2.0")
 local table_merge = assert(foundation.com.table_merge)
 

@@ -1,6 +1,7 @@
 local table_key_of = assert(foundation.com.table_key_of)
 local fspec = assert(foundation.com.formspec.api)
 
+-- @namespace nokore_player_inv
 local mod = nokore_player_inv
 
 -- Default minetest bar size

@@ -1,6 +1,6 @@
-if not rawget(_G, "nokore") then
-  nokore = {}
-end
+nokore = rawget(_G, "nokore") or {}
+
+-- @namespace nokore_stockpile
 
 local function table_merge(...)
   local result = {}
@@ -150,7 +150,7 @@ function nokore_stockpile.stockpile_can_dig(pos)
   return inv:is_empty("main")
 end
 
--- @spec nokore_stockpile.register_stockpile(name: String, def: Table) :: void
+-- @spec register_stockpile(name: String, def: Table): void
 function nokore_stockpile.register_stockpile(name, def)
   minetest.register_node(name, table_merge({
     description = "Stockpile",
