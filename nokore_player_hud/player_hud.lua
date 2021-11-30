@@ -137,7 +137,7 @@ end
 -- @spec #change_player_hud_element(
 --         PlayerRef, hud_element_name: String, prop: String, value: Any
 --       ): Boolean
-function self:change_player_hud_element(player, hud_element_name, prop, value)
+function ic:change_player_hud_element(player, hud_element_name, prop, value)
   local hud_element_id = self.m_player_hud_ids[hud_element_name]
 
   if hud_element_id then
@@ -152,7 +152,7 @@ end
 -- hud element using PlayerRef#hud_change/3
 --
 -- @spec #upsert_player_hud_element(PlayerRef, hud_element_name: String, props?: Table): void
-function self:upsert_player_hud_element(player, hud_element_name, props)
+function ic:upsert_player_hud_element(player, hud_element_name, props)
   local hud_element_id = self.m_player_hud_ids[hud_element_name]
 
   if not hud_element_id then
@@ -172,7 +172,7 @@ end
 -- Returns true if any element was removed, returns false otherwise.
 --
 -- @spec #remove_player_hud_element(PlayerRef, hud_element_name: String): Boolean
-function self:remove_player_hud_element(player, hud_element_name)
+function ic:remove_player_hud_element(player, hud_element_name)
   local hud_element_id = self.m_player_hud_ids[hud_element_name]
 
   if hud_element_id then
