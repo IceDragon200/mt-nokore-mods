@@ -183,7 +183,8 @@ end
 --
 -- @spec #get_player_by_name(String): Player | nil
 function ic:get_player_by_name(player_name)
-  return self.m_players[player_name]
+  --return self.m_players[player_name]
+  return minetest.get_player_by_name(player_name)
 end
 
 nokore_player_service.PlayerService = PlayerService
