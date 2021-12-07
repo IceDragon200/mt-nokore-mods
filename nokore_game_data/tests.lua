@@ -5,7 +5,7 @@ local Luna = assert(foundation.com.Luna)
 local ascii_file_pack = foundation.com.ascii_file_pack
 local ascii_file_unpack = foundation.com.ascii_file_unpack
 
-local ByteBuf = foundation.com.ByteBuf
+local ByteBuf = foundation.com.ByteBuf and foundation.com.ByteBuf.little
 local MarshallValue = foundation.com.binary_types.MarshallValue
 
 local StringBuffer = foundation.com.StringBuffer

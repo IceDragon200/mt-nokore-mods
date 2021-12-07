@@ -206,7 +206,10 @@ else
   minetest.log("warning", "ascii pack functions are not available for key-value store")
 end
 
-local ByteBuf = foundation.com.ByteBuf
+local ByteBuf
+if foundation.com.ByteBuf then
+  ByteBuf = assert(foundation.com.ByteBuf.little)
+end
 local MarshallValue = foundation.com.binary_types.MarshallValue
 
 if ByteBuf and MarshallValue then
@@ -217,28 +220,28 @@ if ByteBuf and MarshallValue then
     local bw, err
 
     -- Write the magic bytes
-    bw, err = ByteBuf.write(stream, "NKKV") -- NoKoreKeyValue
+    bw, err = ByteBuf:write(stream, "NKKV") -- NoKoreKeyValue
     bytes_written = bytes_written + bw
     if err then
       return bytes_written, err
     end
 
     -- Write the format code
-    bw, err = ByteBuf.write(stream, "MRSH") -- MRSH - Marshall, ASCI - ASCII Pack
+    bw, err = ByteBuf:write(stream, "MRSH") -- MRSH - Marshall, ASCI - ASCII Pack
     bytes_written = bytes_written + bw
     if err then
       return bytes_written, err
     end
 
     -- Write the endian code
-    bw, err = ByteBuf.write(stream, "LITE") -- LITE - little endian, BIGE - big endian
+    bw, err = ByteBuf:write(stream, "LITE") -- LITE - little endian, BIGE - big endian
                                          -- always little because ByteBuf is in little by default
     bytes_written = bytes_written + bw
     if err then
       return bytes_written, err
     end
 
-    bw, err = ByteBuf.w_i32(stream, 1) -- Version 1
+    bw, err = ByteBuf:w_i32(stream, 1) -- Version 1
     bytes_written = bytes_written + bw
     if err then
       return bytes_written, err
@@ -250,7 +253,7 @@ if ByteBuf and MarshallValue then
       return bytes_written, err
     end
 
-    bw, err = ByteBuf.write(stream, "NKEE") -- NoKoreEndEnd
+    bw, err = ByteBuf:write(stream, "NKEE") -- NoKoreEndEnd
     bytes_written = bytes_written + bw
     if err then
       return bytes_written, err
@@ -263,27 +266,27 @@ if ByteBuf and MarshallValue then
     local bytes_read = 0
     local br
 
-    local magic, br = ByteBuf.read(stream, 4)
+    local magic, br = ByteBuf:read(stream, 4)
     bytes_read = bytes_read + br
 
     if magic == "NKKV" then
-      local format, br = ByteBuf.read(stream, 4)
+      local format, br = ByteBuf:read(stream, 4)
       bytes_read = bytes_read + br
 
       if format == "MRSH" then
-        local byte_order, br = ByteBuf.read(stream, 4)
+        local byte_order, br = ByteBuf:read(stream, 4)
         bytes_read = bytes_read + br
 
         if byte_order == "LITE" then
           -- little endian encoding
-          local ver, br = ByteBuf.r_i32(stream)
+          local ver, br = ByteBuf:r_i32(stream)
           bytes_read = bytes_read + br
 
           if ver == 1 then
             local data, br = marshall:read(stream)
             bytes_read = bytes_read + br
 
-            local tail, br = ByteBuf.read(stream, 4)
+            local tail, br = ByteBuf:read(stream, 4)
             bytes_read = bytes_read + br
 
             assert(tail == "NKEE", "expected NKKV stream to end with NKEE")
