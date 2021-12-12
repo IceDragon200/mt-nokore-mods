@@ -3,7 +3,7 @@ local ic = BlockDataService.instance_class
 
 local KVStore = nokore.KVStore
 
-local Trace = assert(foundation.com.Trace)
+local Trace = foundation.com.Trace
 
 local hash_node_position = minetest.hash_node_position
 
@@ -33,15 +33,25 @@ function ic:initialize()
 end
 
 function ic:terminate()
-  local trace = Trace:new('nokore_block_data/terminate')
+  local trace
   local span
-  for block_id, block in pairs(self.blocks) do
-    span = trace:span_start('blocks/'..block_id)
-    self:persist_block(block, span)
-    span:span_end()
+  if Trace then
+    trace = Trace:new('nokore_block_data/terminate')
   end
-  trace:span_end()
-  trace:inspect()
+
+  for block_id, block in pairs(self.blocks) do
+    if trace then
+      span = trace:span_start('blocks/'..block_id)
+    end
+    self:persist_block(block, span)
+    if span then
+      span:span_end()
+    end
+  end
+  if trace then
+    trace:span_end()
+    trace:inspect()
+  end
   self.blocks = {}
 end
 

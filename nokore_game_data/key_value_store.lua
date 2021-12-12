@@ -210,7 +210,11 @@ local ByteBuf
 if foundation.com.ByteBuf then
   ByteBuf = assert(foundation.com.ByteBuf.little)
 end
-local MarshallValue = foundation.com.binary_types.MarshallValue
+local MarshallValue
+
+if foundation.com.binary_types then
+  MarshallValue = foundation.com.binary_types.MarshallValue
+end
 
 if ByteBuf and MarshallValue then
   local marshall = MarshallValue:new()
