@@ -143,10 +143,12 @@ if ascii_file_pack and ascii_file_unpack then
             local tail, br = stream:read(4)
             bytes_read = bytes_read + br
 
-            assert(tail == "NKEE", "expected NKKV stream to end with NKEE")
-
-            self.data = data
-            return self, bytes_read
+            if tail == "NKEE" then
+              self.data = data
+              return self, bytes_read
+            else
+              error("expected NKKV stream to end with NKEE")
+            end
           else
             error("Unsupported version (expected:1, got:".. ver .. ")")
           end
