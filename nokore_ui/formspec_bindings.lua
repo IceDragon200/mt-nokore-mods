@@ -25,7 +25,8 @@ end
 --     player: PlayerRef,
 --     form_name: String,
 --     fields: Table,
---     state: Table) => (stop_bubbling: Boolean, new_formspec: String | nil),
+--     state: Table
+--   ) => (stop_bubbling: Boolean, new_formspec: String | nil),
 --   on_quit = function (player: PlayerRef, form_name: String, fields: Table, state: Table) => void
 -- }
 --
