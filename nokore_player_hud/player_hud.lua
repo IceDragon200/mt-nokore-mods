@@ -134,6 +134,17 @@ function ic:init_player_hud_elements(player)
   end
 end
 
+-- Removes the hud elements for the specified user
+--
+-- @spec #remove_player_hud_elements(PlayerRef): void
+function ic:remove_player_hud_elements(player)
+  local player_name = player:get_player_name()
+
+  if self.m_player_hud_ids[player_name] then
+    self.m_player_hud_ids[player_name] = nil
+  end
+end
+
 -- @spec #change_player_hud_element(
 --         PlayerRef, hud_element_name: String, prop: String, value: Any
 --       ): Boolean

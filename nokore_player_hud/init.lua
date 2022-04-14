@@ -11,7 +11,7 @@ nokore = rawget(_G, "nokore") or {}
 nokore.player_hud = mod.PlayerHud:new()
 
 nokore.player_service:register_on_player_leave("nokore_player_hud:player_left", function (player)
-  nokore.player_hud.hud_ids[player:get_player_name()] = nil
+  nokore.player_hud:remove_player_hud_elements(player)
 end)
 
 nokore.player_service:register_on_player_join("nokore_player_hud:player_joined", function (player)
