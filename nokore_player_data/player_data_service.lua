@@ -138,6 +138,7 @@ end
 
 -- @spec #on_player_leave(Player): void
 function ic:on_player_leave(player)
+  local player_name = player:get_player_name()
   local domains = self.m_player_domains[player_name]
   local domain_def
   self.m_player_domains[player_name] = nil
