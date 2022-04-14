@@ -53,6 +53,7 @@ function mod.update(dt)
 end
 
 minetest.register_globalstep(mod.update)
+
 minetest.register_chatcommand("print_proxy_trace", {
   description = mod.S("Prints the details of the last proxy update trace to console"),
 
