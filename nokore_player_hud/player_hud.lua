@@ -149,7 +149,9 @@ end
 --         PlayerRef, hud_element_name: String, prop: String, value: Any
 --       ): Boolean
 function ic:change_player_hud_element(player, hud_element_name, prop, value)
-  local hud_element_id = self.m_player_hud_ids[hud_element_name]
+  local player_hud_ids = self.m_player_hud_ids[player:get_player_name()]
+
+  local hud_element_id = player_hud_ids[hud_element_name]
 
   if hud_element_id then
     player:hud_change(hud_element_id, prop, value)
