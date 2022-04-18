@@ -85,9 +85,9 @@ function ic:register_on_player_leave(name, callback)
   return self
 end
 
--- Register a update callback, this function should take the player, delta_time and assigns
+-- Register a update callback, this function should take a list of players, delta_time and assigns
 --
--- @spec register_update(String, Function/3): self
+-- @spec #register_update(name: String, Function/3): self
 function ic:register_update(name, callback)
   assert(type(name) == "string", "expected a registration name")
   assert(type(callback) == "function", "expected a callback")

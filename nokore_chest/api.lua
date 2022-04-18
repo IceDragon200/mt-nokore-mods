@@ -86,10 +86,12 @@ function nokore_chest.chest_on_rightclick(pos, _node, player, item_stack, _point
                     },
                     on_quit = nokore_chest.on_formspec_quit,
                   }
-  nokore.formspec_bindings:show_formspec(player:get_player_name(),
-                                          "nokore_chest:chest",
-                                          nokore_chest.get_formspec(pos, player),
-                                          options)
+  nokore.formspec_bindings:show_formspec(
+    player:get_player_name(),
+    "nokore_chest:chest",
+    nokore_chest.get_formspec(pos, player),
+    options
+  )
 
   nokore_chest.maybe_open_chest(pos, player)
 end
