@@ -50,6 +50,8 @@ function ic:show_formspec(player_name, form_name, formspec, options)
   return form
 end
 
+--
+-- @spec #refresh_formspecs(expected_form_name: String, callback: Function/2)
 function ic:refresh_formspecs(expected_form_name, callback)
   for player_name, forms in pairs(self.player_to_forms) do
     for form_name, form in pairs(forms) do
