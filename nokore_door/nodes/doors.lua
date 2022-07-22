@@ -14,23 +14,40 @@ local wood = {
 
 for wood_name, description in pairs(wood) do
   mod:register_door("nokore_door:door_wood_" .. wood_name, {
-    base_description = "Wood Door",
+    node = {
+      base_description = "Wood Door",
 
-    description = mod.S(description .. " Door"),
+      description = mod.S(description .. " Door"),
 
-    groups = {
-      cracky = 1,
-      chest = 1,
-      wood_door = 1,
+      groups = {
+        choppy = 1,
+        wood_door = 1,
+      },
     },
+    bottom = {
+      tiles = {
+        "nokore_door_" .. wood_name .. "_top.png",
+        "nokore_door_" .. wood_name .. "_top.png",
+        "nokore_door_" .. wood_name .. "_side.png^[transformFX",
+        "nokore_door_" .. wood_name .. "_side.png",
+        "nokore_door_" .. wood_name .. "_bottom_front.png^[transformFX",
+        "nokore_door_" .. wood_name .. "_bottom_front.png",
+      },
+    },
+    top = {
+      tiles = {
+        "nokore_door_" .. wood_name .. "_top.png",
+        "nokore_door_" .. wood_name .. "_top.png",
+        "nokore_door_" .. wood_name .. "_side.png^[transformFX",
+        "nokore_door_" .. wood_name .. "_side.png",
+        "nokore_door_" .. wood_name .. "_top_front.png^[transformFX",
+        "nokore_door_" .. wood_name .. "_top_front.png",
+      },
+    },
+    item = {
+      inventory_image = "nokore_door_" .. wood_name .. ".png",
 
-    tiles = {
-      "door_wood_" .. wood_name .. "_top.png",
-      "door_wood_" .. wood_name .. "_top.png",
-      "door_wood_" .. wood_name .. "_side.png",
-      "door_wood_" .. wood_name .. "_side.png",
-      "door_wood_" .. wood_name .. "_front.png",
-      "door_wood_" .. wood_name .. "_inside.png",
+      description = mod.S(description .. " Door"),
     },
   })
 end
