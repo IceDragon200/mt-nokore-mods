@@ -51,15 +51,26 @@ function ic:show_formspec(player_name, form_name, formspec, options)
 end
 
 --
--- @spec #refresh_formspecs(expected_form_name: String, callback: Function/2)
-function ic:refresh_formspecs(expected_form_name, callback)
+-- @spec #find_forms(expected_form_name: String, callback: Function/2): void
+function ic:find_forms(expected_form_name, callback)
   for player_name, forms in pairs(self.player_to_forms) do
     for form_name, form in pairs(forms) do
       if form_name == expected_form_name then
-        callback(player_name, form.state)
+        callback(player_name, form)
       end
     end
   end
+end
+
+--
+-- @spec #refresh_formspecs(expected_form_name: String, callback: Function/2): void
+function ic:refresh_formspecs(expected_form_name, callback)
+  self:find_forms(expected_form_name, function (player_name, form)
+    local new_formspec = callback(player_name, form.state)
+    if new_formspec then
+      minetest.show_formspec(player_name, expected_form_name, new_formspec)
+    end
+  end)
 end
 
 --
@@ -80,6 +91,7 @@ function ic:bind_player_form(player_name, form_name, options)
   end
 
   local form = {
+    form_name = form_name,
     state = options.state or {},
     on_receive_fields = assert(options.on_receive_fields or
                                default_on_receive_fields, "expected on_receive_fields"),
