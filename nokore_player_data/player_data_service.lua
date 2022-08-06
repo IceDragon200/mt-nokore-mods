@@ -4,6 +4,7 @@
 -- @namespace nokore
 local KVStore = assert(nokore.KVStore)
 local path_join = assert(foundation.com.path_join)
+local path_dirname = assert(foundation.com.path_dirname)
 
 -- @class PlayerDataService
 local PlayerDataService = foundation.com.Class:extends("nokore.PlayerDataService")
@@ -116,12 +117,23 @@ end
 function ic:persist_domain(domain_name, domain)
   local domain_def = self.m_registered_domains[domain_name]
 
-  if domain_def.save_method == "apack" then
-    domain.kv:apack_dump_file(domain.filename)
-  elseif domain_def.save_method == "marshall" then
-    domain.kv:marshall_dump_file(domain.filename)
-  --elseif domain_def.save_method == "json" then
-  --  domain.kv:json_dump_file(domain.filename)
+  local dirname = path_dirname(domain.filename)
+
+  local result, err = minetest.mkdir(dirname)
+  if result then
+    if domain_def.save_method == "apack" then
+      domain.kv:apack_dump_file(domain.filename)
+    elseif domain_def.save_method == "marshall" then
+      domain.kv:marshall_dump_file(domain.filename)
+    --elseif domain_def.save_method == "json" then
+    --  domain.kv:json_dump_file(domain.filename)
+    end
+  else
+    local msg = "could not create directory dirname=" .. dirname
+    if err then
+      msg = msg .. " reason=" .. err
+    end
+    minetest.log("error", msg)
   end
 end
 
