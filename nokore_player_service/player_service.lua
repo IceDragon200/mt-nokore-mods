@@ -165,7 +165,7 @@ function ic:update(dt, trace)
     if trace then
       span = trace:span_start(callback_name)
     end
-    callback(self.m_players, dt, self.m_player_assigns)
+    callback(self.m_players, dt, self.m_player_assigns, span)
     if span then
       span:span_end()
     end
