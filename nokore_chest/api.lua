@@ -80,12 +80,12 @@ function nokore_chest.chest_on_rightclick(pos, _node, player, item_stack, _point
   --
   local chest_id = minetest.pos_to_string(pos)
   local options = {
-                    state = {
-                      pos = pos,
-                      chest_id = chest_id,
-                    },
-                    on_quit = nokore_chest.on_formspec_quit,
-                  }
+    state = {
+      pos = pos,
+      chest_id = chest_id,
+    },
+    on_quit = nokore_chest.on_formspec_quit,
+  }
   nokore.formspec_bindings:show_formspec(
     player:get_player_name(),
     "nokore_chest:chest",
