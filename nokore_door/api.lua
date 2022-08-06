@@ -326,7 +326,7 @@ local function register_door_segment_top(basename, base)
       door_top = 1,
     },
     door = {
-      name = name,
+      name = basename,
       segment = "top",
     },
   }, base))
@@ -338,7 +338,7 @@ local function register_door_segment_bottom(basename, base)
       door_bottom = 1,
     },
     door = {
-      name = name,
+      name = basename,
       segment = "bottom",
     },
   }, base))
