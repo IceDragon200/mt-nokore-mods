@@ -23,8 +23,8 @@ mod:register_node("fresh_water_source", {
   liquid_alternative_flowing = "nokore_world_water:fresh_water_flowing",
   liquid_alternative_source = "nokore_world_water:fresh_water_source",
   liquid_viscosity = 1,
-  liquid_renewable = false,
-  liquid_range = 2,
+  --liquid_renewable = false,
+  --liquid_range = 2,
 
   tiles = {
     {
@@ -105,8 +105,8 @@ mod:register_node("fresh_water_flowing", {
   liquid_alternative_flowing = "nokore_world_water:fresh_water_flowing",
   liquid_alternative_source = "nokore_world_water:fresh_water_source",
   liquid_viscosity = 1,
-  liquid_renewable = false,
-  liquid_range = 2,
+  --liquid_renewable = false,
+  --liquid_range = 2,
   post_effect_color = {a = 103, r = 30, g = 76, b = 90},
 
   --sounds = default.node_sound_water_defaults(),
