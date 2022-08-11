@@ -164,7 +164,7 @@ nokore_player_inv.register_player_inventory_tab("creative", {
       return fspec.size(w, 0.25 + (inv_row_count + 1 + dims.y) * 1.25) ..
              fspec.list("detached:"..inventory_name, "main", 0.25, 0.25, dims.x, inv_row_count, inventory_offset) ..
              nokore_player_inv.player_inventory_lists_fragment(player, 0.25, y + 1.25) ..
-             "listring[]" ..
+             fspec.list_ring() ..
              "list[detached:nokore_creative_trash;main;0.25,"..y..";1,1;]" ..
              "field[1.5,"..y..";"..(w-5.5)..",1;search_query;;"..minetest.formspec_escape(tab_state.search_query).."]" ..
              "field_close_on_enter[search_query;false]" ..
