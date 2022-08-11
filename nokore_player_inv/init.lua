@@ -6,7 +6,7 @@
 -- mods for messing with the player inventory (and creative inventory)
 --
 -- You may recognize this is similar to sfinv, and you'd be kind of right.
-local mod = foundation.new_module("nokore_player_inv", "0.2.0")
+local mod = foundation.new_module("nokore_player_inv", "0.3.0")
 
 local fspec = assert(foundation.com.formspec.api)
 
@@ -76,8 +76,8 @@ nokore_player_inv.register_player_inventory_tab("default", {
     return fspec.size(w, h) ..
            mod.player_inventory_lists_fragment(player, 0.25, 0.25 + cio(4)) ..
            fspec.list("current_player", "craft", 3, 0.25, 3, 3) ..
-           "listring[]" ..
+           fspec.list_ring() ..
            fspec.list("current_player", "craftpreview", 7, 1.25, 1, 1) ..
-           "listring[current_player;main]"
+           fspec.list_ring("current_player", "main")
   end,
 })
