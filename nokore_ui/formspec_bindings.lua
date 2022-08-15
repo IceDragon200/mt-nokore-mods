@@ -14,13 +14,27 @@ function ic:initialize(name)
   self.name = name
 
   self.player_to_forms = {}
+
+  self.player_formspec_timers = {}
 end
 
 --
 -- state MUST be a table where all the stateful data lives
 --
+-- @type TimerActionCommand: { type: String, value: Any }
+--
 -- @type ShowFormspecOptions :: {
 --   state = Table,
+--   timers = {
+--     [name: String] = {
+--       every = Number,
+--       action = function (
+--         player_name: String,
+--         form_name: String,
+--         state: Table
+--       ) => TimerActionCommand[]
+--     },
+--   },
 --   on_receive_fields = function (
 --     player: PlayerRef,
 --     form_name: String,
@@ -104,11 +118,33 @@ function ic:bind_player_form(player_name, form_name, options)
 
   self.player_to_forms[player_name][form_name] = form
 
+  if options.timers then
+    if not self.player_formspec_timers[player_name] then
+      self.player_formspec_timers[player_name] = {}
+    end
+
+    if not self.player_formspec_timers[player_name][form_name] then
+      self.player_formspec_timers[player_name][form_name] = {}
+    end
+
+    local form_timers = self.player_formspec_timers[player_name][form_name]
+
+    for timer_name, timer_def in pairs(options.timers) do
+      assert(type(timer_def.every) == "number", "expected `every` field")
+      assert(type(timer_def.action) == "function", "expected `action` field")
+
+      form_timers[timer_name] = {
+        definition = timer_def,
+        elapsed = 0,
+      }
+    end
+  end
+
   return form
 end
 
 --
--- Bind specified form for player
+-- Unbind specified form for player
 --
 -- @spec #unbind_player_form(player_name: String,
 --                           form_name: String) :: self
@@ -125,6 +161,19 @@ function ic:unbind_player_form(player_name, form_name)
       self.player_to_forms[player_name] = nil
     end
   end
+
+  local forms = self.player_formspec_timers[player_name]
+  if forms then
+    -- the player has forms
+    if forms[form_name] then
+      forms[form_name] = nil
+    end
+
+    if not next(forms) then
+      self.player_formspec_timers[player_name] = nil
+    end
+  end
+
   return self
 end
 
@@ -162,6 +211,40 @@ function ic:on_player_receive_fields(player, form_name, fields)
       minetest.show_formspec(player_name, form_name, new_formspec)
     end
     return stop_bubbling
+  end
+end
+
+-- @spec #update(dtime: Float): void
+function ic:update(dtime)
+  local def
+  local form
+  local commands
+
+  for player_name, forms in pairs(self.player_formspec_timers) do
+    for form_name, timers in pairs(forms) do
+      for timer_name, timer_item in pairs(timers) do
+        timer_item.elapsed = timer_item.elapsed + dtime
+
+        def = timer_item.definition
+        if timer_item.elapsed > def.every then
+          form = self.player_to_forms[player_name][form_name]
+          commands = def.action(player_name, form_name, form.state)
+          timer_item.elapsed = timer_item.elapsed - def.every
+
+          if commands then
+            for _,command in ipairs(commands) do
+              if command.type == "refresh_formspec" then
+                minetest.show_formspec(player_name, form_name, command.value)
+              else
+                error("unexpected command.type=" .. command.type ..
+                      " player=" .. player_name ..
+                      " formspec.name=" .. form_name)
+              end
+            end
+          end
+        end
+      end
+    end
   end
 end
 
