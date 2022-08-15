@@ -157,8 +157,6 @@ function mod.refresh_player_inventory_formspec(player)
   mod.refresh_player_tabs(player)
   local formspec = mod.make_player_inventory_formspec(player)
   player:set_inventory_formspec(formspec)
-
-  print("refresh_player_inventory_formspec", player:get_player_name(), formspec)
 end
 
 function mod.activate_tab(player, tab_name)
