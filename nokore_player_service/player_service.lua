@@ -1,4 +1,6 @@
 -- @namespace nokore
+local get_connected_players = assert(minetest.get_connected_players)
+local get_player_by_name = assert(minetest.get_player_by_name)
 
 -- @class PlayerService
 local PlayerService = foundation.com.Class:extends("nokore_player_service.PlayerService")
@@ -134,7 +136,7 @@ function ic:update_players_list(dt, trace)
   -- update the players every step
   --self.m_players = {}
   local player_name
-  for _i, player in pairs(minetest.get_connected_players()) do
+  for _i, player in pairs(get_connected_players()) do
     player_name = player:get_player_name()
     self.m_players[player_name] = player
     if not self.m_player_assigns[player_name] then
@@ -184,7 +186,7 @@ end
 -- @spec #get_player_by_name(String): Player | nil
 function ic:get_player_by_name(player_name)
   --return self.m_players[player_name]
-  return minetest.get_player_by_name(player_name)
+  return get_player_by_name(player_name)
 end
 
 nokore_player_service.PlayerService = PlayerService
