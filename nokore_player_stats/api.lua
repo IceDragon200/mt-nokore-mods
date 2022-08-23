@@ -173,10 +173,12 @@ function ic:clear_player_stats(player_name)
   self.m_player_stat_cache[player_name] = {}
 end
 
+-- @spec #on_player_join(player: PlayerRef): void
 function ic:on_player_join(player)
   self.m_player_stat_cache[player:get_player_name()] = {}
 end
 
+-- @spec #after_player_join(player: PlayerRef): void
 function ic:after_player_join(player)
   for stat_name, _ in pairs(self.registered_stats) do
     self:get_player_stat(player, stat_name, true)

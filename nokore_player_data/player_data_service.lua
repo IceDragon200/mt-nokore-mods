@@ -24,18 +24,20 @@ end
 function ic:initialize()
   self.m_registered_domains = {}
 
-  -- @type m_player_domains: {
+  -- @member m_player_domains: {
   --   [player_name: String]: {
   --     [domain: String]: nokore.KVStore
   --   }
   -- }
   self.m_player_domains = {}
 
-  -- @type self.m_dirname: String
+  -- @member self.m_dirname: String
   self.m_dirname = path_join(path_join(minetest.get_worldpath(), "nokore"), "players")
 
+  -- @member m_elapsed: Number
   self.m_elapsed = 0
 
+  -- @member m_elapsed_since_save: Number
   self.m_elapsed_since_save = 0
 end
 
