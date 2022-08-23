@@ -111,9 +111,9 @@ for _, def in ipairs(METHODS) do
 
         if def.uses_stream then
           stream:open('r')
-          new_kv[def.load](new_kv, stream)
+          t3:assert(new_kv[def.load](new_kv, stream))
         else
-          new_kv[def.load](new_kv, blob)
+          t3:assert(new_kv[def.load](new_kv, blob))
         end
 
         t3:assert_eq(new_kv:get("boolean_true"), true)

@@ -6,6 +6,11 @@ local KVStore = assert(nokore.KVStore)
 local path_join = assert(foundation.com.path_join)
 local path_dirname = assert(foundation.com.path_dirname)
 
+-- @type DomainDefinition: {
+--   save_method: String = "apack|json|marshall|serialize",
+--   filename?: String,
+-- }
+
 -- @class PlayerDataService
 local PlayerDataService = foundation.com.Class:extends("nokore.PlayerDataService")
 local ic = PlayerDataService.instance_class
@@ -63,7 +68,7 @@ function ic:update(dt)
   end
 end
 
--- @spec #register_domain(domain_name: String, def: Table): void
+-- @spec #register_domain(domain_name: String, def: DomainDefinition): void
 function ic:register_domain(domain_name, def)
   assert(type(domain_name) == "string", "expected a domain name")
   assert(type(def) == "table", "expected a domain definition table")
@@ -71,9 +76,15 @@ function ic:register_domain(domain_name, def)
   assert(def.save_method, "require a save method for key-value store")
 
   if def.save_method ~= "apack" and
-     def.save_method ~= "marshall" then
+     def.save_method ~= "marshall" and
+     def.save_method ~= "json" and
+     def.save_method ~= "serialize" then
     error("expected domain save_method to be either apack or marshall")
   end
+
+  def.filename = def.filename or fs_safe_name(domain_name)
+
+  assert(type(def.filename) == "string", "expected some kind of string")
 
   print("nokore_player_data", "register_domain", domain_name)
   self.m_registered_domains[domain_name] = def
@@ -91,6 +102,9 @@ function ic:on_player_join(player)
     filename = path_join(path_join(self.m_dirname, fs_safe_name(player_name)), domain_name)
 
     domain = {
+      -- domain name
+      name = domain_name,
+      -- filename
       filename = filename,
       -- persistent data
       kv = KVStore:new(),
@@ -102,8 +116,10 @@ function ic:on_player_join(player)
       domain.kv:apack_load_file(domain.filename)
     elseif domain_def.save_method == "marshall" then
       domain.kv:marshall_load_file(domain.filename)
-    --elseif domain_def.save_method == "json" then
-    --  domain.kv:json_load_file(domain.filename)
+    elseif domain_def.save_method == "json" then
+      domain.kv:json_load_file(domain.filename)
+    elseif domain_def.save_method == "serialize" then
+      domain.kv:deserialize_load_file(domain.filename)
     end
 
     print("nokore_player_data", "on_player_join", player_name, "init.domain", domain_name)
@@ -125,19 +141,38 @@ function ic:persist_domain(domain_name, domain)
       domain.kv:apack_dump_file(domain.filename)
     elseif domain_def.save_method == "marshall" then
       domain.kv:marshall_dump_file(domain.filename)
-    --elseif domain_def.save_method == "json" then
-    --  domain.kv:json_dump_file(domain.filename)
+    elseif domain_def.save_method == "json" then
+      domain.kv:json_dump_file(domain.filename)
+    elseif domain_def.save_method == "serialize" then
+      domain.kv:serialize_dump_file(domain.filename)
     end
+    return true
   else
     local msg = "could not create directory dirname=" .. dirname
     if err then
       msg = msg .. " reason=" .. err
     end
     minetest.log("error", msg)
+    return false
   end
 end
 
--- @spec #persist_player_domains(player_name: String): void
+-- @spec #persist_player_domain(player_name: String, domain_name: String): Boolean
+function ic:persist_player_domain(player_name, domain_name)
+  local domains = self.m_player_domains[player_name]
+
+  if domains then
+    local domain = domains[domain_name]
+    if domain then
+      self:persist_domain(domain_name, domain)
+      return true
+    end
+  end
+
+  return false
+end
+
+-- @spec #persist_player_domains(player_name: String): Boolean
 function ic:persist_player_domains(player_name)
   local domains = self.m_player_domains[player_name]
 
@@ -145,14 +180,17 @@ function ic:persist_player_domains(player_name)
     for domain_name, domain in pairs(domains) do
       self:persist_domain(domain_name, domain)
     end
+    return true
   end
+
+  return false
 end
 
 -- @spec #on_player_leave(Player): void
 function ic:on_player_leave(player)
   local player_name = player:get_player_name()
   local domains = self.m_player_domains[player_name]
-  local domain_def
+
   self.m_player_domains[player_name] = nil
   if domains then
     for domain_name, domain in pairs(domains) do
@@ -220,7 +258,7 @@ function ic:with_player_domain_kv(player_name, domain_name, callback)
       end
 
       if save_after then
-        persist_domain(domain_name, domain)
+        self:persist_domain(domain_name, domain)
       end
 
       return true

@@ -114,13 +114,20 @@ if ascii_file_pack and ascii_file_unpack then
 
   function ic:apack_dump_file(filename, trace)
     --print("apack_dump_file", filename)
+    local success
+    local err
+
     local span
     if trace then
       span = trace:span_start("mkdir")
     end
-    minetest.mkdir(path_dirname(filename))
+    success = minetest.mkdir(path_dirname(filename))
     if span then
       span:span_end()
+    end
+
+    if not success then
+      return success, err
     end
 
     local buffer = Buffer:new('', 'w')
@@ -137,10 +144,12 @@ if ascii_file_pack and ascii_file_unpack then
     if trace then
       span = trace:span_start("safe_file_write")
     end
-    minetest.safe_file_write(filename, buffer:blob())
+    success, err = minetest.safe_file_write(filename, buffer:blob())
     if span then
       span:span_end()
     end
+
+    return success, err
   end
 
   function ic:apack_load_file(filename)
