@@ -11,7 +11,7 @@ nokore.player_data_service:register_domain("my_domain_name", {
   -- Choose a persistence method:
   -- * `apack` using foundation_ascii_pack
   -- * `marshall` using foundation_binary's MarshallValue
-  -- * `json` using minetest's built-in json functions
+  -- * `json` using minetest's built-in json functions (disabled, due to empty table bug)
   -- * `serialize` using minetest's serialize|deserialize functions
   -- Note that save_method will not add an extension name
   save_method = "apack",

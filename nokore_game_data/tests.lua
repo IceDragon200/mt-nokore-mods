@@ -29,14 +29,14 @@ local METHODS = {
     load_file = "marshall_load_file",
     dump_file = "marshall_dump_file",
   },
-  {
-    enabled = minetest.write_json and minetest.parse_json,
-    uses_stream = false,
-    load = "json_load",
-    dump = "json_dump",
-    load_file = "json_load_file",
-    dump_file = "json_dump_file",
-  },
+  -- {
+  --   enabled = minetest.write_json and minetest.parse_json,
+  --   uses_stream = false,
+  --   load = "json_load",
+  --   dump = "json_dump",
+  --   load_file = "json_load_file",
+  --   dump_file = "json_dump_file",
+  -- },
   {
     enabled = minetest.serialize and minetest.deserialize,
     uses_stream = false,
