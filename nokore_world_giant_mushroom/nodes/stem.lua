@@ -4,7 +4,7 @@ mod:register_node("stem", {
   description = mod.S("Mushroom Stem"),
 
   groups = {
-    crumbly = 1,
+    crumbly = nokore.dig_class("stone"),
   },
 
   tiles = {

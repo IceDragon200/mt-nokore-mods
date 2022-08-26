@@ -4,8 +4,8 @@ mod:register_node("big_oak_planks", {
   description = mod.S("Big Oak Planks"),
 
   groups = {
-    choppy = 2,
-    oddly_breakable_by_hand = 2,
+    choppy = nokore.dig_class("wme"),
+    --
     flammable = 2,
     plank = 1
   },

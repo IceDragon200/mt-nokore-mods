@@ -4,7 +4,7 @@ mod:register_node("reed", {
   description = mod.S("Papyrus"),
 
   groups = {
-    snappy = 3,
+    snappy = nokore.dig_class("wme"),
     flammable = 2,
   },
 

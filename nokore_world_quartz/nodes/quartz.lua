@@ -4,7 +4,7 @@ mod:register_node("quartz_block", {
   description = mod.S("Quartz Block"),
 
   groups = {
-    cracky = 1,
+    cracky = nokore.dig_class("stone"),
   },
 
   tiles = {
@@ -16,7 +16,7 @@ mod:register_node("quartz_chiseled_block", {
   description = mod.S("Quartz Chiseled Block"),
 
   groups = {
-    cracky = 1,
+    cracky = nokore.dig_class("stone"),
   },
 
   tiles = {
@@ -30,7 +30,7 @@ mod:register_node("quartz_brick", {
   description = mod.S("Quartz Brick"),
 
   groups = {
-    cracky = 1,
+    cracky = nokore.dig_class("stone"),
   },
 
   tiles = {
@@ -42,7 +42,7 @@ mod:register_node("quartz_pillar", {
   description = mod.S("Quartz Pillar"),
 
   groups = {
-    cracky = 1,
+    cracky = nokore.dig_class("stone"),
   },
 
   tiles = {
@@ -58,7 +58,7 @@ mod:register_node("quartz_slab", {
   description = mod.S("Quartz Slab"),
 
   groups = {
-    cracky = 1,
+    cracky = nokore.dig_class("stone"),
   },
 
   tiles = {
@@ -78,7 +78,7 @@ mod:register_node("quartz_tile", {
   description = mod.S("Quartz Tile"),
 
   groups = {
-    cracky = 1,
+    cracky = nokore.dig_class("stone"),
   },
 
   tiles = {

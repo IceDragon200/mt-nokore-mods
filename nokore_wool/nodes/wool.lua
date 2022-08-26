@@ -16,9 +16,10 @@ for _, row in ipairs(colors) do
     description = mod.S(description .. " Wool"),
 
     groups = {
-      snappy = 2,
-      choppy = 2,
-      oddly_breakable_by_hand = 3,
+      snappy = nokore.dig_class("wme"),
+      choppy = nokore.dig_class("wme"),
+      oddly_breakable_by_hand = nokore.dig_class("hand"),
+      --
       wool = 1,
       wool_block = 1,
       ["wool_block_" .. color] = 1,

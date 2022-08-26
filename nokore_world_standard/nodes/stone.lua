@@ -3,7 +3,10 @@ local mod = nokore_world_standard
 mod:register_node("stone", {
   description = mod.S("Stone"),
 
-  groups = {cracky = 3, stone = 1},
+  groups = {
+    cracky = nokore.dig_class("wood"),
+    stone = 1
+  },
 
   tiles = {
     "world_stone.png"
@@ -17,7 +20,10 @@ mod:register_node("stone", {
 mod:register_node("stone_brick", {
   description = mod.S("Stone Brick"),
 
-  groups = {cracky = 3, stone = 1},
+  groups = {
+    cracky = nokore.dig_class("wood"),
+    stone = 1
+  },
 
   tiles = {
     "world_stone_brick.png"
@@ -31,7 +37,10 @@ mod:register_node("stone_brick", {
 mod:register_node("desert_stone", {
   description = mod.S("Desert Stone"),
 
-  groups = {cracky = 3, stone = 1},
+  groups = {
+    cracky = nokore.dig_class("wood"),
+    stone = 1
+  },
 
   tiles = {
     "world_desert_stone.png"
@@ -43,7 +52,10 @@ mod:register_node("desert_stone", {
 mod:register_node("desert_stone_brick", {
   description = mod.S("Desert Stone Brick"),
 
-  groups = {cracky = 3, stone = 1},
+  groups = {
+    cracky = nokore.dig_class("wood"),
+    stone = 1
+  },
 
   tiles = {
     "world_desert_stone_brick.png"
@@ -56,7 +68,10 @@ if foundation.is_module_present("nokore_stairs") then
   nokore_stairs.build_and_register_nodes("nokore_world_standard:stone_brick", {
     -- base
     _ = {
-      groups = {cracky = 3, stone = 1},
+      groups = {
+        cracky = nokore.dig_class("wood"),
+        stone = 1
+      },
       tiles = "world_stone_brick.png",
       sounds = nokore.node_sounds:build("stone"),
     },
@@ -83,7 +98,10 @@ if foundation.is_module_present("nokore_stairs") then
   nokore_stairs.build_and_register_nodes("nokore_world_standard:desert_stone_brick", {
     -- base
     _ = {
-      groups = {cracky = 3, stone = 1},
+      groups = {
+        cracky = nokore.dig_class("wood"),
+        stone = 1
+      },
       tiles = "world_desert_stone_brick.png",
       sounds = nokore.node_sounds:build("stone"),
     },

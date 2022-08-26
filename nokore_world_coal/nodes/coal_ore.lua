@@ -4,7 +4,7 @@ mod:register_node("stone_with_coal", {
   description = mod.S("Coal Ore"),
 
   groups = {
-    cracky = 2,
+    cracky = nokore.dig_class("stone"),
   },
 
   drop = "nokore_world_coal:coal_lump",
@@ -18,7 +18,7 @@ mod:register_node("coal_block", {
   description = mod.S("Coal Block"),
 
   groups = {
-    cracky = 2,
+    cracky = nokore.dig_class("stone"),
   },
 
   tiles = {

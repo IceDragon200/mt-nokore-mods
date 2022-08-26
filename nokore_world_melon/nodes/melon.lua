@@ -4,8 +4,9 @@ mod:register_node("melon", {
   description = mod.S("Melon"),
 
   groups = {
-    cracky = 2,
-    oddly_breakable_by_hand = 1,
+    choppy = nokore.dig_class("wme"),
+    hacky = nokore.dig_class("wme"),
+    oddly_breakable_by_hand = nokore.dig_class("hand"),
   },
 
   tiles = {

@@ -4,7 +4,8 @@ mod:register_node("bamboo_leaves", {
   description = mod.S("Bamboo Leaves"),
 
   groups = {
-    snappy = 3,
+    snippy = nokore.dig_class("wme"),
+    --
     leafdecay = 3,
     flammable = 2,
     leaves = 1,

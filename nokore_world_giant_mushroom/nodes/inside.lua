@@ -7,7 +7,7 @@ mod:register_node("inside", {
   description = mod.S("Mushroom Inside"),
 
   groups = {
-    crumbly = 1,
+    crumbly = nokore.dig_class("stone"),
   },
 
   tiles = {

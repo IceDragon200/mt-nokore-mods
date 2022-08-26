@@ -7,7 +7,7 @@ mod:register_node("blue_cap", {
   description = mod.S("Mushroom Blue Cap"),
 
   groups = {
-    crumbly = 1,
+    crumbly = nokore.dig_class("stone"),
   },
 
   tiles = {

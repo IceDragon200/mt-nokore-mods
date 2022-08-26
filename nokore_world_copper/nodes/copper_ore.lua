@@ -4,7 +4,7 @@ mod:register_node("stone_with_copper", {
   description = mod.S("Copper Ore"),
 
   groups = {
-    cracky = 2,
+    cracky = nokore.dig_class("stone"),
   },
 
   drop = "nokore_world_copper:copper_lump",
@@ -18,7 +18,7 @@ mod:register_node("copper_block", {
   description = mod.S("Copper Block"),
 
   groups = {
-    cracky = 1,
+    cracky = nokore.dig_class("stone"),
   },
 
   tiles = {

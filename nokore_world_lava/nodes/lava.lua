@@ -3,7 +3,11 @@ local mod = nokore_world_lava
 mod:register_node("lava_source", {
   description = mod.S("Lava"),
 
-  groups = {lava = 3, liquid = 2, igniter = 1},
+  groups = {
+    lava = 3,
+    liquid = 2,
+    igniter = 1,
+  },
 
   paramtype = "light",
   light_source = minetest.LIGHT_MAX - 1,
@@ -93,6 +97,10 @@ mod:register_node("lava_flowing", {
   liquid_renewable = false,
   damage_per_second = 4 * 2,
   post_effect_color = {a = 191, r = 255, g = 64, b = 0},
-  groups = {lava = 3, liquid = 2, igniter = 1,
-    not_in_creative_inventory = 1},
+  groups = {
+    lava = 3,
+    liquid = 2,
+    igniter = 1,
+    not_in_creative_inventory = 1,
+  },
 })

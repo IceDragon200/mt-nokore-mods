@@ -4,7 +4,8 @@ mod:register_node("dirt_with_snow", {
   description = mod.S("Dirt with Snow"),
 
   groups = {
-    crumbly = 3,
+    crumbly = nokore.dig_class("wme"),
+    --
     soil = 1,
     spreading_dirt_type = 1,
     snowy = 1,

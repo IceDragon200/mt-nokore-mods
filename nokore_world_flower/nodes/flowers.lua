@@ -4,6 +4,9 @@ mod:register_node("allium", {
   description = mod.S("Allium"),
 
   groups = {
+    snippy = nokore.dig_class("wme"),
+    snappy = nokore.dig_class("wme"),
+    oddly_breakable_by_hand = nokore.dig_class("hand"),
     flower = 1,
     attached_node = 1,
   },
@@ -28,6 +31,9 @@ mod:register_node("blue_orchid", {
   description = mod.S("Blue Orchid"),
 
   groups = {
+    snippy = nokore.dig_class("wme"),
+    snappy = nokore.dig_class("wme"),
+    oddly_breakable_by_hand = nokore.dig_class("hand"),
     flower = 1,
     attached_node = 1,
   },
@@ -46,6 +52,9 @@ mod:register_node("dandelion", {
   description = mod.S("Dandelion"),
 
   groups = {
+    snippy = nokore.dig_class("wme"),
+    snappy = nokore.dig_class("wme"),
+    oddly_breakable_by_hand = nokore.dig_class("hand"),
     flower = 1,
     attached_node = 1,
   },
@@ -64,6 +73,9 @@ mod:register_node("houstonia", {
   description = mod.S("Houstonia"),
 
   groups = {
+    snippy = nokore.dig_class("wme"),
+    snappy = nokore.dig_class("wme"),
+    oddly_breakable_by_hand = nokore.dig_class("hand"),
     flower = 1,
     attached_node = 1,
   },
@@ -82,6 +94,9 @@ mod:register_node("oxeye_daisy", {
   description = mod.S("Oxeye Daisy"),
 
   groups = {
+    snippy = nokore.dig_class("wme"),
+    snappy = nokore.dig_class("wme"),
+    oddly_breakable_by_hand = nokore.dig_class("hand"),
     flower = 1,
     attached_node = 1,
   },
@@ -100,6 +115,9 @@ mod:register_node("rose", {
   description = mod.S("Rose"),
 
   groups = {
+    snippy = nokore.dig_class("wme"),
+    snappy = nokore.dig_class("wme"),
+    oddly_breakable_by_hand = nokore.dig_class("hand"),
     flower = 1,
     attached_node = 1,
   },
@@ -118,6 +136,9 @@ mod:register_node("tulip_orange", {
   description = mod.S("Orange Tulip"),
 
   groups = {
+    snippy = nokore.dig_class("wme"),
+    snappy = nokore.dig_class("wme"),
+    oddly_breakable_by_hand = nokore.dig_class("hand"),
     flower = 1,
     attached_node = 1,
   },
@@ -136,6 +157,9 @@ mod:register_node("tulip_pink", {
   description = mod.S("Pink Tulip"),
 
   groups = {
+    snippy = nokore.dig_class("wme"),
+    snappy = nokore.dig_class("wme"),
+    oddly_breakable_by_hand = nokore.dig_class("hand"),
     flower = 1,
     attached_node = 1,
   },
@@ -154,6 +178,9 @@ mod:register_node("tulip_red", {
   description = mod.S("Red Tulip"),
 
   groups = {
+    snippy = nokore.dig_class("wme"),
+    snappy = nokore.dig_class("wme"),
+    oddly_breakable_by_hand = nokore.dig_class("hand"),
     flower = 1,
     attached_node = 1,
   },
@@ -172,6 +199,9 @@ mod:register_node("tulip_white", {
   description = mod.S("White Tulip"),
 
   groups = {
+    snippy = nokore.dig_class("wme"),
+    snappy = nokore.dig_class("wme"),
+    oddly_breakable_by_hand = nokore.dig_class("hand"),
     flower = 1,
     attached_node = 1,
   },

@@ -4,7 +4,8 @@ mod:register_node("spruce_leaves", {
   description = mod.S("Spruce Leaves"),
 
   groups = {
-    snappy = 3,
+    snappy = nokore.dig_class("wme"),
+    --
     leafdecay = 3,
     flammable = 2,
     leaves = 1,

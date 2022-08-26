@@ -4,8 +4,11 @@ mod:register_node("birch_sapling", {
   description = mod.S("Birch Sapling"),
 
   groups = {
-    snappy = 2,
+    snappy = nokore.dig_class("wme"),
+    choppy = nokore.dig_class("wme"),
+    snippy = nokore.dig_class("wme"),
     dig_immediate = 3,
+    --
     flammable = 2,
     attached_node = 1,
     sapling = 1,

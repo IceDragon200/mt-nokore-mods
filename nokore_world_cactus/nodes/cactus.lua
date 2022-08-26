@@ -4,7 +4,7 @@ mod:register_node("cactus", {
   description = mod.S("Cactus"),
 
   groups = {
-    choppy = 3,
+    choppy = nokore.dig_class("wood"),
   },
 
   use_texture_alpha = "clip",

@@ -4,7 +4,7 @@ mod:register_node("permafrost", {
   description = mod.S("Permafrost"),
 
   groups = {
-    cracky = 3,
+    cracky = nokore.dig_class("stone"),
   },
 
   use_texture_alpha = "opaque",
@@ -19,7 +19,7 @@ mod:register_node("permafrost_with_stones", {
   description = mod.S("Permafrost with Stones"),
 
   groups = {
-    cracky = 3,
+    cracky = nokore.dig_class("stone"),
   },
 
   use_texture_alpha = "opaque",

@@ -4,7 +4,9 @@ local mod = nokore_world_clay
 mod:register_node("brick", {
   description = mod.S("Brick Block"),
 
-  groups = {cracky = 3},
+  groups = {
+    cracky = nokore.dig_class("stone"),
+  },
 
   paramtype2 = "facedir",
   place_param2 = 0,

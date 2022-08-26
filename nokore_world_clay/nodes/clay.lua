@@ -4,7 +4,9 @@ local mod = nokore_world_clay
 mod:register_node("block", {
   description = mod.S("Clay"),
 
-  groups = {crumbly = 3},
+  groups = {
+    crumbly = nokore.dig_class("wme"),
+  },
 
   tiles = {
     "world_clay.png"

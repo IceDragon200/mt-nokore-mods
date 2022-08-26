@@ -5,7 +5,8 @@ mod:register_node("ice", {
   description = mod.S("Ice"),
 
   groups = {
-    cracky = 3,
+    cracky = nokore.dig_class("copper"),
+    --
     ice = 1,
     cools_lava = 1,
     slippery = 3,
@@ -25,7 +26,7 @@ mod:register_node("cave_ice", {
   description = mod.S("Cave Ice"),
 
   groups = {
-    cracky = 3,
+    cracky = nokore.dig_class("copper"),
     ice = 1,
     cools_lava = 1,
     slippery = 3,
@@ -46,7 +47,12 @@ if foundation.is_module_present("nokore_stairs") then
   nokore_stairs.build_and_register_nodes("nokore_world_snow:ice", {
     -- base
     _ = {
-      groups = {cracky = 3, ice = 1, cools_lava = 1, slippery = 3},
+      groups = {
+        cracky = nokore.dig_class("copper"),
+        ice = 1,
+        cools_lava = 1,
+        slippery = 3
+      },
       use_texture_alpha = "opaque",
       tiles = "world_ice.png",
       sounds = nokore.node_sounds:build("ice"),

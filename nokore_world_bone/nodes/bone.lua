@@ -4,7 +4,8 @@ mod:register_node("bone_block", {
   description = mod.S("Bone"),
 
   groups = {
-    cracky = 1,
+    cracky = nokore.dig_class("stone"),
+    --
     bone_block = 1,
   },
 

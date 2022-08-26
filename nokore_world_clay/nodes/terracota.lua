@@ -4,7 +4,7 @@ mod:register_node("terracota", {
   description = mod.S("Terracota"),
 
   groups = {
-    cracky = 2,
+    cracky = nokore.dig_class("copper"),
   },
 
   tiles = {

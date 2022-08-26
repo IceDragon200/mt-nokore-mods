@@ -4,7 +4,9 @@ mod:register_node("waterlily", {
   description = mod.S("Waterlily"),
 
   groups = {
-    snappy = 3,
+    snappy = nokore.dig_class("wme"),
+    snippy = nokore.dig_class("wme"),
+    --
     flower = 1,
     flammable = 1,
   },

@@ -4,7 +4,7 @@ mod:register_node("stone_with_iron", {
   description = mod.S("Iron Ore"),
 
   groups = {
-    cracky = 2,
+    cracky = nokore.dig_class("bronze"),
   },
 
   drop = "nokore_world_iron:iron_lump",

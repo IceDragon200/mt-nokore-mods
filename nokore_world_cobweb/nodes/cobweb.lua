@@ -4,8 +4,8 @@ mod:register_node("cobweb", {
   description = mod.S("Cobweb"),
 
   groups = {
-    snappy = 1,
-    oddly_breakable_by_hand = 1,
+    snappy = nokore.dig_class("wme"),
+    oddly_breakable_by_hand = nokore.dig_class("hand"),
   },
 
   drawtype = "plantlike",

@@ -4,7 +4,7 @@ mod:register_node("dirt", {
   description = mod.S("Dirt"),
 
   groups = {
-    crumbly = 3,
+    crumbly = nokore.dig_class("wme"),
     soil = 1,
   },
 
@@ -19,7 +19,7 @@ mod:register_node("dry_dirt", {
   description = mod.S("Savanna Dirt"),
 
   groups = {
-    crumbly = 3,
+    crumbly = nokore.dig_class("stone"),
     soil = 1,
   },
 

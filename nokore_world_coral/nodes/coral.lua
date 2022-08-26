@@ -45,7 +45,7 @@ mod:register_node("coral_green", {
   description = mod.S("Green Coral"),
 
   groups = {
-    snappy = 3,
+    snappy = nokore.dig_class("stone"),
   },
 
   drawtype = "plantlike_rooted",
@@ -81,7 +81,7 @@ mod:register_node("coral_pink", {
   description = mod.S("Pink Coral"),
 
   groups = {
-    snappy = 3
+    snappy = nokore.dig_class("stone"),
   },
 
   drawtype = "plantlike_rooted",
@@ -117,7 +117,7 @@ mod:register_node("coral_cyan", {
   description = mod.S("Cyan Coral"),
 
   groups = {
-    snappy = 3,
+    snappy = nokore.dig_class("stone"),
   },
 
   drawtype = "plantlike_rooted",
@@ -152,7 +152,7 @@ mod:register_node("coral_cyan", {
 mod:register_node("coral_brown", {
   description = mod.S("Brown Coral"),
   groups = {
-    cracky = 3,
+    cracky = nokore.dig_class("stone"),
   },
   tiles = {
     "world_coral_brown.png"
@@ -164,7 +164,7 @@ mod:register_node("coral_brown", {
 mod:register_node("coral_orange", {
   description = mod.S("Orange Coral"),
   groups = {
-    cracky = 3,
+    cracky = nokore.dig_class("stone"),
   },
   tiles = {
     "world_coral_orange.png",
@@ -176,7 +176,7 @@ mod:register_node("coral_orange", {
 mod:register_node("coral_skeleton", {
   description = mod.S("Coral Skeleton"),
   groups = {
-    cracky = 3,
+    cracky = nokore.dig_class("stone"),
   },
   tiles = {
     "world_coral_skeleton.png",

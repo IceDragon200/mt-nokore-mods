@@ -4,9 +4,8 @@ mod:register_node("sakura_log", {
   description = mod.S("Sakura Log"),
 
   groups = {
+    choppy = nokore.dig_class("wme"),
     log = 1,
-    choppy = 2,
-    oddly_breakable_by_hand = 1,
     flammable = 2,
   },
 

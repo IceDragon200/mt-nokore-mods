@@ -4,7 +4,7 @@ mod:register_node("dirt_with_grass", {
   description = mod.S("Dirt with Grass"),
 
   groups = {
-    crumbly = 3,
+    crumbly = nokore.dig_class("wme"),
     soil = 1,
     spreading_dirt_type = 1,
   },
@@ -31,7 +31,7 @@ mod:register_node("dirt_with_dry_grass", {
   description = mod.S("Dirt with Savanna Grass"),
 
   groups = {
-    crumbly = 3,
+    crumbly = nokore.dig_class("wme"),
     soil = 1,
     spreading_dirt_type = 1,
   },
@@ -58,7 +58,7 @@ mod:register_node("dirt_with_rainforest_litter", {
   description = mod.S("Dirt with Rainforest Litter"),
 
   groups = {
-    crumbly = 3,
+    crumbly = nokore.dig_class("wme"),
     soil = 1,
     spreading_dirt_type = 1,
   },
@@ -85,7 +85,7 @@ mod:register_node("dirt_with_coniferous_litter", {
   description = mod.S("Dirt with Coniferous Litter"),
 
   groups = {
-    crumbly = 3,
+    crumbly = nokore.dig_class("wme"),
     soil = 1,
     spreading_dirt_type = 1,
   },
@@ -108,13 +108,11 @@ mod:register_node("dirt_with_coniferous_litter", {
   }),
 })
 
-
-
 mod:register_node("dry_dirt", {
   description = mod.S("Savanna Dirt"),
 
   groups = {
-    crumbly = 3,
+    crumbly = nokore.dig_class("stone"),
     soil = 1,
   },
 
@@ -129,7 +127,7 @@ mod:register_node("dry_dirt_with_dry_grass", {
   description = mod.S("Savanna Dirt with Savanna Grass"),
 
   groups = {
-    crumbly = 3,
+    crumbly = nokore.dig_class("stone"),
     soil = 1,
   },
 

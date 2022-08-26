@@ -3,7 +3,10 @@ local mod = nokore_world_standard
 mod:register_node("gravel", {
   description = mod.S("Gravel"),
 
-  groups = { crumbly = 2, falling_node = 1 },
+  groups = {
+    crumbly = nokore.dig_class("wood"),
+    falling_node = 1,
+  },
 
   tiles = {
     "world_gravel.png",

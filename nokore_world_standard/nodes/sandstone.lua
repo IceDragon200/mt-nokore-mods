@@ -4,7 +4,10 @@ local mod = nokore_world_standard
 mod:register_node("sandstone", {
   description = mod.S("Sandstone"),
 
-  groups = { cracky = 3, stone = 1 },
+  groups = {
+    cracky = nokore.dig_class("stone"),
+    stone = 1,
+  },
 
   tiles = {
     "world_sandstone.png",
@@ -16,7 +19,10 @@ mod:register_node("sandstone", {
 mod:register_node("sandstone_brick", {
   description = mod.S("Sandstone Brick"),
 
-  groups = { cracky = 3, stone = 1 },
+  groups = {
+    cracky = nokore.dig_class("stone"),
+    stone = 1
+  },
 
   tiles = {
     "world_sandstone_brick.png",
@@ -28,7 +34,10 @@ mod:register_node("sandstone_brick", {
 mod:register_node("desert_sandstone", {
   description = mod.S("Desert Sandstone"),
 
-  groups = { cracky = 3, stone = 1 },
+  groups = {
+    cracky = nokore.dig_class("stone"),
+    stone = 1
+  },
 
   tiles = {
     "world_desert_sandstone.png",
@@ -40,7 +49,10 @@ mod:register_node("desert_sandstone", {
 mod:register_node("silver_sandstone", {
   description = mod.S("Silver Sandstone"),
 
-  groups = { cracky = 3, stone = 1 },
+  groups = {
+    cracky = nokore.dig_class("stone"),
+    stone = 1
+  },
 
   tiles = {
     "world_silver_sandstone.png",
@@ -52,7 +64,10 @@ mod:register_node("silver_sandstone", {
 mod:register_node("silver_sandstone_brick", {
   description = mod.S("Silver Sandstone Brick"),
 
-  groups = { cracky = 3, stone = 1 },
+  groups = {
+    cracky = nokore.dig_class("stone"),
+    stone = 1
+  },
 
   tiles = {
     "world_silver_sandstone_brick.png",
@@ -65,7 +80,10 @@ if foundation.is_module_present("nokore_stairs") then
   nokore_stairs.build_and_register_nodes("nokore_world_standard:sandstone", {
     -- base
     _ = {
-      groups = {cracky = 3, stone = 1},
+      groups = {
+        cracky = nokore.dig_class("stone"),
+        stone = 1
+      },
       tiles = "world_sandstone.png",
       sounds = nokore.node_sounds:build("stone"),
     },
@@ -92,7 +110,10 @@ if foundation.is_module_present("nokore_stairs") then
   nokore_stairs.build_and_register_nodes("nokore_world_standard:sandstone_brick", {
     -- base
     _ = {
-      groups = {cracky = 3, stone = 1},
+      groups = {
+        cracky = nokore.dig_class("stone"),
+        stone = 1
+      },
       tiles = "world_sandstone_brick.png",
       sounds = nokore.node_sounds:build("stone"),
     },
@@ -119,7 +140,10 @@ if foundation.is_module_present("nokore_stairs") then
   nokore_stairs.build_and_register_nodes("nokore_world_standard:desert_sandstone", {
     -- base
     _ = {
-      groups = {cracky = 3, stone = 1},
+      groups = {
+        cracky = nokore.dig_class("stone"),
+        stone = 1
+      },
       tiles = "world_desert_sandstone.png",
       sounds = nokore.node_sounds:build("stone"),
     },
@@ -146,7 +170,10 @@ if foundation.is_module_present("nokore_stairs") then
   nokore_stairs.build_and_register_nodes("nokore_world_standard:silver_sandstone", {
     -- base
     _ = {
-      groups = {cracky = 3, stone = 1},
+      groups = {
+        cracky = nokore.dig_class("stone"),
+        stone = 1
+      },
       tiles = "world_silver_sandstone.png",
       sounds = nokore.node_sounds:build("stone"),
     },
@@ -173,7 +200,10 @@ if foundation.is_module_present("nokore_stairs") then
   nokore_stairs.build_and_register_nodes("nokore_world_standard:silver_sandstone_brick", {
     -- base
     _ = {
-      groups = {cracky = 3, stone = 1},
+      groups = {
+        cracky = 3,
+        stone = 1
+      },
       tiles = "world_silver_sandstone_brick.png",
       sounds = nokore.node_sounds:build("stone"),
     },

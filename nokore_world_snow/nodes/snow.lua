@@ -4,7 +4,7 @@ mod:register_node("snow", {
   description = mod.S("Snow"),
 
   groups = {
-    crumbly = 3,
+    crumbly = nokore.dig_class("wme"),
     falling_node = 1,
     snowy = 1,
   },
@@ -48,7 +48,7 @@ mod:register_node("snow_block", {
   description = mod.S("Snow Block"),
 
   groups = {
-    crumbly = 3,
+    crumbly = nokore.dig_class("wme"),
     cools_lava = 1,
     snowy = 1,
   },

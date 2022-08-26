@@ -4,8 +4,7 @@ mod:register_node("acacia_planks", {
   description = mod.S("Acacia Planks"),
 
   groups = {
-    choppy = 2,
-    oddly_breakable_by_hand = 2,
+    choppy = nokore.dig_class("wme"),
     flammable = 2,
     plank = 1
   },

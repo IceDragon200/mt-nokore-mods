@@ -4,9 +4,10 @@ mod:register_node("vine", {
   description = mod.S("Vine"),
 
   groups = {
-    oddly_breakable_by_hand = 3,
+    snappy = nokore.dig_class("wme"),
+    snippy = nokore.dig_class("wme"),
+    --
     vine = 1,
-    snappy = 3,
     flammable = 2,
   },
 

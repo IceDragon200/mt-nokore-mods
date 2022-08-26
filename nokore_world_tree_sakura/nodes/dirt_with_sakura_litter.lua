@@ -4,7 +4,8 @@ mod:register_node("dirt_with_sakura_litter", {
   description = mod.S("Dirt with Sakura Litter"),
 
   groups = {
-    crumbly = 3,
+    crumbly = nokore.dig_class("wme"),
+    --
     soil = 1,
     spreading_dirt_type = 1,
   },

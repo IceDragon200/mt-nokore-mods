@@ -4,7 +4,8 @@ mod:register_node("cobblestone", {
   description = mod.S("Cobblestone"),
 
   groups = {
-    cracky = 3,
+    cracky = nokore.dig_class("wood"),
+    --
     stone = 2,
   },
 
@@ -19,7 +20,7 @@ mod:register_node("mossy_cobblestone", {
   description = mod.S("Mossy Cobblestone"),
 
   groups = {
-    cracky = 3,
+    cracky = nokore.dig_class("wood"),
     stone = 2,
     mossy_stone = 1,
   },
@@ -35,7 +36,10 @@ if foundation.is_module_present("nokore_stairs") then
   nokore_stairs.build_and_register_nodes("nokore_world_standard:cobblestone", {
     -- base
     _ = {
-      groups = {cracky = 3, stone = 2},
+      groups = {
+        cracky = nokore.dig_class("wood"),
+        stone = 2
+      },
       tiles = "world_cobblestone.png",
       sounds = nokore.node_sounds:build("stone"),
     },
@@ -62,7 +66,11 @@ if foundation.is_module_present("nokore_stairs") then
   nokore_stairs.build_and_register_nodes("nokore_world_standard:mossy_cobblestone", {
     -- base
     _ = {
-      groups = {cracky = 3, stone = 2, mossy_stone = 1},
+      groups = {
+        cracky = nokore.dig_class("wood"),
+        stone = 2,
+        mossy_stone = 1
+      },
       tiles = "world_mossy_cobblestone.png",
       sounds = nokore.node_sounds:build("stone"),
     },
