@@ -3,7 +3,7 @@
 --
 -- This mod wraps up the formspec system into nice to manage classes
 -- @namespace nokore
-local mod = foundation.new_module("nokore_ui", "0.2.0")
+local mod = foundation.new_module("nokore_ui", "0.3.0")
 
 mod:require("formspec_bindings.lua")
 

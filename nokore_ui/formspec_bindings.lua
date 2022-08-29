@@ -147,7 +147,7 @@ end
 -- Unbind specified form for player
 --
 -- @spec #unbind_player_form(player_name: String,
---                           form_name: String) :: self
+--                           form_name: String): self
 function ic:unbind_player_form(player_name, form_name)
   --print("trying to unbind form from player")
   local forms = self.player_to_forms[player_name]
@@ -214,11 +214,32 @@ function ic:on_player_receive_fields(player, form_name, fields)
   end
 end
 
+local function trigger_timer_item(self, timer_item, player_name, form_name)
+  local def = timer_item.definition
+  local form = self.player_to_forms[player_name][form_name]
+  local commands = def.action(player_name, form_name, form.state)
+
+  timer_item.elapsed = math.max(timer_item.elapsed - def.every, 0)
+
+  if commands then
+    for _,command in ipairs(commands) do
+      if command.type == "refresh_formspec" then
+        minetest.show_formspec(player_name, form_name, command.value)
+      else
+        error("unexpected command.type=" .. command.type ..
+              " player=" .. player_name ..
+              " formspec.name=" .. form_name)
+      end
+    end
+  end
+
+  return true
+end
+
+-- @since "0.2.0"
 -- @spec #update(dtime: Float): void
 function ic:update(dtime)
   local def
-  local form
-  local commands
 
   for player_name, forms in pairs(self.player_formspec_timers) do
     for form_name, timers in pairs(forms) do
@@ -227,25 +248,54 @@ function ic:update(dtime)
 
         def = timer_item.definition
         if timer_item.elapsed > def.every then
-          form = self.player_to_forms[player_name][form_name]
-          commands = def.action(player_name, form_name, form.state)
-          timer_item.elapsed = timer_item.elapsed - def.every
-
-          if commands then
-            for _,command in ipairs(commands) do
-              if command.type == "refresh_formspec" then
-                minetest.show_formspec(player_name, form_name, command.value)
-              else
-                error("unexpected command.type=" .. command.type ..
-                      " player=" .. player_name ..
-                      " formspec.name=" .. form_name)
-              end
-            end
-          end
+          trigger_timer_item(self, timer_item, player_name, form_name)
         end
       end
     end
   end
+end
+
+-- @since "0.3.0"
+-- @spec #trigger_form_timer(form_name: String, timer_name: String): void
+function ic:trigger_form_timer(form_name, timer_name)
+  local timers
+  local timer_item
+
+  for player_name, forms in pairs(self.player_formspec_timers) do
+    timers = forms[form_name]
+    if timers then
+      timer_item = timers[timer_name]
+
+      if timer_item then
+        trigger_timer_item(self, timer_item, player_name, form_name)
+      end
+    end
+  end
+end
+
+--
+-- Trigger's a player form's timer, the timer will be reset as if it was triggered normally
+--
+-- @since "0.3.0"
+-- @spec #trigger_player_form_timer(
+--   player_name: String,
+--   form_name: String,
+--   timer_name: String
+-- ): Boolean
+function ic:trigger_player_form_timer(player_name, form_name, timer_name)
+  local forms = self.player_formspec_timers[player_name]
+  if forms then
+    local timers = forms[form_name]
+    if timers then
+      local timer_item = timers[timer_name]
+
+      if timer_item then
+        return trigger_timer_item(self, timer_item, player_name, form_name)
+      end
+    end
+  end
+
+  return false
 end
 
 nokore.FormspecBindings = FormspecBindings
