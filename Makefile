@@ -1,0 +1,3 @@
+.PHONY : luacheck
+luacheck:
+	luacheck .
