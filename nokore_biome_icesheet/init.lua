@@ -2,7 +2,7 @@
 -- NoKore - Biome : Ice Sheet
 --
 -- This module adds the icesheet biome(s)
-local mod = foundation.new_module("nokore_biome_icesheet", "0.1.0")
+foundation.new_module("nokore_biome_icesheet", "0.1.0")
 
 minetest.register_biome({
   name = "icesheet",

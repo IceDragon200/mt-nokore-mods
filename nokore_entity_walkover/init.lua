@@ -7,8 +7,8 @@ local player_service = assert(nokore.player_service)
 local Vector3 = assert(foundation.com.Vector3)
 
 --
--- Triggered every interval while a player is standing still on a node, see STANDING_THRESHOLD for how long
--- they must remain still
+-- Triggered every interval while a player is standing still on a node, see STANDING_THRESHOLD for
+-- how long they must remain still
 --
 -- @type OnStandingOnCallback: function(
 --   pos: Vector3,
@@ -30,8 +30,8 @@ local Vector3 = assert(foundation.com.Vector3)
 -- otherwise the walkover is triggered once
 local STANDING_THRESHOLD = 2
 
--- How far must a player move before they are considered to have actually "moved" from their initial
--- position?
+-- How far must a player move before they are considered to have actually "moved" from their
+-- initial position?
 local MINIMUM_DISTANCE = 0.0625
 
 local STEP = 0.1

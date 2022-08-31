@@ -1,7 +1,7 @@
 --
 -- NoKore - Mapgen Decoration - Corals
 --
-local mod = foundation.new_module("nokore_mapgen_decor_corals", "0.1.0")
+foundation.new_module("nokore_mapgen_decor_corals", "0.1.0")
 
 minetest.register_decoration({
   name = "nokore_mapgen_decor_corals:corals",

@@ -229,8 +229,6 @@ function ic:get_player_domain_kv(player_name, domain_name)
     if domain then
       return domain.kv
     end
-  else
-    --minetest.log("warn", "domains not available for player_name=" .. player_name)
   end
 
   return nil
@@ -265,8 +263,6 @@ function ic:with_player_domain_kv(player_name, domain_name, callback)
 
       return true
     end
-  else
-    --minetest.log("warn", "domains not available for player_name=" .. player_name)
   end
 
   return false

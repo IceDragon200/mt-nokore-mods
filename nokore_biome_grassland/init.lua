@@ -2,7 +2,7 @@
 -- NoKore - Biome : Grassland
 --
 -- This module adds the grassland biome(s)
-local mod = foundation.new_module("nokore_biome_grassland", "0.1.0")
+foundation.new_module("nokore_biome_grassland", "0.1.0")
 
 minetest.register_biome({
   name = "grassland",

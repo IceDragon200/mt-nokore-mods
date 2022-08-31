@@ -58,7 +58,6 @@ minetest.register_abm({
   chance = 10,
 
   action = function(pos, node)
-    local can_grow = true
     local up_pos = Vector3.add({}, pos, V3_UP)
 
     local neighbor = minetest.get_node_or_nil(up_pos)

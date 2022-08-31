@@ -37,13 +37,7 @@ function nokore_chest.on_formspec_quit(player, form_name, fields, state)
   if nokore_chest.open_chests[chest_id] then
     nokore_chest.open_chests[chest_id][player_name] = nil
 
-    local is_empty = true
-    for _, _ in pairs(nokore_chest.open_chests[chest_id]) do
-      is_empty = false
-      break
-    end
-
-    if is_empty then
+    if not next(nokore_chest.open_chests[chest_id]) then
       nokore_chest.open_chests[chest_id] = nil
 
       local node = minetest.get_node_or_nil(state.pos)

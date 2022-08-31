@@ -1,7 +1,8 @@
 --
 -- NoKore - Mapgen
 --
--- This module handles clearing the core mapgen before allowing the other mapgen mods from updating it
+-- This module handles clearing the core mapgen before allowing the other mapgen mods from
+-- updating it
 local mod = foundation.new_module("nokore_mapgen", "0.1.0")
 
 -- Clear existing registration

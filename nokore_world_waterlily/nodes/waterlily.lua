@@ -1,4 +1,5 @@
 local mod = nokore_world_waterlily
+local creative = rawget(_G, "creative")
 
 mod:register_node("waterlily", {
   description = mod.S("Waterlily"),

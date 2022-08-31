@@ -2,7 +2,7 @@
 -- NoKore - Biome : Sakura Forest
 --
 -- This module adds the sakura forest biome(s)
-local mod = foundation.new_module("nokore_biome_sakura_forest", "0.1.0")
+foundation.new_module("nokore_biome_sakura_forest", "0.1.0")
 
 minetest.register_biome({
   name = "sakura_forest",

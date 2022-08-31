@@ -68,7 +68,6 @@ end
 function mod.slab_on_place(itemstack, placer, pointed_thing)
   local under = minetest.get_node(pointed_thing.under)
   local wield_item = itemstack:get_name()
-  local player_name = placer and placer:get_player_name() or ""
   local creative_enabled = false --(creative and creative.is_enabled_for
                                  --          and creative.is_enabled_for(player_name))
 

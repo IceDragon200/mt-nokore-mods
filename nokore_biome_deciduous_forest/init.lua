@@ -2,7 +2,7 @@
 -- NoKore - Biome : Deciduous Forest
 --
 -- This module adds the deciduous forest biome(s)
-local mod = foundation.new_module("nokore_biome_deciduous_forest", "0.1.0")
+foundation.new_module("nokore_biome_deciduous_forest", "0.1.0")
 
 minetest.register_biome({
   name = "deciduous_forest",

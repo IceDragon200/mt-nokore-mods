@@ -1,4 +1,5 @@
 local mod = nokore_world_coral
+local creative = rawget(_G, "creative")
 
 local function coral_on_place(itemstack, placer, pointed_thing)
   if pointed_thing.type ~= "node" or not placer then

@@ -3,7 +3,10 @@ local Y = {name = "nokore_world_tree_sakura:sakura_log", prob = 255, force_place
 local L = {name = "nokore_world_tree_sakura:sakura_leaves", prob = 255}
 local l = {name = "nokore_world_tree_sakura:sakura_leaves", prob = 233}
 
-local schematic = nokore.schematic_helpers.from_y_slices{
+local schematic
+local result
+
+schematic = foundation.com.schematic_helpers.from_y_slices{
   size = { x = 3, y = 7, z = 3 },
   data = {
     -- base
@@ -40,11 +43,11 @@ local schematic = nokore.schematic_helpers.from_y_slices{
   },
 }
 
-local result = minetest.serialize_schematic(schematic, 'mts', {})
+result = minetest.serialize_schematic(schematic, 'mts', {})
 
 minetest.safe_file_write(minetest.get_worldpath() .. "/nokore_sakura_small_tree.mts", result)
 
-local schematic = nokore.schematic_helpers.from_y_slices{
+schematic = foundation.com.schematic_helpers.from_y_slices{
   size = { x = 5, y = 9, z = 5 },
   data = {
     -- base
@@ -107,6 +110,6 @@ local schematic = nokore.schematic_helpers.from_y_slices{
   },
 }
 
-local result = minetest.serialize_schematic(schematic, 'mts', {})
+result = minetest.serialize_schematic(schematic, 'mts', {})
 
 minetest.safe_file_write(minetest.get_worldpath() .. "/nokore_sakura_tree.mts", result)

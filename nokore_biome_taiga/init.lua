@@ -2,7 +2,7 @@
 -- NoKore - Biome : Taiga
 --
 -- This module adds the taiga biome(s)
-local mod = foundation.new_module("nokore_biome_taiga", "0.1.0")
+foundation.new_module("nokore_biome_taiga", "0.1.0")
 
 minetest.register_biome({
   name = "taiga",

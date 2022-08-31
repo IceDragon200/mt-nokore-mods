@@ -40,6 +40,4 @@ mod:register_node("acacia_leaves", {
   is_ground_content = false,
 
   sounds = nokore.node_sounds:build("leaves"),
-
-  after_place_node = after_place_leaves,
 })

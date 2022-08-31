@@ -2,7 +2,7 @@
 -- NoKore - Biome : Rainforest
 --
 -- This module adds the rainforest biome(s)
-local mod = foundation.new_module("nokore_biome_rainforest", "0.1.0")
+foundation.new_module("nokore_biome_rainforest", "0.1.0")
 
 minetest.register_biome({
   name = "rainforest",

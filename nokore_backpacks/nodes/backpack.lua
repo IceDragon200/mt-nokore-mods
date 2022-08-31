@@ -80,7 +80,7 @@ mod:register_node("backpack", {
     local old_inv = old_meta:get_inventory()
     local list = old_inv:get_list("main")
 
-    local dumped = yatm.items.InventorySerializer.dump_list(list)
+    local dumped = InventorySerializer.dump_list(list)
 
     --print("preserve_metadata", dump(dumped))
     new_meta:set_string("inventory_dump", minetest.serialize(dumped))
@@ -90,7 +90,7 @@ mod:register_node("backpack", {
 
   on_blast = function (pos)
     local drops = {}
-    drops[1] = "default:" .. name
+    drops[1] = mod:make_name("backpack")
     foundation.com.get_inventory_drops(pos, "main", drops)
     minetest.remove_node(pos)
     return drops

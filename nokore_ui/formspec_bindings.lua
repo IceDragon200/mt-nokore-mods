@@ -101,7 +101,10 @@ function ic:bind_player_form(player_name, form_name, options)
   end
 
   if options.on_receive_fields then
-    assert(type(options.on_receive_fields) == "function", "expected on_receive_fields to be a function")
+    assert(
+      type(options.on_receive_fields) == "function",
+      "expected on_receive_fields to be a function"
+    )
   end
 
   local form = {
@@ -162,14 +165,14 @@ function ic:unbind_player_form(player_name, form_name)
     end
   end
 
-  local forms = self.player_formspec_timers[player_name]
-  if forms then
+  local form_timers = self.player_formspec_timers[player_name]
+  if form_timers then
     -- the player has forms
-    if forms[form_name] then
-      forms[form_name] = nil
+    if form_timers[form_name] then
+      form_timers[form_name] = nil
     end
 
-    if not next(forms) then
+    if not next(form_timers) then
       self.player_formspec_timers[player_name] = nil
     end
   end

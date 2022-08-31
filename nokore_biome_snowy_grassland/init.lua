@@ -2,7 +2,7 @@
 -- NoKore - Biome : Snowy Grassland
 --
 -- This module adds the desert biome(s)
-local mod = foundation.new_module("nokore_biome_snowy_grassland", "0.1.0")
+foundation.new_module("nokore_biome_snowy_grassland", "0.1.0")
 
 minetest.register_biome({
   name = "snowy_grassland",

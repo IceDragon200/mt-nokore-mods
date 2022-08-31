@@ -67,14 +67,14 @@ nokore_player_inv.register_player_inventory_tab("default", {
   end,
 
   render_formspec = function (player, assigns, tab_state)
-    local mod = nokore_player_inv
-    local dims = mod.player_inventory_size2(player)
+    local npi_mod = nokore_player_inv
+    local dims = npi_mod.player_inventory_size2(player)
     local w = 0.25 + dims.x * 1.25
     local h = 0.5 + (4 + dims.y) * 1.25
     local cio = fspec.calc_inventory_offset
 
     return fspec.size(w, h) ..
-           mod.player_inventory_lists_fragment(player, 0.25, 0.25 + cio(4)) ..
+           npi_mod.player_inventory_lists_fragment(player, 0.25, 0.25 + cio(4)) ..
            fspec.list("current_player", "craft", 3, 0.25, 3, 3) ..
            fspec.list_ring() ..
            fspec.list("current_player", "craftpreview", 7, 1.25, 1, 1) ..

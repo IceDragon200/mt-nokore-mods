@@ -3,7 +3,7 @@ local Y = {name = "nokore_world_tree_big_oak:big_oak_log", prob = 255, force_pla
 local L = {name = "nokore_world_tree_big_oak:big_oak_leaves", prob = 255}
 local l = {name = "nokore_world_tree_big_oak:big_oak_leaves", prob = 233}
 
-local schematic = nokore.schematic_helpers.from_y_slices{
+local schematic = foundation.com.schematic_helpers.from_y_slices{
   size = { x = 5, y = 9, z = 5 },
   data = {
     -- base

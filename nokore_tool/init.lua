@@ -2,7 +2,7 @@
 -- NoKore - Tool
 --
 -- Base module for all player tools
-local mod = foundation.new_module("nokore_tool", "0.1.0")
+foundation.new_module("nokore_tool", "0.1.0")
 
 -- The hand
 minetest.register_item(":", {

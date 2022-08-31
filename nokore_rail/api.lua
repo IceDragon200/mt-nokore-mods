@@ -11,7 +11,7 @@ nokore = rawget(_G, "nokore") or {}
 nokore.rails = nokore.rails or {}
 
 local function vox_manip_get_node_name(pos)
-  local voxm = minetest.get_voxel_manip()
+  local vm = minetest.get_voxel_manip()
   local emin, emax = vm:read_from_map(pos, pos)
   local area = VoxelArea:new{
     MinEdge = emin,

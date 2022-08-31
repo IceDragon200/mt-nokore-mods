@@ -2,7 +2,7 @@
 -- NoKore - Creative
 --
 -- Creative
-local mod = foundation.new_module("nokore_creative", "0.1.0")
+foundation.new_module("nokore_creative", "0.1.0")
 local fspec = assert(foundation.com.formspec.api)
 
 local creative = {
@@ -23,7 +23,7 @@ local function filter_player_creative_inventory(player, filter)
   local normalized_filter = filter:lower()
   local i = 0
   for index,item_name in ipairs(creative.registered_items) do
-    local item = minetest.registered_items[item_name]
+    -- local item = minetest.registered_items[item_name]
     local term = creative.normalized_terms[item_name]
     if filter == "" or
        (term.name:find(normalized_filter, 1, true) or
@@ -39,35 +39,39 @@ local function filter_player_creative_inventory(player, filter)
   inv:set_list("main", list)
 end
 
-local function create_player_creative_inventory(player)
-  creative.inventories[player:get_player_name()] =
-    minetest.create_detached_inventory(creative.get_player_creative_inventory_name(player), {
-      allow_move = function (inv, from_list, from_index, to_list, to_index, count, player)
-        return 0
-      end,
+local function create_player_creative_inventory(owning_player)
+  creative.inventories[owning_player:get_player_name()] =
+    minetest.create_detached_inventory(
+      creative.get_player_creative_inventory_name(owning_player),
+      {
+        allow_move = function (inv, from_list, from_index, to_list, to_index, count, player)
+          return 0
+        end,
 
-      allow_put = function (inv, listname, index, stack, player)
-        return 0
-      end,
+        allow_put = function (inv, listname, index, stack, player)
+          return 0
+        end,
 
-      allow_take = function (inv, listname, index, stack, player)
-        return -1
-      end,
+        allow_take = function (inv, listname, index, stack, player)
+          return -1
+        end,
 
-      on_move = function (inv, from_list, from_index, to_list, to_index, count, player)
-        --
-      end,
+        on_move = function (inv, from_list, from_index, to_list, to_index, count, player)
+          --
+        end,
 
-      on_put = function (inv, listname, index, stack, player)
-        --
-      end,
+        on_put = function (inv, listname, index, stack, player)
+          --
+        end,
 
-      on_take = function (inv, listname, index, stack, player)
-        --
-      end,
-    }, player:get_player_name())
+        on_take = function (inv, listname, index, stack, player)
+          --
+        end,
+      },
+      owning_player:get_player_name()
+    )
 
-  filter_player_creative_inventory(player, "")
+  filter_player_creative_inventory(owning_player, "")
 end
 
 local function remove_player_creative_inventory(player)
@@ -162,16 +166,61 @@ nokore_player_inv.register_player_inventory_tab("creative", {
       local y = 0.25 + inv_row_count * 1.25
 
       return fspec.size(w, 0.25 + (inv_row_count + 1 + dims.y) * 1.25) ..
-             fspec.list("detached:"..inventory_name, "main", 0.25, 0.25, dims.x, inv_row_count, inventory_offset) ..
-             nokore_player_inv.player_inventory_lists_fragment(player, 0.25, y + 1.25) ..
-             fspec.list_ring() ..
-             "list[detached:nokore_creative_trash;main;0.25,"..y..";1,1;]" ..
-             "field[1.5,"..y..";"..(w-5.5)..",1;search_query;;"..minetest.formspec_escape(tab_state.search_query).."]" ..
-             "field_close_on_enter[search_query;false]" ..
-             "button["..(w-3.75)..","..y..";1,1;creative_prev_page;<]" ..
-             "label["..(w-2.5)..","..(y+0.25)..";"..minetest.formspec_escape(tab_state.page_index.."/"..tab_state.page_count).."]" ..
-             "label["..(w-2.5)..","..(y+0.75)..";"..minetest.formspec_escape(inventory_offset.."/"..total).."]" ..
-             "button["..(w-1.25)..","..y..";1,1;creative_next_page;>]"
+        fspec.list(
+          "detached:"..inventory_name,
+          "main",
+          0.25,
+          0.25,
+          dims.x,
+          inv_row_count,
+          inventory_offset
+        ) ..
+        nokore_player_inv.player_inventory_lists_fragment(player, 0.25, y + 1.25) ..
+        fspec.list_ring() ..
+        fspec.list(
+          "detached:nokore_creative_trash",
+          "main",
+          0.25,
+          y,
+          1,
+          1
+        ) ..
+        fspec.field_area(
+          1.5,
+          y,
+          w - 5.5,
+          1,
+          "search_query",
+          "",
+          tab_state.search_query
+        ) ..
+        fspec.field_close_on_enter("search_query", false) ..
+        fspec.button(
+          w - 3.75,
+          y,
+          1,
+          1,
+          "creative_prev_page",
+          "<"
+        ) ..
+        fspec.label(
+          w - 2.5,
+          y + 0.25,
+          tab_state.page_index .. "/" .. tab_state.page_count
+        ) ..
+        fspec.label(
+          w - 2.5,
+          y + 0.75,
+          inventory_offset .. "/" .. total
+        ) ..
+        fspec.button(
+          w - 1.25,
+          y,
+          1,
+          1,
+          "creative_next_page",
+          ">"
+        )
     else
       return fspec.size(w, 9) ..
              "label[0,0;Creative Unavailable]"

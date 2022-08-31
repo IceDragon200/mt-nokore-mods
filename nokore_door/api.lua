@@ -1,3 +1,5 @@
+local mod = nokore_door
+
 local table_copy = assert(foundation.com.table_copy)
 local table_merge = assert(foundation.com.table_merge)
 local table_deep_merge = assert(foundation.com.table_deep_merge)
@@ -22,7 +24,7 @@ function nokore_door.door_on_place(item_stack, placer, pointed_thing)
   local pos
 
   local itemdef = item_stack:get_definition()
-  local doorname = item_stack:get_name()
+  -- local doorname = item_stack:get_name()
   local node = minetest.get_node(pointed_thing.under)
   local pdef = minetest.registered_nodes[node.name]
   if pdef and pdef.on_rightclick and
@@ -97,7 +99,7 @@ function nokore_door.door_on_place(item_stack, placer, pointed_thing)
     meta:set_int("mirror_state", mirror_state)
     if itemdef.protected then
       meta:set_string("owner", pn)
-      meta:set_string("infotext", itemdef.description .. "\n" .. S("Owned by @1", pn))
+      meta:set_string("infotext", itemdef.description .. "\n" .. mod.S("Owned by @1", pn))
     end
   end
 
@@ -226,7 +228,7 @@ function nokore_door.door_on_right_click(pos, node, clicker, item_stack, pointed
 end
 
 function nokore_door.door_after_destruct(my_pos, my_node)
-  local sibling_pos, sibling_node, sibling_nodedef = get_sibling_node(my_pos, my_node)
+  local sibling_pos = get_sibling_node(my_pos, my_node)
 
   if sibling_pos then
     minetest.remove_node(sibling_pos)
@@ -235,9 +237,9 @@ end
 
 function nokore_door.door_on_blast(my_pos, intensity)
   local my_node = minetest.get_node(my_pos)
-  local sibling_pos, sibling_node, sibling_nodedef = get_sibling_node(my_pos, my_node)
+  local sibling_pos = get_sibling_node(my_pos, my_node)
 
-  minetest.remove_node(pos)
+  minetest.remove_node(my_pos)
   if sibling_pos then
     minetest.remove_node(sibling_pos)
   end
@@ -256,7 +258,8 @@ function nokore_door.door_after_dig_node(my_pos, my_node, old_meta, digger)
   end
 
   local sibling_pos, sibling_node, sibling_nodedef = get_sibling_node(my_pos, my_node)
-  if sibling_pos then
+
+  if sibling_pos and sibling_node then
     minetest.remove_node(sibling_pos)
     if sibling_nodedef.door.segment == "top" then
       minetest.check_for_falling(sibling_pos)

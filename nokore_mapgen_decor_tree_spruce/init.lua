@@ -10,7 +10,10 @@ local seed = 2 -- nokore_mapgen.tree_seed
 minetest.register_decoration({
   name = "nokore_mapgen_decor_tree_spruce:large_spruce_tree",
   deco_type = "schematic",
-  place_on = {"nokore_world_snow:dirt_with_snow", "nokore_world_standard:dirt_with_coniferous_litter"},
+  place_on = {
+    "nokore_world_snow:dirt_with_snow",
+    "nokore_world_standard:dirt_with_coniferous_litter"
+  },
   sidelen = 16,
   noise_params = {
     offset = 0.0,
@@ -31,7 +34,10 @@ minetest.register_decoration({
 minetest.register_decoration({
   name = "nokore_mapgen_decor_tree_spruce:tall_spruce_tree",
   deco_type = "schematic",
-  place_on = {"nokore_world_snow:dirt_with_snow", "nokore_world_standard:dirt_with_coniferous_litter"},
+  place_on = {
+    "nokore_world_snow:dirt_with_snow",
+    "nokore_world_standard:dirt_with_coniferous_litter"
+  },
   sidelen = 16,
   noise_params = {
     offset = 0.0,
@@ -52,7 +58,10 @@ minetest.register_decoration({
 minetest.register_decoration({
   name = "nokore_mapgen_decor_tree_spruce:spruce_tree",
   deco_type = "schematic",
-  place_on = {"nokore_world_snow:dirt_with_snow", "nokore_world_standard:dirt_with_coniferous_litter"},
+  place_on = {
+    "nokore_world_snow:dirt_with_snow",
+    "nokore_world_standard:dirt_with_coniferous_litter"
+  },
   sidelen = 16,
   noise_params = {
     offset = 0.0,
@@ -73,7 +82,10 @@ minetest.register_decoration({
 minetest.register_decoration({
   name = "nokore_mapgen_decor_tree_spruce:small_spruce_tree",
   deco_type = "schematic",
-  place_on = {"nokore_world_snow:dirt_with_snow", "nokore_world_standard:dirt_with_coniferous_litter"},
+  place_on = {
+    "nokore_world_snow:dirt_with_snow",
+    "nokore_world_standard:dirt_with_coniferous_litter"
+  },
   sidelen = 16,
   noise_params = {
     offset = 0.0,

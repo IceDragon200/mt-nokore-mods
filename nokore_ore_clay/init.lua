@@ -2,7 +2,7 @@
 -- NoKore - Ore / Clay
 --
 -- Adds clay ores to the world gen
-local mod = foundation.new_module("nokore_ore_clay", "0.1.0")
+foundation.new_module("nokore_ore_clay", "0.1.0")
 
 minetest.register_ore({
   ore_type        = "blob",

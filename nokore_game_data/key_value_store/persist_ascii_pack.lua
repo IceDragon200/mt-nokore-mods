@@ -67,10 +67,13 @@ if ascii_file_pack and ascii_file_unpack then
     local bytes_read = 0
     local br
 
-    local magic, br = stream:read(4)
+    local magic
+    magic, br = stream:read(4)
+    bytes_read = bytes_read + br
     if magic ~= "NKKV" then
       error("Cannot reload table, magic bytes do not match (expected:NKKV, got:" .. magic .. ")")
     end
+
     local format
     format, br = stream:read(4)
     bytes_read = bytes_read + br
@@ -121,7 +124,7 @@ if ascii_file_pack and ascii_file_unpack then
     if trace then
       span = trace:span_start("mkdir")
     end
-    success = minetest.mkdir(path_dirname(filename))
+    success, err = minetest.mkdir(path_dirname(filename))
     if span then
       span:span_end()
     end

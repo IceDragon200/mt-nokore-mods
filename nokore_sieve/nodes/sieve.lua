@@ -40,7 +40,6 @@ for basename,name in pairs(wood) do
         {6/16, -1/2, 6/16, 7/16, 1/2, 7/16},
       }
     },
-    use_texture_alpha = true,
     tiles = {
       "nokore_sieve_wood_" .. basename .. "_top.png",
       "nokore_sieve_wood_" .. basename .. "_top.png",

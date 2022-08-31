@@ -5,7 +5,10 @@ local L = {name = "nokore_world_tree_jungle:jungle_leaves", prob = 255}
 local l = {name = "nokore_world_tree_jungle:jungle_leaves", prob = 233}
 local i = {name = "nokore_world_tree_jungle:jungle_leaves", prob = 191}
 
-local schematic = nokore.schematic_helpers.from_y_slices{
+local result
+local schematic
+
+schematic = foundation.com.schematic_helpers.from_y_slices{
   size = { x = 5, y = 17, z = 5 },
   data = {
     -- base
@@ -120,24 +123,24 @@ local schematic = nokore.schematic_helpers.from_y_slices{
   },
 }
 
-local result = minetest.serialize_schematic(schematic, 'mts', {})
+result = minetest.serialize_schematic(schematic, 'mts', {})
 
 minetest.safe_file_write(minetest.get_worldpath() .. "/nokore_jungle_tree.mts", result)
 
-local Y = {
+Y = {
     name = "nokore_world_tree_jungle:jungle_log",
     param2 = 12,
     prob = 255,
     force_place = true
 }
 
-local schematic = nokore.schematic_helpers.from_y_slices{
+schematic = foundation.com.schematic_helpers.from_y_slices{
   size = { x = 3, y = 1, z = 1 },
   data = {
     Y,Y,Y,
   },
 }
 
-local result = minetest.serialize_schematic(schematic, 'mts', {})
+result = minetest.serialize_schematic(schematic, 'mts', {})
 
 minetest.safe_file_write(minetest.get_worldpath() .. "/nokore_jungle_fallen_log.mts", result)

@@ -36,7 +36,10 @@ function ic:initialize()
     minetest.log("info", "block data will be persisted using ascii_pack")
   else
     self.persistance_type = 'NONE'
-    minetest.log("warning", "block data cannot be persisted, neither ascii pack nor marshall_dump is available")
+    minetest.log(
+      "warning",
+      "block data cannot be persisted, neither ascii pack nor marshall_dump is available"
+    )
   end
 end
 
@@ -58,7 +61,7 @@ function ic:terminate()
   end
   if trace then
     trace:span_end()
-    trace:inspect()
+    -- trace:inspect()
   end
   self.blocks = {}
 end
@@ -93,9 +96,7 @@ function ic:update(dtime, trace)
   end
   self.elapsed_since_last_update = 0
 
-  local expires_at = self.monotonic_time + self.expires_duration
-
-  local pos, block_id
+  local pos
   local block_pos = { x = 0, y = 0, z = 0 }
   local nx, ny, nz
   local players = get_connected_players()
@@ -207,7 +208,6 @@ function ic:update(dtime, trace)
 
   if next(self.expired_blocks) then
     local expired = false
-    local block
     local span
     for block_id,_ in pairs(self.expired_blocks) do
       expired = true
@@ -283,8 +283,6 @@ function ic:persist_block(block, trace)
       kv:marshall_dump_file(block.filename, trace)
     elseif self.persistance_type == 'ASCI' then
       kv:apack_dump_file(block.filename, trace)
-    elseif self.persistance_type == 'NONE' then
-      -- can't persist
     end
   end
   block.persisted_at = self.monotonic_time

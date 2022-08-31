@@ -1,10 +1,16 @@
-local b = nokore.schematic_helpers.build()
+local b = foundation.com.schematic_helpers.build()
 local v = vector.new
 
 local _ = {name = "air", prob = 0}
-local Y = b:add_palette_node({name = "nokore_world_tree_spruce:spruce_log", prob = 255, force_place = true})
-local L = b:add_palette_node({name = "nokore_world_tree_spruce:spruce_leaves", prob = 255})
-local l = b:add_palette_node({name = "nokore_world_tree_spruce:spruce_leaves", prob = 233})
+local Y = b:add_palette_node(
+  {name = "nokore_world_tree_spruce:spruce_log", prob = 255, force_place = true}
+)
+local L = b:add_palette_node(
+  {name = "nokore_world_tree_spruce:spruce_leaves", prob = 255}
+)
+local l = b:add_palette_node(
+  {name = "nokore_world_tree_spruce:spruce_leaves", prob = 233}
+)
 
 local function fill_plus(bld, size, y, swatch_id)
   for z = 0,size do
@@ -28,12 +34,15 @@ b:fill_range(v(-1,7,-1), v(1,7,1), L)
 b:put_node(v(0,8,0), L)
 b:fill_range(v(0,0,0), v(0,7,0), Y)
 
-local schematic = b:to_schematic()
+local schematic
+local result
+
+schematic = b:to_schematic()
 schematic.yslice_prob = {
   {ypos = 2, prob = 127},
 }
 
-local result = minetest.serialize_schematic(schematic, 'mts', {})
+result = minetest.serialize_schematic(schematic, 'mts', {})
 minetest.safe_file_write(minetest.get_worldpath() .. "/nokore_spruce_small_tree.mts", result)
 
 -- Really Tall Spruce
@@ -44,13 +53,13 @@ b:fill_range(v(-2,9,-2), v(2,9,2), L)
 b:fill_range(v(-1,10,-1), v(1,10,1), L)
 b:fill_range(v(0,0,0), v(0,9,0), Y)
 
-local schematic = b:to_schematic()
+schematic = b:to_schematic()
 schematic.yslice_prob = {
   {ypos = 2, prob = 127},
   {ypos = 3, prob = 97},
 }
 
-local result = minetest.serialize_schematic(schematic, 'mts', {})
+result = minetest.serialize_schematic(schematic, 'mts', {})
 minetest.safe_file_write(minetest.get_worldpath() .. "/nokore_spruce_tall_tree.mts", result)
 
 -- Medium Spruce
@@ -64,12 +73,12 @@ fill_plus(b, 1, 7, L) -- minor
 b:put_node(v(0,8,0), L) -- top-top
 b:fill_range(v(0,0,0), v(0,7,0), Y)
 
-local schematic = b:to_schematic()
+schematic = b:to_schematic()
 schematic.yslice_prob = {
   {ypos = 2, prob = 127},
 }
 
-local result = minetest.serialize_schematic(schematic, 'mts', {})
+result = minetest.serialize_schematic(schematic, 'mts', {})
 minetest.safe_file_write(minetest.get_worldpath() .. "/nokore_spruce_tree.mts", result)
 
 
@@ -90,10 +99,10 @@ fill_plus(b, 1, 12, L) -- top
 b:put_node(v(0,13,0), L) -- the cream of the crop
 b:fill_range(v(0,0,0), v(0,12,0), Y)
 
-local schematic = b:to_schematic()
+schematic = b:to_schematic()
 schematic.yslice_prob = {
   {ypos = 2, prob = 127},
 }
 
-local result = minetest.serialize_schematic(schematic, 'mts', {})
+result = minetest.serialize_schematic(schematic, 'mts', {})
 minetest.safe_file_write(minetest.get_worldpath() .. "/nokore_spruce_large_tree.mts", result)

@@ -1,7 +1,7 @@
 --
 -- NoKore - Mapgen Decoration / Flower
 --
-local mod = foundation.new_module("nokore_mapgen_decor_flower", "0.1.0")
+foundation.new_module("nokore_mapgen_decor_flower", "0.1.0")
 
 local function register_flower(name, seed)
   minetest.register_decoration({

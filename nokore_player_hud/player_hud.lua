@@ -169,6 +169,7 @@ function ic:upsert_player_hud_element(player, hud_element_name, props)
   local hud_element_id = self.m_player_hud_ids[hud_element_name]
 
   if not hud_element_id then
+    local def = self.m_registered_elements[hud_element_name]
     local hud_def = table_deep_copy(def)
     hud_element_id = player:hud_add(hud_def)
     self.m_player_hud_ids[hud_element_name] = hud_element_id
