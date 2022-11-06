@@ -17,7 +17,7 @@ for wood_name, description in pairs(wood) do
     description = mod.S(description .. " Chest"),
 
     groups = {
-      cracky = 1,
+      cracky = nokore.dig_class("copper"),
       chest = 1,
       wood_chest = 1,
     },

@@ -4,7 +4,7 @@ mod:register_node("furnace_off", {
   description = "Furnace",
 
   groups = {
-    cracky = 2,
+    cracky = nokore.dig_class("wood"),
   },
 
   tiles = {
@@ -21,7 +21,7 @@ mod:register_node("furnace_on", {
   description = "Furnace",
 
   groups = {
-    cracky = 2,
+    cracky = nokore.dig_class("wood"),
     not_in_creative_inventory = 1,
   },
 

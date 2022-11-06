@@ -149,7 +149,9 @@ for key, entry in pairs(wood) do
     description = mod.S(entry.description .. " Wood Stockpile"),
 
     groups = {
-      cracky = 1,
+      cracky = nokore.dig_class("copper"),
+      oddly_breakable_by_hand = nokore.dig_class("hand"),
+      --
       oddly_breakable_by_hand = 1,
       stockpile = 1,
       wood_stockpile = 1,

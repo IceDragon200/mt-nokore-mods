@@ -4,7 +4,8 @@ mod:register_node("bamboo_shoot", {
   description = mod.S("Acacia Shoot"),
 
   groups = {
-    snappy = 2,
+    snappy = nokore.dig_class("wme"),
+    --
     dig_immediate = 3,
     flammable = 2,
     attached_node = 1,

@@ -156,9 +156,10 @@ function nokore_stockpile.register_stockpile(name, def)
     description = "Stockpile",
 
     groups = {
+      cracky = nokore.dig_class("wme"),
+      oddly_breakable_by_hand = nokore.dig_class("hand"),
+      --
       stockpile = 1,
-      oddly_breakable_by_hand = 1,
-      cracky = 1,
     },
 
     on_construct = nokore_stockpile.stockpile_on_construct,

@@ -4,10 +4,10 @@ mod:register_node("glass", {
   description = mod.S("Glass"),
 
   groups = {
+    snappy = nokore.dig_class("wood"),
+    cracky = nokore.dig_class("wood"),
+    oddly_breakable_by_hand = nokore.dig_class("hand"),
     glass = 1,
-    snappy = 2,
-    cracky = 3,
-    oddly_breakable_by_hand = 3,
   },
 
   is_ground_content = false,
@@ -56,11 +56,11 @@ mod:register_node("glass_pane", {
   description = mod.S("Glass Pane"),
 
   groups = {
+    snappy = nokore.dig_class("wood"),
+    cracky = nokore.dig_class("wood"),
+    oddly_breakable_by_hand = nokore.dig_class("hand"),
     pane = 1,
     glass = 1,
-    snappy = 2,
-    cracky = 3,
-    oddly_breakable_by_hand = 3,
   },
 
   is_ground_content = false,
@@ -99,10 +99,11 @@ for _, row in ipairs(colors) do
     description = mod.S(description .. " Glass"),
 
     groups = {
+      snappy = nokore.dig_class("wood"),
+      cracky = nokore.dig_class("wood"),
+      oddly_breakable_by_hand = nokore.dig_class("hand"),
+      --
       glass = 1,
-      snappy = 2,
-      cracky = 3,
-      oddly_breakable_by_hand = 3,
     },
 
     is_ground_content = false,
@@ -123,11 +124,12 @@ for _, row in ipairs(colors) do
     description = mod.S(description .. " Glass Pane"),
 
     groups = {
+      snappy = nokore.dig_class("wood"),
+      cracky = nokore.dig_class("wood"),
+      oddly_breakable_by_hand = nokore.dig_class("hand"),
+      --
       pane = 1,
       glass = 1,
-      snappy = 2,
-      cracky = 3,
-      oddly_breakable_by_hand = 3,
     },
 
     inventory_image = "glass_" .. color .. ".png",

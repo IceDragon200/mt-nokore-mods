@@ -201,7 +201,7 @@ if foundation.is_module_present("nokore_stairs") then
     -- base
     _ = {
       groups = {
-        cracky = 3,
+        cracky = nokore.dig_class("stone"),
         stone = 1
       },
       tiles = "world_silver_sandstone_brick.png",

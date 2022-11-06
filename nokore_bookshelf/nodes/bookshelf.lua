@@ -4,7 +4,7 @@ mod:register_node("bookshelf", {
   description = "Bookshelf",
 
   groups = {
-    snappy = 2,
+    snappy = nokore.dig_class("wme"),
   },
 
   tiles = {

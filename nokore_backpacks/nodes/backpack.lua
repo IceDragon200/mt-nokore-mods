@@ -21,7 +21,9 @@ mod:register_node("backpack", {
   description = "Backpack",
 
   groups = {
-    cracky = 1,
+    cracky = nokore.dig_class("copper"),
+    oddly_breakable_by_hand = nokore.dig_class("hand"),
+    --
     backpack = 1,
   },
 

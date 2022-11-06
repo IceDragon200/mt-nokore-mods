@@ -5,6 +5,7 @@ mod:register_node("snow", {
 
   groups = {
     crumbly = nokore.dig_class("wme"),
+    oddly_breakable_by_hand = nokore.dig_class("hand"),
     falling_node = 1,
     snowy = 1,
   },
@@ -49,6 +50,7 @@ mod:register_node("snow_block", {
 
   groups = {
     crumbly = nokore.dig_class("wme"),
+    oddly_breakable_by_hand = nokore.dig_class("hand"),
     cools_lava = 1,
     snowy = 1,
   },
