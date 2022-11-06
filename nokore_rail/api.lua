@@ -2,7 +2,7 @@
 -- Rail API, mostly borrowed from minetest game's 'carts'
 --
 local table_merge = assert(foundation.com.table_merge)
-local node_sounds = assert(foundation.com.node_sounds)
+local node_sounds = assert(nokore.node_sounds)
 local Groups = assert(foundation.com.Groups)
 
 nokore = rawget(_G, "nokore") or {}
