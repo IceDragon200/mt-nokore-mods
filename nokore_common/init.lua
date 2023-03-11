@@ -43,7 +43,11 @@ if not nokore.make_tool_cap_times and not nokore.make_tool_capability and not no
 
   -- @spec dig_class(material_class: String): Integer
   function nokore.dig_class(material_class)
-    return assert(DIG_CLASS[material_class])
+    local value = DIG_CLASS[material_class]
+    if value then
+      return value
+    end
+    error("dig_class not found got=" .. material_class)
   end
 else
   error([[
