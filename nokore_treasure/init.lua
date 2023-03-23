@@ -14,3 +14,7 @@ mod:require("treasure_registry.lua")
 nokore = rawget(_G, "nokore") or {}
 
 nokore.treasure = mod.TreasureRegistry:new()
+
+mod:require("nodes/treasure_placeholder.lua")
+
+mod:require("service.lua")
