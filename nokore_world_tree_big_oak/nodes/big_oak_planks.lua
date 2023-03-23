@@ -21,3 +21,35 @@ mod:register_node("big_oak_planks", {
 
   sounds = nokore.node_sounds:build("wood"),
 })
+
+if foundation.is_module_present("nokore_stairs") then
+  nokore_stairs.build_and_register_nodes(mod:make_name("big_oak_planks"), {
+    -- base
+    _ = {
+      groups = {
+        choppy = nokore.dig_class("wme"),
+        plank = 1
+      },
+      tiles = "nokore_planks_big_oak.png",
+      sounds = nokore.node_sounds:build("wood"),
+    },
+    column = {
+      description = mod.S("Big Oak Planks Column"),
+    },
+    plate = {
+      description = mod.S("Big Oak Planks Plate"),
+    },
+    slab = {
+      description = mod.S("Big Oak Planks Slab"),
+    },
+    stair = {
+      description = mod.S("Big Oak Planks Stair"),
+    },
+    stair_inner = {
+      description = mod.S("Big Oak Planks Stair Inner"),
+    },
+    stair_outer = {
+      description = mod.S("Big Oak Planks Stair Outer"),
+    },
+  })
+end

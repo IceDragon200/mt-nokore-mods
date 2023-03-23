@@ -5,6 +5,7 @@ mod:register_node("acacia_leaves", {
 
   groups = {
     snappy = nokore.dig_class("wme"),
+    oddly_breakable_by_hand = nokore.dig_class("hand"),
     --
     leafdecay = 3,
     flammable = 2,
