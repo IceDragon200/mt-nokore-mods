@@ -3,10 +3,10 @@ local table_merge = assert(foundation.com.table_merge)
 local fspec = assert(foundation.com.formspec.api)
 
 -- @namespace nokore_player_inv
-local mod = nokore_player_inv
+local mod = assert(nokore_player_inv)
 
 -- Default minetest bar size
-mod.player_hotbar_size = 8
+mod.player_hotbar_size = mod.player_hotbar_size or 8
 
 -- player_name::String => table
 mod.player_data = {}
@@ -17,10 +17,12 @@ mod.tabs = {}
 -- tab_index => tab_name::String
 mod.ordered_tabs_index = {}
 
+-- @spec on_player_data_initialize(PlayerRef, player_data: Table): void
 function mod.on_player_data_initialize(player, player_data)
   --
 end
 
+-- @spec get_player_data(PlayerRef): Table
 function mod.get_player_data(player)
   local name = player:get_player_name()
   if not mod.player_data[name] then
@@ -107,6 +109,7 @@ function mod.refresh_player_tabs(player)
   end
 end
 
+-- @spec make_player_inventory_formspec(PlayerRef): String
 function mod.make_player_inventory_formspec(player)
   --
   -- Stock Formspec as of 2020-07-16
@@ -152,6 +155,7 @@ function mod.player_inventory_lists_fragment(player, x, y)
   return fspec.list("current_player", "main", x, y, dims.x, dims.y), dims
 end
 
+-- @spec refresh_player_inventory_formspec(PlayerRef): void
 function mod.refresh_player_inventory_formspec(player)
   assert(player, "expected player")
   mod.refresh_player_tabs(player)
@@ -159,6 +163,7 @@ function mod.refresh_player_inventory_formspec(player)
   player:set_inventory_formspec(formspec)
 end
 
+-- @spec activate_tab(PlayerRef, tab_name: String): void
 function mod.activate_tab(player, tab_name)
   local data = mod.get_player_data(player)
   data.current_tab_index = table_key_of(data.tabs_index, tab_name)
