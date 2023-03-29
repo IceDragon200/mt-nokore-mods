@@ -2,6 +2,9 @@
 -- Initialize the default make_tool_* functions
 -- When using nokore in a modpack or game, it's best to define these functions in the nokore_prelude
 --
+local mod = foundation.new_module("nokore_common", "1.0.0")
+
+nokore = rawget(_G, "nokore") or {}
 
 if nokore.make_tool_cap_times and nokore.make_tool_capability and nokore.dig_class then
   -- nothing to do here
