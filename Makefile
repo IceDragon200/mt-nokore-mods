@@ -112,6 +112,7 @@ prepare.release:
 	cp -r --parents nokore_world_steel "${RELEASE_DIR}"
 	cp -r --parents nokore_world_tin "${RELEASE_DIR}"
 	cp -r --parents nokore_world_tree_acacia "${RELEASE_DIR}"
+	cp -r --parents nokore_world_tree_big_oak "${RELEASE_DIR}"
 	cp -r --parents nokore_world_tree_birch "${RELEASE_DIR}"
 	cp -r --parents nokore_world_tree_fir "${RELEASE_DIR}"
 	cp -r --parents nokore_world_tree_jungle "${RELEASE_DIR}"
