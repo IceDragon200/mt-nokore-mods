@@ -50,14 +50,23 @@ minetest.register_on_player_receive_fields(function (player, form_name, fields)
   end
 end)
 
-minetest.register_on_joinplayer(function (player)
+local function on_player_join(player)
   player:hud_set_hotbar_image("gui_hotbar_base.png")
   player:hud_set_hotbar_selected_image("gui_hotbar_selected.png")
 
   player:hud_set_hotbar_itemcount(mod.player_hotbar_size)
+end
 
+local function register_after_player_join(player)
   mod.refresh_player_inventory_formspec(player)
-end)
+end
+
+if foundation.is_module_present("nokore_player_service") then
+  nokore.player_service:register_on_player_join("nokore_player_inv:on_player_join", on_player_join)
+  nokore.player_service:register_after_player_join("nokore_player_inv:after_player_join", register_after_player_join)
+else
+  minetest.register_on_joinplayer(on_player_join)
+end
 
 nokore_player_inv.register_player_inventory_tab("default", {
   description = "Default",
