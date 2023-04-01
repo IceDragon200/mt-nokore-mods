@@ -24,6 +24,7 @@ end
 
 -- @spec get_player_data(PlayerRef): Table
 function mod.get_player_data(player)
+  assert(player, "expected a player")
   local name = player:get_player_name()
   if not mod.player_data[name] then
     mod.player_data[name] = {
@@ -82,6 +83,7 @@ end
 
 -- @spec refresh_player_tabs(PlayerRef): void
 function mod.refresh_player_tabs(player)
+  assert(player, "expected a player")
   local data = mod.get_player_data(player)
 
   data.tabs_index = {}
@@ -165,6 +167,8 @@ end
 
 -- @spec activate_tab(PlayerRef, tab_name: String): void
 function mod.activate_tab(player, tab_name)
+  assert(player, "expected a player")
+  assert(type(tab_name) == "string", "expected a tab name")
   local data = mod.get_player_data(player)
   data.current_tab_index = table_key_of(data.tabs_index, tab_name)
 
