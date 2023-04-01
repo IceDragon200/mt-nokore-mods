@@ -10,7 +10,10 @@ Block = {
   pos = Vector3,
   basename = String,
   filename = String,
+  --- Persisted key-value store
   kv = nokore.KVStore,
+  --- Unpersisted temp table
+  assigns = Table,
   persisted_at = Integer,
   next_persist_at = Integer,
   expires_at = Integer,
@@ -29,8 +32,8 @@ else
   -- block is not loaded
 end
 
--- nokore.block_data_service:each_block(acc, reducer)
-nokore.block_data_service:each_block(0, function (block_id, block, acc)
+-- nokore.block_data_service:reduce_blocks(acc, reducer)
+nokore.block_data_service:reduce_blocks(0, function (block_id, block, acc)
   block.kv:put("key", "value")
   return acc + 1, false
 end)
