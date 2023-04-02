@@ -8,6 +8,12 @@ local Trace = foundation.com.Trace
 local hash_node_position = assert(minetest.hash_node_position)
 local get_connected_players = assert(minetest.get_connected_players)
 
+local function hash_position(x, y, z)
+  return (z + 0x8000) * 0x100000000 + (y + 0x8000) * 0x10000 + (x + 0x8000)
+end
+
+nokore_block_data.hash_position = hash_position
+
 --- @class BlockDataService
 local BlockDataService = foundation.com.Class:extends("nokore_block_data.BlockDataService")
 do
@@ -84,6 +90,20 @@ do
   --- @spec #get_block(block_id: Integer): Block | nil
   function ic:get_block(block_id)
     return self.blocks[block_id]
+  end
+
+  --- @spec #get_block_at_pos(pos: Vector3): Block | nil
+  function ic:get_block_at_pos(pos)
+    return self.blocks[hash_node_position(pos)]
+  end
+
+  --- @spec #get_block_at_node_pos(pos: Vector3): Block | nil
+  function ic:get_block_at_node_pos(pos)
+    local x = math.floor(pos.x / 16)
+    local y = math.floor(pos.y / 16)
+    local z = math.floor(pos.z / 16)
+
+    return self.blocks[hash_position(x, y, z)]
   end
 
   --- @spec #reduce_blocks(acc: Any, callback: Function/3): Any
