@@ -12,7 +12,7 @@ minetest.register_abm({
   nodenames = {"nokore_world_bamboo:bamboo_stalk"},
   neighbours = {"air"},
 
-  interval = 10,
+  interval = 30,
   chance = 10,
 
   action = function(pos, node)
