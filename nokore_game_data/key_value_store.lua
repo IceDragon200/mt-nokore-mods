@@ -80,6 +80,7 @@ end
 
 --- Put a value at specified key (if it doesn't already exist)
 ---
+--- @since "0.6.0"
 --- @spec #put_new(String, Value): self
 function ic:put_new(key, value)
   if self.data[key] == nil then
@@ -90,11 +91,24 @@ end
 
 --- Put a value evaluated from given function at specified key (if it doesn't already exist)
 ---
+--- @since "0.6.0"
 --- @spec #put_new_lazy(String, Function/0): self
 function ic:put_new_lazy(key, callback)
   if self.data[key] == nil then
     return self:put(key, callback())
   end
+  return self
+end
+
+--- Put multiple values from given Table into store
+---
+--- @since "0.7.0"
+--- @spec #put_all(Table): self
+function ic:put_all(tab)
+  for key, value in pairs(tab) do
+    self.data[key] = value
+  end
+  self.dirty = true
   return self
 end
 
