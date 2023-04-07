@@ -5,9 +5,9 @@ local mod = foundation.new_module("nokore_player_hud", "0.2.0")
 
 mod:require("player_hud.lua")
 
--- @namespace nokore
+--- @namespace nokore
 nokore = rawget(_G, "nokore") or {}
--- @const player_hud: nokore_player_hud.PlayerHud
+--- @const player_hud: nokore_player_hud.PlayerHud
 nokore.player_hud = mod.PlayerHud:new()
 
 nokore.player_service:register_on_player_leave("nokore_player_hud:player_left", function (player)
@@ -58,22 +58,3 @@ nokore.player_service:register_on_player_join("nokore_player_hud:player_joined",
 
   nokore.player_hud:init_player_hud_elements(player)
 end)
-
-nokore.player_hud:register_hud_element("armor", {
-  hud_elem_type = "statbar",
-  position = {
-    x = 0.5,
-    y = 1,
-  },
-  text = "armor2_full.png",
-  text2 = "armor_empty.png",
-  number = 20,
-  item = 20,
-  direction = nokore.player_hud.DIRECTION_LEFT_RIGHT,
-  size = {x = 24, y = 24},
-  offset = {
-    x = (-10 * 24 - 24),
-    -- -(hotbar_height + icon_height + bottom_padding + margin + offset)
-    y = -(48 + 24 + 16 + 8 + 32)
-  },
-})

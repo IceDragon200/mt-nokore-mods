@@ -37,10 +37,13 @@ minetest.register_on_player_receive_fields(function (player, form_name, fields)
 
       if tab.on_player_receive_fields then
         local break_bubble, should_refresh =
-          tab.on_player_receive_fields(player,
-                                       player_data.assigns,
-                                       fields,
-                                       player_data.tabs[tab_name])
+          tab.on_player_receive_fields(
+            player,
+            player_data.assigns,
+            fields,
+            player_data.tabs[tab_name]
+          )
+
         if should_refresh then
           mod.refresh_player_inventory_formspec(player)
         end
