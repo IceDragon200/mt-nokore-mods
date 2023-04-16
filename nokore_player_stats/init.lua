@@ -5,11 +5,14 @@
 -- stored or even attached to the player themselves.
 -- This also supports caching those values to speed up subsequent queries.
 --
-local mod = foundation.new_module("nokore_player_stats", "0.1.0")
+local mod = foundation.new_module("nokore_player_stats", "0.2.0")
 
 mod:require("api.lua")
 
+--- @namespace nokore
 nokore = rawget(_G, "nokore") or {}
+
+--- @const player_stats: PlayerStatsService
 nokore.player_stats = nokore_player_stats.PlayerStatsService:new()
 
 nokore.player_service:register_on_player_join(
