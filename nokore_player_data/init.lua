@@ -6,12 +6,14 @@
 -- store additional data on a player.
 --
 -- Mods that need their own domain/namespace must register it with this mod's service.
-local mod = foundation.new_module("nokore_player_data", "1.1.0")
+local mod = foundation.new_module("nokore_player_data", "1.2.0")
 
+--- @namespace nokore
 nokore = rawget(_G, "nokore") or {}
 
 mod:require("player_data_service.lua")
 
+--- @const player_data_service: PlayerDataService
 nokore.player_data_service = nokore.PlayerDataService:new()
 
 nokore.player_service:register_on_player_join(
