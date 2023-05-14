@@ -3,6 +3,7 @@
 --
 -- Creative
 foundation.new_module("nokore_creative", "0.1.0")
+
 local fspec = assert(foundation.com.formspec.api)
 
 local creative = {
@@ -12,6 +13,7 @@ local creative = {
   inventories = {},
 }
 
+--- @spec get_player_creative_inventory_name(player: PlayerRef): String
 function creative.get_player_creative_inventory_name(player)
   return "nokore_creative_player_" .. player:get_player_name()
 end
@@ -79,9 +81,7 @@ local function remove_player_creative_inventory(player)
   creative.inventories[player:get_player_name()] = nil
 end
 
-minetest.register_on_joinplayer(create_player_creative_inventory)
-minetest.register_on_leaveplayer(remove_player_creative_inventory)
-minetest.register_on_mods_loaded(function ()
+local function on_mods_loaded()
   creative.trash_inventory = minetest.create_detached_inventory("nokore_creative_trash", {
     allow_put = function (inv, listname, index, stack, player)
       return stack:get_count()
@@ -118,7 +118,11 @@ minetest.register_on_mods_loaded(function ()
     end
   end
   table.sort(registered_item_names)
-end)
+end
+
+minetest.register_on_joinplayer(create_player_creative_inventory)
+minetest.register_on_leaveplayer(remove_player_creative_inventory)
+minetest.register_on_mods_loaded(on_mods_loaded)
 
 local function change_page(tab_state, amt)
   if tab_state.page_count > 0 then
@@ -129,6 +133,88 @@ local function change_page(tab_state, amt)
   return false
 end
 
+local function render_formspec(player, assigns, tab_state)
+  local w = 0.25 + nokore_player_inv.player_hotbar_size * 1.25
+
+  if minetest.is_creative_enabled(player:get_player_name()) then
+    local inv_row_count = 6
+    local page_size = nokore_player_inv.player_hotbar_size * inv_row_count
+    local inventory_name = creative.get_player_creative_inventory_name(player)
+    local inventory_offset = (tab_state.page_index - 1) * page_size
+
+    local inv = creative.inventories[player:get_player_name()]
+    local total = inv:get_size("main")
+    tab_state.page_count = math.floor(total / page_size)
+
+    if (total % page_size) > 0 then
+      tab_state.page_count = tab_state.page_count + 1
+    end
+
+    local dims = nokore_player_inv.player_inventory_size2(player)
+    local y = 0.25 + inv_row_count * 1.25
+
+    return ""
+      .. fspec.size(w, 0.25 + (inv_row_count + 1 + dims.y) * 1.25)
+      .. fspec.list(
+        "detached:"..inventory_name,
+        "main",
+        0.25,
+        0.25,
+        dims.x,
+        inv_row_count,
+        inventory_offset
+      )
+      .. nokore_player_inv.player_inventory_lists_fragment(player, 0.25, y + 1.25)
+      .. fspec.list_ring()
+      .. fspec.list(
+        "detached:nokore_creative_trash",
+        "main",
+        0.25,
+        y,
+        1,
+        1
+      )
+      .. fspec.field_area(
+        1.5,
+        y,
+        w - 5.5,
+        1,
+        "search_query",
+        "",
+        tab_state.search_query
+      )
+      .. fspec.field_close_on_enter("search_query", false)
+      .. fspec.button(
+        w - 3.75,
+        y,
+        1,
+        1,
+        "creative_prev_page",
+        "<"
+      )
+      .. fspec.label(
+        w - 2.5,
+        y + 0.25,
+        tab_state.page_index .. "/" .. tab_state.page_count
+      )
+      .. fspec.label(
+        w - 2.5,
+        y + 0.75,
+        inventory_offset .. "/" .. total
+      )
+      .. fspec.button(
+        w - 1.25,
+        y,
+        1,
+        1,
+        "creative_next_page",
+        ">"
+      )
+  else
+    return fspec.size(w, 9) ..
+           "label[0,0;Creative Unavailable]"
+  end
+end
 nokore_player_inv.register_player_inventory_tab("creative", {
   description = "Creative",
 
@@ -144,88 +230,7 @@ nokore_player_inv.register_player_inventory_tab("creative", {
     return minetest.is_creative_enabled(player:get_player_name())
   end,
 
-  render_formspec = function (player, assigns, tab_state)
-    local nokore_player_inv = nokore_player_inv
-    local w = 0.25 + nokore_player_inv.player_hotbar_size * 1.25
-
-    if minetest.is_creative_enabled(player:get_player_name()) then
-      local inv_row_count = 8
-      local page_size = nokore_player_inv.player_hotbar_size * inv_row_count
-      local inventory_name = creative.get_player_creative_inventory_name(player)
-      local inventory_offset = (tab_state.page_index - 1) * page_size
-
-      local inv = creative.inventories[player:get_player_name()]
-      local total = inv:get_size("main")
-      tab_state.page_count = math.floor(total / page_size)
-
-      if (total % page_size) > 0 then
-        tab_state.page_count = tab_state.page_count + 1
-      end
-
-      local dims = nokore_player_inv.player_inventory_size2(player)
-      local y = 0.25 + inv_row_count * 1.25
-
-      return fspec.size(w, 0.25 + (inv_row_count + 1 + dims.y) * 1.25) ..
-        fspec.list(
-          "detached:"..inventory_name,
-          "main",
-          0.25,
-          0.25,
-          dims.x,
-          inv_row_count,
-          inventory_offset
-        ) ..
-        nokore_player_inv.player_inventory_lists_fragment(player, 0.25, y + 1.25) ..
-        fspec.list_ring() ..
-        fspec.list(
-          "detached:nokore_creative_trash",
-          "main",
-          0.25,
-          y,
-          1,
-          1
-        ) ..
-        fspec.field_area(
-          1.5,
-          y,
-          w - 5.5,
-          1,
-          "search_query",
-          "",
-          tab_state.search_query
-        ) ..
-        fspec.field_close_on_enter("search_query", false) ..
-        fspec.button(
-          w - 3.75,
-          y,
-          1,
-          1,
-          "creative_prev_page",
-          "<"
-        ) ..
-        fspec.label(
-          w - 2.5,
-          y + 0.25,
-          tab_state.page_index .. "/" .. tab_state.page_count
-        ) ..
-        fspec.label(
-          w - 2.5,
-          y + 0.75,
-          inventory_offset .. "/" .. total
-        ) ..
-        fspec.button(
-          w - 1.25,
-          y,
-          1,
-          1,
-          "creative_next_page",
-          ">"
-        )
-    else
-      return fspec.size(w, 9) ..
-             "label[0,0;Creative Unavailable]"
-    end
-  end,
+  render_formspec = render_formspec,
 
   on_player_receive_fields = function (player, assigns, fields, tab_state)
     local should_refresh = false
