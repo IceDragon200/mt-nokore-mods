@@ -370,16 +370,19 @@ function mod.build_nodes(data)
   return result
 end
 
--- Helper function for registering nodes from the build_stairs function
--- it's actually quite generic and could be used for any table of nodes definitions.
-function mod.register_nodes(basename, state)
-  for key,def in pairs(state) do
+--- Helper function for registering nodes from the build_stairs function
+--- it's actually quite generic and could be used for any table of nodes definitions.
+---
+--- @spec register_nodes(basename: String, states: { [key: String]: Table }): Table
+function mod.register_nodes(basename, states)
+  for key,def in pairs(states) do
     local name = basename .. "_" .. key
     minetest.register_node(name, def)
   end
-  return state
+  return states
 end
 
+--- @spec build_and_register_nodes(basename: String, state: Table): Table
 function mod.build_and_register_nodes(basename, state)
   local result = mod.build_nodes(state)
 
