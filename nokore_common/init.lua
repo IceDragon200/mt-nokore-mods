@@ -4,6 +4,7 @@
 --
 local mod = foundation.new_module("nokore_common", "1.0.0")
 
+--- @namespace nokore
 nokore = rawget(_G, "nokore") or {}
 
 if nokore.make_tool_cap_times and nokore.make_tool_capability and nokore.dig_class then
@@ -13,9 +14,9 @@ end
 
 if not nokore.make_tool_cap_times and not nokore.make_tool_capability and not nokore.dig_class then
   --
-  -- YATM's default tool caps are an approximation of minetest_game's default against HSW's
+  -- Nokore's default tool caps are an approximation of minetest_game's default against HSW's
   -- materials.
-  -- Effectively HSW has 13 levels while "default" only has around 5, therefore YATM does an
+  -- Effectively HSW has 13 levels while "default" only has around 5, therefore Nokore does an
   -- approximation
   --
 
@@ -35,7 +36,7 @@ if not nokore.make_tool_cap_times and not nokore.make_tool_capability and not no
     nano_element = 1,
   }
 
-  -- @spec make_tool_cap_times(tool_class: String, material_class: String): { [Integer] = Number }
+  --- @spec make_tool_cap_times(tool_class: String, material_class: String): { [Integer] = Number }
   function nokore.make_tool_cap_times(tool_class, material_class)
     error("TODO")
   end
@@ -44,7 +45,7 @@ if not nokore.make_tool_cap_times and not nokore.make_tool_capability and not no
     error("TODO")
   end
 
-  -- @spec dig_class(material_class: String): Integer
+  --- @spec dig_class(material_class: String): Integer
   function nokore.dig_class(material_class)
     local value = DIG_CLASS[material_class]
     if value then
