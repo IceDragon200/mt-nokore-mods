@@ -4,6 +4,12 @@
 -- Adds stone tools
 local mod = foundation.new_module("nokore_tool_stone", "0.1.0")
 
+nokore = rawget(_G, "nokore") or {}
+
+if nokore.disable_tools then
+  return
+end
+
 mod:register_tool("pick", {
   description = mod.S("Stone Pickaxe"),
 

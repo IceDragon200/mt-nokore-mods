@@ -4,6 +4,12 @@
 -- Base module for all player tools
 foundation.new_module("nokore_tool", "0.1.0")
 
+nokore = rawget(_G, "nokore") or {}
+
+if nokore.disable_tools then
+  return
+end
+
 -- The hand
 minetest.register_item(":", {
   type = "none",
