@@ -12,8 +12,11 @@ mod:require("api.lua")
 --- @namespace nokore
 nokore = rawget(_G, "nokore") or {}
 
+--- @const PlayerStatsService: nokore_player_stats.PlayerStatsService
+nokore.PlayerStatsService = assert(nokore_player_stats.PlayerStatsService)
+
 --- @const player_stats: PlayerStatsService
-nokore.player_stats = nokore_player_stats.PlayerStatsService:new()
+nokore.player_stats = nokore.PlayerStatsService:new()
 
 nokore.player_service:register_on_player_join(
   "nokore_player_stats:player_joined",
