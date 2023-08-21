@@ -21,8 +21,10 @@ end
 do
   local ic = PlayerDataService.instance_class
 
-  --- @spec #initialize(): void
-  function ic:initialize()
+  --- @spec #initialize(options: Table): void
+  function ic:initialize(options)
+    assert(options, "expected initialization options")
+
     self.m_registered_domains = {}
 
     -- @member m_player_domains: {
@@ -33,7 +35,7 @@ do
     self.m_player_domains = {}
 
     -- @member self.m_dirname: String
-    self.m_dirname = path_join(path_join(minetest.get_worldpath(), "nokore"), "players")
+    self.m_dirname = assert(options.root_path)
 
     -- @member m_elapsed: Number
     self.m_elapsed = 0
@@ -94,9 +96,26 @@ do
     self.m_registered_domains[domain_name] = def
   end
 
+  --- Removes a registered domain (without persisting changes)
+  ---
+  --- @spec #unregister_domain(domain_name: String): void
+  function ic:unregister_domain(domain_name)
+    assert(type(domain_name) == "string", "expected a domain name")
+
+    for player_name, domains in pairs(self.m_player_domains) do
+      domains[domain_name] = nil
+    end
+
+    self.m_registered_domains[domain_name] = nil
+  end
+
   --- @spec #on_player_join(Player): void
   function ic:on_player_join(player)
     local player_name = player:get_player_name()
+    self:load_player_domains_by_name(player_name)
+  end
+
+  function ic:load_player_domains_by_name(player_name)
     local domains = {}
     local domain
     local filename
