@@ -2,27 +2,51 @@ local table_key_of = assert(foundation.com.table_key_of)
 local table_merge = assert(foundation.com.table_merge)
 local fspec = assert(foundation.com.formspec.api)
 
--- @namespace nokore_player_inv
+--- @namespace nokore_player_inv
 local mod = assert(nokore_player_inv)
 
 -- Default minetest bar size
+--- @const player_hotbar_size: Integer
 mod.player_hotbar_size = mod.player_hotbar_size or 8
 
--- player_name::String => table
+--- @const player_data: { [player_name: String]: Table }
 mod.player_data = {}
 
--- tab_name::String => table
+--- @const tabs: { [tab_name: String]: Table }
 mod.tabs = {}
 
--- tab_index => tab_name::String
+--- @const ordered_tabs_index: { [tab_index: Integer]: (tab_name: String) }
 mod.ordered_tabs_index = {}
 
--- @spec on_player_data_initialize(PlayerRef, player_data: Table): void
+--- @spec update(dt, trace?: Trace)
+function mod.update(dt, trace)
+  local span
+  if trace then
+    span = trace:span_start()
+  end
+
+  local player
+  for player_name, data in pairs(mod.player_data) do
+    if data.refresh_on_next_tick then
+      player = nokore.player_service:get_player_by_name(player_name)
+      if player then
+        mod.refresh_player_inventory_formspec(player)
+      end
+      data.refresh_on_next_tick = false
+    end
+  end
+
+  if span then
+    span:span_end()
+  end
+end
+
+--- @spec on_player_data_initialize(PlayerRef, player_data: Table): void
 function mod.on_player_data_initialize(player, player_data)
   --
 end
 
--- @spec get_player_data(PlayerRef): Table
+--- @spec get_player_data(PlayerRef): Table
 function mod.get_player_data(player)
   assert(player, "expected a player")
   local name = player:get_player_name()
@@ -37,6 +61,8 @@ function mod.get_player_data(player)
       tabs = {},
       -- index::Integer => tab_name::String
       tabs_index = {},
+      --
+      refresh_on_next_tick = false,
     }
 
     mod.on_player_data_initialize(player, mod.player_data[name])
@@ -45,7 +71,7 @@ function mod.get_player_data(player)
   return mod.player_data[name]
 end
 
--- @spec register_player_inventory_tab(tab_name: String, definition: Tab): void
+--- @spec register_player_inventory_tab(tab_name: String, definition: Tab): void
 function mod.register_player_inventory_tab(tab_name, definition)
   assert(type(tab_name) == "string", "expected a tab name")
   assert(type(definition) == "table", "expected a tab definition")
@@ -54,7 +80,7 @@ function mod.register_player_inventory_tab(tab_name, definition)
   mod.ordered_tabs_index[#mod.ordered_tabs_index + 1] = tab_name
 end
 
--- @spec update_player_inventory_tab(tab_name: String, new_definition: Tab): void
+--- @spec update_player_inventory_tab(tab_name: String, new_definition: Tab): void
 function mod.update_player_inventory_tab(tab_name, new_definition)
   assert(type(tab_name) == "string", "expected a tab name")
   assert(type(new_definition) == "table", "expected a tab definition")
@@ -65,7 +91,7 @@ function mod.update_player_inventory_tab(tab_name, new_definition)
   mod.tabs[tab_name] = table_merge(mod.tabs[tab_name], new_definition)
 end
 
--- @spec unregister_player_inventory_tab(tab_name: String): void
+--- @spec unregister_player_inventory_tab(tab_name: String): void
 function mod.unregister_player_inventory_tab(tab_name)
   assert(tab_name, "expected a tab name")
   mod.tabs[tab_name] = nil
@@ -81,7 +107,7 @@ function mod.unregister_player_inventory_tab(tab_name)
   mod.ordered_tabs_index = new_index
 end
 
--- @spec refresh_player_tabs(PlayerRef): void
+--- @spec refresh_player_tabs(PlayerRef): void
 function mod.refresh_player_tabs(player)
   assert(player, "expected a player")
   local data = mod.get_player_data(player)
@@ -111,7 +137,7 @@ function mod.refresh_player_tabs(player)
   end
 end
 
--- @spec make_player_inventory_formspec(PlayerRef): String
+--- @spec make_player_inventory_formspec(PlayerRef): String
 function mod.make_player_inventory_formspec(player)
   --
   -- Stock Formspec as of 2020-07-16
@@ -142,7 +168,7 @@ function mod.make_player_inventory_formspec(player)
   return formspec
 end
 
--- @spec player_inventory_size2(Player): Vector2
+--- @spec player_inventory_size2(Player): Vector2
 function mod.player_inventory_size2(player)
   assert(player, "expected a player")
   local inv = player:get_inventory()
@@ -150,14 +176,17 @@ function mod.player_inventory_size2(player)
   return { x = mod.player_hotbar_size, y = rows }
 end
 
--- @spec player_inventory_lists_fragment(PlayerRef, Number, Number):
---         (formspec: String, dimensions: Vector2)
+--- @spec player_inventory_lists_fragment(
+---   PlayerRef,
+---   x: Number,
+---   y: Number
+--- ): (formspec: String, dimensions: Vector2)
 function mod.player_inventory_lists_fragment(player, x, y)
   local dims = mod.player_inventory_size2(player)
   return fspec.list("current_player", "main", x, y, dims.x, dims.y), dims
 end
 
--- @spec refresh_player_inventory_formspec(PlayerRef): void
+--- @spec refresh_player_inventory_formspec(PlayerRef): void
 function mod.refresh_player_inventory_formspec(player)
   assert(player, "expected player")
   mod.refresh_player_tabs(player)
@@ -165,7 +194,7 @@ function mod.refresh_player_inventory_formspec(player)
   player:set_inventory_formspec(formspec)
 end
 
--- @spec activate_tab(PlayerRef, tab_name: String): void
+--- @spec activate_tab(PlayerRef, tab_name: String): void
 function mod.activate_tab(player, tab_name)
   assert(player, "expected a player")
   assert(type(tab_name) == "string", "expected a tab name")
@@ -179,4 +208,25 @@ function mod.activate_tab(player, tab_name)
   end
 
   mod.refresh_player_inventory_formspec(player)
+end
+
+--- @spec send_tab_event(PlayerRef, tab_name: String, event: Any): void
+function mod.send_tab_event(player, tab_name, event)
+  assert(player, "expected a player")
+  assert(type(tab_name) == "string", "expected a tab name")
+
+  local data = mod.get_player_data(player)
+
+  local tab = mod.tabs[tab_name]
+
+  local idx = data.current_tab_index
+  local focused_tab_name = data.tabs_index[idx]
+
+  if tab.on_event then
+    local should_refresh = tab.on_event(player, data.assigns, event, data.tabs[tab_name])
+
+    if should_refresh and tab_name == focused_tab_name then
+      data.refresh_on_next_tick = true
+    end
+  end
 end

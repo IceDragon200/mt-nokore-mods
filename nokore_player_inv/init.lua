@@ -6,11 +6,13 @@
 -- mods for messing with the player inventory (and creative inventory)
 --
 -- You may recognize this is similar to sfinv, and you'd be kind of right.
-local mod = foundation.new_module("nokore_player_inv", "0.3.0")
+local mod = foundation.new_module("nokore_player_inv", "0.4.0")
 
 local fspec = assert(foundation.com.formspec.api)
 
 mod:require("api.lua")
+
+nokore_proxy.register_globalstep("nokore_player_inv:update/2", mod.update)
 
 minetest.register_on_player_receive_fields(function (player, form_name, fields)
   if form_name ~= "" then
@@ -45,7 +47,7 @@ minetest.register_on_player_receive_fields(function (player, form_name, fields)
           )
 
         if should_refresh then
-          mod.refresh_player_inventory_formspec(player)
+          player_data.refresh_on_next_tick = true
         end
         return break_bubble
       end
