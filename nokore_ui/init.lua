@@ -1,12 +1,14 @@
 --
 -- NoKore - UI
 --
--- This mod wraps up the formspec system into nice to manage classes
--- @namespace nokore
+
+--- This mod wraps up the formspec system into nice to managed classes
+--- @namespace nokore
 local mod = foundation.new_module("nokore_ui", "0.3.0")
 
 mod:require("formspec_bindings.lua")
 
+--- @const formspec_bindings: FormspecBindings
 nokore.formspec_bindings = nokore.FormspecBindings:new("default")
 
 minetest.register_on_player_receive_fields(
