@@ -82,7 +82,7 @@ do
     end
     if trace then
       trace:span_end()
-      -- trace:inspect()
+      -- print(trace:inspect())
     end
     self.blocks = {}
   end
