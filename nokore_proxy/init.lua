@@ -2,32 +2,40 @@ local mod = foundation.new_module("nokore_proxy", "1.0.0")
 
 -- maybe it will be set, maybe
 local Trace = foundation.com.Trace
+local List = assert(foundation.com.List)
 
--- @namespace nokore_proxy
+--- @namespace nokore_proxy
 
--- @type GlobalstepCallback: Function(dt: Float, trace?: Trace) => void
+--- @type GlobalstepCallback: Function(dt: Float, trace?: Trace) => void
 
--- @const registered_globalsteps: {
---   [name: String]: GlobalstepCallback
--- }
-mod.registered_globalsteps = {}
+--- @type RegisteredGlobalstep: {
+---   name: String,
+---   callback: GlobalstepCallback,
+--- }
 
--- @const last_trace: Trace | nil
+--- @const registered_globalsteps: foundation.com.List<RegisteredGlobalstep>
+mod.registered_globalsteps = List:new()
+
+--- @const last_trace: Trace | nil
 mod.last_trace = nil
 
--- @spec register_globalstep(name: String, callback: GlobalstepCallback): void
+--- @spec register_globalstep(name: String, callback: GlobalstepCallback): void
 function mod.register_globalstep(name, callback)
   assert(name, "expected a callback name")
   assert(type(callback) == "function", "expected a callback function")
 
-  if mod.registered_globalsteps[name] then
+  local existing = mod.registered_globalsteps:find(nil, function (obj)
+    return obj.name == name
+  end)
+
+  if existing then
     error("globalstep function already registered name=" .. name)
   end
 
-  mod.registered_globalsteps[name] = callback
+  mod.registered_globalsteps:push({ name = name, callback = callback })
 end
 
--- @spec update(Float): void
+--- @spec update(Float): void
 function mod.update(dt)
   local trace
   if Trace then
@@ -35,13 +43,20 @@ function mod.update(dt)
   end
   local span
 
-  for name, callback in pairs(mod.registered_globalsteps) do
-    if trace then
-      span = trace:span_start(name)
-    end
-    callback(dt, span)
-    if span then
-      span:span_end()
+  local data = mod.registered_globalsteps:data()
+  local size = mod.registered_globalsteps:size()
+  local entry
+
+  if size > 0 then
+    for i = 1,size do
+      entry = data[i]
+      if trace then
+        span = trace:span_start(entry.name)
+      end
+      entry.callback(dt, span)
+      if span then
+        span:span_end()
+      end
     end
   end
 
