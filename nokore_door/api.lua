@@ -1,5 +1,6 @@
 local mod = nokore_door
 
+local copy_node = assert(foundation.com.copy_node)
 local table_copy = assert(foundation.com.table_copy)
 local table_merge = assert(foundation.com.table_merge)
 local table_deep_merge = assert(foundation.com.table_deep_merge)
@@ -180,11 +181,11 @@ local function trigger_door(pos, node, clicker, item_stack, pointed_thing, trigg
   meta:set_int("door_state", new_door_state)
   sibling_meta:set_int("door_state", new_door_state)
 
-  local new_node = table_copy(node)
+  local new_node = copy_node(node)
   new_node.name = nodedef.door.mirror_name
   new_node.param2 = new_param2
 
-  local new_sibling_node = table_copy(sibling_node)
+  local new_sibling_node = copy_node(sibling_node)
   new_sibling_node.name = sibling_nodedef.door.mirror_name
   new_sibling_node.param2 = new_node.param2
 
