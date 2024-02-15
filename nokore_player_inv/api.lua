@@ -22,7 +22,7 @@ mod.ordered_tabs_index = {}
 function mod.update(dt, trace)
   local span
   if trace then
-    span = trace:span_start()
+    span = trace:span_start("nokore_player_inv.update/2")
   end
 
   local player
