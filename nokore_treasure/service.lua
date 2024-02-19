@@ -1,7 +1,7 @@
 local mod = assert(nokore_treasure)
 local treasure = assert(nokore.treasure)
 
--- @private.spec action(Vector3, NodeRef): void
+--- @private.spec action(Vector3, NodeRef): void
 local function action(pos, _node)
   local meta = minetest.get_meta(pos)
   local chest_name = meta:get_string("nok_chest_name")
