@@ -1,25 +1,68 @@
 local mod = assert(nokore_backpacks)
 
-local fspec = assert(foundation.com.formspec.api)
 local is_blank = assert(foundation.com.is_blank)
 local InventorySerializer = assert(foundation.com.InventorySerializer)
 
-local function render_formspec(pos, player)
-  local spos = pos.x..","..pos.y..","..pos.z
+local function on_construct(pos)
+  local meta = minetest.get_meta(pos)
+  local inv = meta:get_inventory()
 
-  local formspec =
-    fspec.formspec_version(6) ..
-    fspec.size(13, 13) ..
-    fspec.list("nodemeta:"..spos, "main", 0.375, 0.5, 10, 4) ..
-    nokore_player_inv.player_inventory_lists_fragment(player, 0.375, 6) ..
-    fspec.listring()
+  inv:set_size("main", 40)
+end
 
-  return formspec
+local function after_place_node(pos, placer, item_stack, pointed_thing)
+  local target_meta = minetest.get_meta(pos)
+  local source_meta = item_stack:get_meta()
+
+  local target_inv = target_meta:get_inventory()
+
+  local source_inv_list = source_meta:get_string("inventory_dump")
+
+  if not is_blank(source_inv_list) then
+    local dumped = minetest.deserialize(source_inv_list)
+    local list = target_inv:get_list("main")
+    list = InventorySerializer.load_list(dumped, list)
+    target_inv:set_list("main", list)
+  end
+end
+
+local function preserve_metadata(pos, _old_node, _old_meta_table, drops)
+  local stack = drops[1]
+
+  local old_meta = minetest.get_meta(pos)
+  local new_meta = stack:get_meta()
+
+  local old_inv = old_meta:get_inventory()
+  local list = old_inv:get_list("main")
+
+  local dumped = InventorySerializer.dump_list(list)
+
+  --print("preserve_metadata", dump(dumped))
+  new_meta:set_string("inventory_dump", minetest.serialize(dumped))
+  local description = "Backpack (" .. InventorySerializer.description(dumped) .. ")"
+  new_meta:set_string("description", description)
+end
+
+local function on_blast(pos)
+  local drops = {}
+  drops[1] = mod:make_name("backpack")
+  foundation.com.get_inventory_drops(pos, "main", drops)
+  minetest.remove_node(pos)
+  return drops
+end
+
+local function on_rightclick(pos, node, player, itemstack, pointed_thing)
+  nokore.formspec_bindings:show_formspec(
+    player:get_player_name(),
+    "nokore_backpacks:backpack",
+    nokore_backpacks.render_backpack_formspec(pos, player)
+  )
+  return itemstack
 end
 
 -- Just a general purpose backpack
 mod:register_node("backpack", {
-  description = "Backpack",
+  description = mod.S("Backpack"),
 
   groups = {
     cracky = nokore.dig_class("copper"),
@@ -53,60 +96,13 @@ mod:register_node("backpack", {
     "nokore_backpack_front.png",
   },
 
-  on_construct = function (pos)
-    local meta = minetest.get_meta(pos)
-    local inv = meta:get_inventory()
+  on_construct = on_construct,
 
-    inv:set_size("main", 40)
-  end,
+  after_place_node = after_place_node,
 
-  after_place_node = function (pos, placer, item_stack, pointed_thing)
-    local target_meta = minetest.get_meta(pos)
-    local source_meta = item_stack:get_meta()
+  preserve_metadata = preserve_metadata,
 
-    local target_inv = target_meta:get_inventory()
+  on_blast = on_blast,
 
-    local source_inv_list = source_meta:get_string("inventory_dump")
-
-    if not is_blank(source_inv_list) then
-      local dumped = minetest.deserialize(source_inv_list)
-      local list = target_inv:get_list("main")
-      list = InventorySerializer.load_list(dumped, list)
-      target_inv:set_list("main", list)
-    end
-  end,
-
-  preserve_metadata = function (pos, _old_node, _old_meta_table, drops)
-    local stack = drops[1]
-
-    local old_meta = minetest.get_meta(pos)
-    local new_meta = stack:get_meta()
-
-    local old_inv = old_meta:get_inventory()
-    local list = old_inv:get_list("main")
-
-    local dumped = InventorySerializer.dump_list(list)
-
-    --print("preserve_metadata", dump(dumped))
-    new_meta:set_string("inventory_dump", minetest.serialize(dumped))
-    local description = "Backpack (" .. InventorySerializer.description(dumped) .. ")"
-    new_meta:set_string("description", description)
-  end,
-
-  on_blast = function (pos)
-    local drops = {}
-    drops[1] = mod:make_name("backpack")
-    foundation.com.get_inventory_drops(pos, "main", drops)
-    minetest.remove_node(pos)
-    return drops
-  end,
-
-  on_rightclick = function (pos, node, player, itemstack, pointed_thing)
-    minetest.show_formspec(
-      player:get_player_name(),
-      "nokore_backpacks:backpack",
-      render_formspec(pos, player)
-    )
-    return itemstack
-  end,
+  on_rightclick = on_rightclick,
 })
