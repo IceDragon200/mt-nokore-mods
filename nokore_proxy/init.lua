@@ -35,6 +35,22 @@ function mod.register_globalstep(name, callback)
   mod.registered_globalsteps:push({ name = name, callback = callback })
 end
 
+--- @spec replace_globalstep(name: String, callback: GlobalstepCallback): void
+function mod.replace_globalstep(name, callback)
+  assert(name, "expected a callback name")
+  assert(type(callback) == "function", "expected a callback function")
+
+  local index = mod.registered_globalsteps:find_index(function (obj)
+    return obj.name == name
+  end)
+
+  if index >= 0 then
+    assert(mod.registered_globalsteps:put_at(index, { name = name, callback = callback }))
+  else
+    error("globalstep function was not registered name=" .. name)
+  end
+end
+
 --- @spec update(Float): void
 function mod.update(dt)
   local trace
