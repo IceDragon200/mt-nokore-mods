@@ -7,7 +7,7 @@ local function on_construct(pos)
   local meta = minetest.get_meta(pos)
   local inv = meta:get_inventory()
 
-  inv:set_size("main", 40)
+  inv:set_size("main", mod.get_backpack_inventory_size())
 end
 
 local function after_place_node(pos, placer, item_stack, pointed_thing)
@@ -55,7 +55,7 @@ local function on_rightclick(pos, node, player, itemstack, pointed_thing)
   nokore.formspec_bindings:show_formspec(
     player:get_player_name(),
     "nokore_backpacks:backpack",
-    nokore_backpacks.render_backpack_formspec(pos, player)
+    mod.render_formspec(pos, player)
   )
   return itemstack
 end

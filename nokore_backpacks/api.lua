@@ -3,8 +3,13 @@ local fspec = assert(foundation.com.formspec.api)
 --- @namespace nokore_backpacks
 local mod = assert(nokore_backpacks)
 
---- @spec render_backpack_formspec(pos: Vector3, player: PlayerRef): String
-function mod.render_backpack_formspec(pos, player)
+--- @spec get_backpack_inventory_size(): Integer
+function mod.get_backpack_inventory_size()
+  return nokore_player_inv.player_hotbar_size * 4
+end
+
+--- @spec render_formspec(pos: Vector3, player: PlayerRef): String
+function mod.render_formspec(pos, player)
   local spos = pos.x..","..pos.y..","..pos.z
 
   local formspec =
