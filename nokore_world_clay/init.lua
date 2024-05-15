@@ -7,6 +7,5 @@ nokore.node_sounds:register("clay", {})
 nokore.node_sounds:register("clay_brick", {})
 nokore.node_sounds:register("terracota", {})
 
-mod:require("nodes/clay.lua")
-mod:require("nodes/clay_brick.lua")
-mod:require("nodes/terracota.lua")
+mod:require("nodes.lua")
+mod:require("items.lua")

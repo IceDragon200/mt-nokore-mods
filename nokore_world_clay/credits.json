@@ -1,0 +1,72 @@
+{
+  "authors": {
+    "PixelPerfection": {
+      "urls": [
+        "https://github.com/Wallbraker/PixelPerfection",
+        "https://www.curseforge.com/minecraft/texture-packs/pixel-perfection-legacy"
+      ]
+    }
+  },
+  "files": {
+    "textures/world_clay.png": {
+      "authors": ["PixelPerfection"]
+    },
+    "textures/world_clay_brick.png": {
+      "authors": ["PixelPerfection"]
+    },
+    "textures/world_clay_lump.png": {
+      "authors": ["PixelPerfection"]
+    },
+    "textures/world_terracota.png": {
+      "authors": ["PixelPerfection"]
+    },
+    "textures/world_terracota_stained_black.png": {
+      "authors": ["PixelPerfection"]
+    },
+    "textures/world_terracota_stained_blue.png": {
+      "authors": ["PixelPerfection"]
+    },
+    "textures/world_terracota_stained_brown.png": {
+      "authors": ["PixelPerfection"]
+    },
+    "textures/world_terracota_stained_cyan.png": {
+      "authors": ["PixelPerfection"]
+    },
+    "textures/world_terracota_stained_gray.png": {
+      "authors": ["PixelPerfection"]
+    },
+    "textures/world_terracota_stained_green.png": {
+      "authors": ["PixelPerfection"]
+    },
+    "textures/world_terracota_stained_light_blue.png": {
+      "authors": ["PixelPerfection"]
+    },
+    "textures/world_terracota_stained_lime.png": {
+      "authors": ["PixelPerfection"]
+    },
+    "textures/world_terracota_stained_magenta.png": {
+      "authors": ["PixelPerfection"]
+    },
+    "textures/world_terracota_stained_orange.png": {
+      "authors": ["PixelPerfection"]
+    },
+    "textures/world_terracota_stained_pink.png": {
+      "authors": ["PixelPerfection"]
+    },
+    "textures/world_terracota_stained_purple.png": {
+      "authors": ["PixelPerfection"]
+    },
+    "textures/world_terracota_stained_red.png": {
+      "authors": ["PixelPerfection"]
+    },
+    "textures/world_terracota_stained_silver.png": {
+      "authors": ["PixelPerfection"]
+    },
+    "textures/world_terracota_stained_white.png": {
+      "authors": ["PixelPerfection"]
+    },
+    "textures/world_terracota_stained_yellow.png": {
+      "authors": ["PixelPerfection"]
+    }
+  }
+}

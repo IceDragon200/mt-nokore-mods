@@ -6,6 +6,7 @@ mod:register_node("brick", {
 
   groups = {
     cracky = nokore.dig_class("stone"),
+    clay_brick = 1,
   },
 
   paramtype2 = "facedir",
@@ -14,6 +15,6 @@ mod:register_node("brick", {
     "world_clay_brick.png^[transformFX",
     "world_clay_brick.png",
   },
-  is_ground_content = false,
+  is_ground_content = true,
   sounds = nokore.node_sounds:build("clay_brick"),
 })

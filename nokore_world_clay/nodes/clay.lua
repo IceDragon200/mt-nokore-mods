@@ -6,6 +6,7 @@ mod:register_node("block", {
 
   groups = {
     crumbly = nokore.dig_class("wme"),
+    clay = 1,
   },
 
   tiles = {
@@ -13,5 +14,6 @@ mod:register_node("block", {
   },
 
   drop = "default:clay_lump 4",
+  is_ground_content = true,
   sounds = nokore.node_sounds:build("clay"),
 })
