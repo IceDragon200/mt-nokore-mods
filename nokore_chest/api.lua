@@ -1,15 +1,23 @@
--- @namespace nokore_chest
+--- @namespace nokore_chest
 local mod = assert(nokore_chest)
 
 local fspec = assert(foundation.com.formspec.api)
 
+--- @const open_chests: { [Integer]: Any }
 mod.open_chests = {}
 
+--- @overridable
+--- @spec get_chest_inventory_size(): Integer
+function mod.get_chest_inventory_size()
+  return nokore_player_inv.player_hotbar_size * 4
+end
+
+--- @spec chest_on_construct(pos): void
 function mod.chest_on_construct(pos)
   local meta = minetest.get_meta(pos)
   local inv = meta:get_inventory()
 
-  inv:set_size("main", 10 * 4)
+  inv:set_size("main", mod.get_chest_inventory_size())
 end
 
 function mod.chest_after_destruct(pos)
@@ -27,12 +35,17 @@ function mod.chest_can_dig(pos)
   return minetest.node_dig(pos, node, puncher)
 end
 
--- @spec render_formspec(pos: Vector3, PlayerRef): String
+--- @overridable
+--- @spec render_formspec(pos: Vector3, PlayerRef): String
 function mod.render_formspec(pos, player)
   local spos = pos.x .. "," .. pos.y .. "," .. pos.z
 
+  local meta = minetest.get_meta(pos)
+  local inv = meta:get_inventory()
+  local inv_size = inv:get_size("main")
+
   local cols = nokore_player_inv.player_hotbar_size
-  local rows = math.ceil(40 / cols)
+  local rows = math.ceil(inv_size / cols)
 
   local formspec =
     fspec.formspec_version(6) ..
@@ -70,6 +83,7 @@ end
 
 function mod.maybe_open_chest(pos, player)
   local chest_id = minetest.pos_to_string(pos)
+
   if not mod.open_chests[chest_id] then
     mod.open_chests[chest_id] = {}
 
