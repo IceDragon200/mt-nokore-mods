@@ -5,7 +5,7 @@
 -- stored or even attached to the player themselves.
 -- This also supports caching those values to speed up subsequent queries.
 --
-local mod = foundation.new_module("nokore_player_stats", "0.2.0")
+local mod = foundation.new_module("nokore_player_stats", "0.3.0")
 
 mod:require("api.lua")
 

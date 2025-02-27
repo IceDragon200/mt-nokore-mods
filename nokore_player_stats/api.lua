@@ -1,10 +1,9 @@
 --- @namespace nokore_player_stats
 
--- Modtypes:
---   * "base"
---   * "add"
---   * "mul"
-
+--- Modtypes:
+---   * "base"
+---   * "add"
+---   * "mul"
 --- @type ModType: String
 
 ---
@@ -24,11 +23,11 @@ do
     --- @member set: Function/3
     self.set = def.set
 
-    -- Modifiers are optional to implement for a stat, if they are
-    -- they are normally applied in the order: "base", "add" and then "mul":
-    --   base - the 'base' value of the stat that every other modifier will apply to (can be replaced)
-    --   add - any additional additions to be made to the base (modifiers should only add/sub)
-    --   mul - any multipliers that should be applied to the value at the end of calculations
+    --- Modifiers are optional to implement for a stat, if they are
+    --- they are normally applied in the order: "base", "add" and then "mul":
+    ---   base - the 'base' value of the stat that every other modifier will apply to (can be replaced)
+    ---   add - any additional additions to be made to the base (modifiers should only add/sub)
+    ---   mul - any multipliers that should be applied to the value at the end of calculations
     --- @member m_modifiers: {
     ---   base: { [name: String]: Function/2 },
     ---   add: { [name: String]: Function/2 },
@@ -180,6 +179,17 @@ do
     return nil
   end
 
+  --- Retries a table of all stats for specified player.
+  ---
+  --- @spec #get_player_stats(PlayerRef): Table
+  function ic:get_player_stats(player)
+    local result = {}
+    for name, _stat in pairs(self.registered_stats) do
+      result[name] = self:get_player_stat(player, name)
+    end
+    return result
+  end
+
   --- Attempts to set the value of the player's stat.
   --- If the stat supports being set, then the set/3 function is called,
   --- depending on the stat, this function may return true or false.
@@ -194,11 +204,23 @@ do
     return false
   end
 
+  --- Clears a specific stat by its name
+  ---
+  --- @spec #clear_player_stat(player_name: String, name: String): void
+  function ic:clear_player_stat(player_name, name)
+    local cache = self.m_player_stat_cache[player_name]
+    if cache then
+      cache[name] = nil
+    end
+  end
+
   --- Clears any cached stats for the specified player by name
   ---
   --- @spec #clear_player_stats(player_name: String): void
   function ic:clear_player_stats(player_name)
-    self.m_player_stat_cache[player_name] = {}
+    if self.m_player_stat_cache[player_name] then
+      self.m_player_stat_cache[player_name] = {}
+    end
   end
 
   --- Player Service Callback, handles creating the player's stat cache (initial setup)
