@@ -24,22 +24,22 @@ do
 
   --- @spec #initialize(): void
   function ic:initialize()
-    -- @member DIRECTION_LEFT_RIGHT: Integer = 0
+    --- @member DIRECTION_LEFT_RIGHT: Integer = 0
     self.DIRECTION_LEFT_RIGHT = 0
-    -- @member DIRECTION_RIGHT_LEFT: Integer = 1
+    --- @member DIRECTION_RIGHT_LEFT: Integer = 1
     self.DIRECTION_RIGHT_LEFT = 1
-    -- @member DIRECTION_TOP_BOTTOM: Integer = 2
+    --- @member DIRECTION_TOP_BOTTOM: Integer = 2
     self.DIRECTION_TOP_BOTTOM = 2
-    -- @member DIRECTION_BOTTOM_TOP: Integer = 3
+    --- @member DIRECTION_BOTTOM_TOP: Integer = 3
     self.DIRECTION_BOTTOM_TOP = 3
 
-    -- @member m_player_hud_ids: PlayerHudIds
+    --- @member m_player_hud_ids: PlayerHudIds
     self.m_player_hud_ids = {}
 
-    -- @member m_registered_elements: RegisteredElements
+    --- @member m_registered_elements: RegisteredElements
     self.m_registered_elements = {}
 
-    -- @member m_on_init_player_hud_element_cbs: OnInitPlayerHudElementCallbacks
+    --- @member m_on_init_player_hud_element_cbs: OnInitPlayerHudElementCallbacks
     self.m_on_init_player_hud_element_cbs = {}
   end
 
