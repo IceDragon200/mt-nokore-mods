@@ -1,7 +1,7 @@
 --
 -- NoKore - Entity - Walkover
 --
-local mod = foundation.new_module("nokore_entity_walkover", "0.2.0")
+local mod = foundation.new_module("nokore_entity_walkover", "0.2.1")
 
 local player_service = assert(nokore.player_service)
 local Vector3 = assert(foundation.com.Vector3)
@@ -99,7 +99,7 @@ local function update_players(players, dtime, player_assigns)
           if node then
             nodedef = minetest.registered_nodes[node.name]
 
-            if nodedef.on_player_walkover then
+            if nodedef and nodedef.on_player_walkover then
               nodedef.on_player_walkover(walkover_pos, node, player)
             end
 
@@ -113,7 +113,7 @@ local function update_players(players, dtime, player_assigns)
           if node then
             nodedef = minetest.registered_nodes[node.name]
 
-            if nodedef.on_player_walkin then
+            if nodedef and nodedef.on_player_walkin then
               nodedef.on_player_walkin(walk_in_pos, node, player)
             end
 
@@ -127,7 +127,7 @@ local function update_players(players, dtime, player_assigns)
           if node then
             nodedef = minetest.registered_nodes[node.name]
 
-            if nodedef.on_player_standing_on then
+            if nodedef and nodedef.on_player_standing_on then
               nodedef.on_player_standing_on(walkover_pos, node, player, assigns.last_moved_since)
             end
 
@@ -141,7 +141,7 @@ local function update_players(players, dtime, player_assigns)
           if node then
             nodedef = minetest.registered_nodes[node.name]
 
-            if nodedef.on_player_standing_in then
+            if nodedef and nodedef.on_player_standing_in then
               nodedef.on_player_standing_in(walk_in_pos, node, player, assigns.last_moved_since)
             end
 
