@@ -171,11 +171,13 @@ do
     -- update the players every step
     --self.m_players = {}
     local player_name
+    local players = self.m_players
+    local assigns = self.m_player_assigns
     for _i, player in pairs(get_connected_players()) do
       player_name = player:get_player_name()
-      self.m_players[player_name] = player
-      if not self.m_player_assigns[player_name] then
-        self.m_player_assigns[player_name] = {}
+      players[player_name] = player
+      if not assigns[player_name] then
+        assigns[player_name] = {}
       end
     end
   end
