@@ -23,7 +23,7 @@ mod:register_node("allium", {
   sunlight_propagates = true,
   paramtype = "light",
 
-  walkable = false,
+  walkable = true,
   buildable_to = true,
 })
 
@@ -45,7 +45,13 @@ mod:register_node("blue_orchid", {
   drawtype = "plantlike",
   tiles = {
     "world_flower_blue_orchid.png",
-  }
+  },
+
+  sunlight_propagates = true,
+  paramtype = "light",
+
+  walkable = true,
+  buildable_to = true,
 })
 
 mod:register_node("dandelion", {
@@ -66,7 +72,13 @@ mod:register_node("dandelion", {
   drawtype = "plantlike",
   tiles = {
     "world_flower_dandelion.png",
-  }
+  },
+
+  sunlight_propagates = true,
+  paramtype = "light",
+
+  walkable = true,
+  buildable_to = true,
 })
 
 mod:register_node("houstonia", {
@@ -87,7 +99,13 @@ mod:register_node("houstonia", {
   drawtype = "plantlike",
   tiles = {
     "world_flower_houstonia.png",
-  }
+  },
+
+  sunlight_propagates = true,
+  paramtype = "light",
+
+  walkable = true,
+  buildable_to = true,
 })
 
 mod:register_node("oxeye_daisy", {
@@ -108,7 +126,13 @@ mod:register_node("oxeye_daisy", {
   drawtype = "plantlike",
   tiles = {
     "world_flower_oxeye_daisy.png",
-  }
+  },
+
+  sunlight_propagates = true,
+  paramtype = "light",
+
+  walkable = true,
+  buildable_to = true,
 })
 
 mod:register_node("rose", {
@@ -129,7 +153,13 @@ mod:register_node("rose", {
   drawtype = "plantlike",
   tiles = {
     "world_flower_rose.png",
-  }
+  },
+
+  sunlight_propagates = true,
+  paramtype = "light",
+
+  walkable = true,
+  buildable_to = true,
 })
 
 mod:register_node("tulip_orange", {
@@ -150,7 +180,13 @@ mod:register_node("tulip_orange", {
   drawtype = "plantlike",
   tiles = {
     "world_flower_tulip_orange.png",
-  }
+  },
+
+  sunlight_propagates = true,
+  paramtype = "light",
+
+  walkable = true,
+  buildable_to = true,
 })
 
 mod:register_node("tulip_pink", {
@@ -171,7 +207,13 @@ mod:register_node("tulip_pink", {
   drawtype = "plantlike",
   tiles = {
     "world_flower_tulip_pink.png",
-  }
+  },
+
+  sunlight_propagates = true,
+  paramtype = "light",
+
+  walkable = true,
+  buildable_to = true,
 })
 
 mod:register_node("tulip_red", {
@@ -192,7 +234,13 @@ mod:register_node("tulip_red", {
   drawtype = "plantlike",
   tiles = {
     "world_flower_tulip_red.png",
-  }
+  },
+
+  sunlight_propagates = true,
+  paramtype = "light",
+
+  walkable = true,
+  buildable_to = true,
 })
 
 mod:register_node("tulip_white", {
@@ -213,5 +261,11 @@ mod:register_node("tulip_white", {
   drawtype = "plantlike",
   tiles = {
     "world_flower_tulip_white.png",
-  }
+  },
+
+  sunlight_propagates = true,
+  paramtype = "light",
+
+  walkable = true,
+  buildable_to = true,
 })

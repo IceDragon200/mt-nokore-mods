@@ -7,7 +7,21 @@
 local mod = foundation.new_module("nokore_mapgen", "0.1.0")
 
 -- Clear existing registration
-minetest.clear_registered_ores()
-minetest.clear_registered_decorations()
+core.clear_registered_ores()
+core.clear_registered_decorations()
 
-mod.tree_seed = 0x65674436
+local mgname = core.get_mapgen_setting("mg_name")
+
+mod.enable_trees = false
+mod.enable_giant_mushrooms = false
+
+if mgname == "singlenode" then
+  --
+  mod.is_singlenode = true
+  core.register_mapgen_script(mod.modpath .. "/singlenode.lua")
+else
+  mod.enable_trees = true
+  mod.enable_giant_mushrooms = false
+  mod.tree_seed = 0x65674436
+  mod.seed_giant_mushroom = 0x4D555348
+end

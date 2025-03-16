@@ -5,4 +5,4 @@
 -- from updating it
 foundation.new_module("nokore_biome", "0.1.0")
 
-minetest.clear_registered_biomes()
+core.clear_registered_biomes()

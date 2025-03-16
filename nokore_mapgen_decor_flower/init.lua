@@ -7,7 +7,7 @@ local function register_flower(name, seed)
   minetest.register_decoration({
     name = name,
     deco_type = "simple",
-    place_on = {"default:dirt_with_grass"},
+    place_on = {"nokore_world_standard:dirt_with_grass"},
     sidelen = 16,
     noise_params = {
       offset = -0.02,

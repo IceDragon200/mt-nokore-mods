@@ -42,7 +42,7 @@ local bamboo_schematic = {
   },
 }
 
-minetest.register_biome({
+core.register_biome({
   name = "bamboo_forest",
   node_top = "nokore_world_standard:dirt_with_grass",
   depth_top = 1,
@@ -59,7 +59,7 @@ minetest.register_biome({
   humidity_point = 75,
 })
 
-minetest.register_decoration({
+core.register_decoration({
   name = "nokore_biome_bamboo_forest:bamboo_tree",
   deco_type = "schematic",
   place_on = {"nokore_world_standard:dirt_with_grass"},
