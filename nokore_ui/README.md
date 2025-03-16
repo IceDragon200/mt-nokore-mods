@@ -36,7 +36,7 @@ nokore.formspec_bindings:show_formspec(
         end,
       },
 
-      timer_with_comands = {
+      timer_with_commands = {
         every = 1,
 
         action = function (player_name, form_name, state)

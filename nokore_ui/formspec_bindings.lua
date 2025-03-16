@@ -1,6 +1,9 @@
 --- @namespace nokore
 nokore = rawget(_G, "nokore") or {}
 
+local core_log = assert(core.log)
+local show_formspec = assert(core.show_formspec)
+
 --- @class FormspecBindings
 local FormspecBindings = foundation.com.Class:extends("nokore.FormspecBindings")
 do
@@ -46,7 +49,7 @@ do
   --- }
   ---
 
-  --- Wrapper for :bind_player_form and minetest.show_formspec, this will
+  --- Wrapper for :bind_player_form and core.show_formspec, this will
   --- setup the form binding and show the formspec to the player.
   ---
   --- @spec #show_formspec(player_name: String,
@@ -60,7 +63,7 @@ do
     assert(type(options) == "table", "expected options to be a table")
 
     local form = self:bind_player_form(player_name, form_name, options)
-    minetest.show_formspec(player_name, form_name, formspec)
+    show_formspec(player_name, form_name, formspec)
 
     return form
   end
@@ -83,7 +86,7 @@ do
     self:find_forms(expected_form_name, function (player_name, form)
       local new_formspec = callback(player_name, form.state)
       if new_formspec then
-        minetest.show_formspec(player_name, expected_form_name, new_formspec)
+        show_formspec(player_name, expected_form_name, new_formspec)
       end
     end)
   end
@@ -182,21 +185,30 @@ do
   end
 
   ---
-  --- Callback function for minetest's on_player_receive_fields
+  --- Callback function for core's on_player_receive_fields
   ---
-  --- @spec #on_player_receive_fields(player: PlayerRef, form_name: String, fields: Table): Boolean
+  --- @spec #on_player_receive_fields(
+  ---   player: PlayerRef,
+  ---   form_name: String,
+  ---   fields: Table
+  --- ): (stop_bubbling: Boolean)
   function ic:on_player_receive_fields(player, form_name, fields)
+    if form_name == "" then
+      -- Not our responsibility
+      return false
+    end
+
     local player_name = player:get_player_name()
     local forms = self.player_to_forms[player_name]
     if not forms then
-      minetest.log("warning", "there are no known forms bound for player")
+      core_log("warning", "there are no known forms bound for player (wanted form_name=" .. form_name .. ")")
       -- the player had no forms bound at the moment, let some other receive fields handle it
       return false
     end
 
     local form = forms[form_name]
     if not form then
-      minetest.log("warning", "specified form is not bound for player=" .. player_name .. " form_name="..form_name)
+      core_log("warning", "specified form is not bound for player=" .. player_name .. "(wanted form_name="..form_name .. ")")
       -- the specified form for the player was not bound, let some other receive fields handle it
       return false
     end
@@ -212,7 +224,7 @@ do
       return stop_bubbling
     else
       if new_formspec then
-        minetest.show_formspec(player_name, form_name, new_formspec)
+        show_formspec(player_name, form_name, new_formspec)
       end
       return stop_bubbling
     end
@@ -228,7 +240,7 @@ do
     if commands then
       for _,command in ipairs(commands) do
         if command.type == "refresh_formspec" then
-          minetest.show_formspec(player_name, form_name, command.value)
+          show_formspec(player_name, form_name, command.value)
         else
           error("unexpected command.type=" .. command.type ..
                 " player=" .. player_name ..
