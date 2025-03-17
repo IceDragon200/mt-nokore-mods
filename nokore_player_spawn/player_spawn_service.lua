@@ -11,6 +11,7 @@ do
   --- @spec #initialize(options: Table): void
   function ic:initialize(options)
     ic._super.initialize(self)
+    self.m_player_data_service = assert(options.player_data_service, "expected player data service")
     self.m_data_domain = assert(options.data_domain)
     self.m_kv_filename = assert(options.kv_filename)
     self.m_kv = KVStore:new()
@@ -20,12 +21,15 @@ do
 
   --- @spec #_load_kv(): void
   function ic:_load_kv()
-    self.m_kv:marshall_load_file(m_kv_filename)
+    self.m_kv:marshall_load_file(self.m_kv_filename)
   end
 
   --- @spec #_save_kv(): void
   function ic:_save_kv()
-    self.m_kv:marshall_dump_file(m_kv_filename)
+    if self.m_kv.dirty then
+      self.m_kv:marshall_dump_file(self.m_kv_filename)
+      self.m_kv.dirty = false
+    end
   end
 
   --- @spec #set_default_spawn(name: String, pos: Vector3): void
@@ -55,7 +59,7 @@ do
 
   --- @spec #get_player_domain_kv_by_name(player_name: String): nokore.KVStore
   function ic:get_player_domain_kv_by_name(player_name)
-    return self.player_data_service:get_player_domain_kv(player_name, self.m_data_domain)
+    return self.m_player_data_service:get_player_domain_kv(player_name, self.m_data_domain)
   end
 
   --- @spec #set_player_spawn(player_name: String, name: String, pos: Vector3): Boolean
@@ -101,5 +105,15 @@ do
       end
     end
     return false
+  end
+
+  --- @spec #on_player_respawn(player: PlayerRef): void
+  function ic:on_player_respawn(player)
+    local pos = self:get_player_spawn(player:get_player_name(), "default")
+    if pos then
+      player:set_pos(pos)
+      --- TODO: maybe have this service provide its own callbacks for on_player_respawn
+      --- since some mods may want to apply its own changes only AFTER this one has moved the player
+    end
   end
 end

@@ -10,5 +10,11 @@ nokore.player_data_service:register_domain(DATA_DOMAIN, {
 nokore = rawget(_G, "nokore") or {}
 nokore.player_spawn = mod.PlayerSpawnService:new{
   data_domain = DATA_DOMAIN,
-  kv_filename = path_join(path_join(core.get_worldpath(), "nokore"), "spawn")
+  kv_filename = path_join(path_join(core.get_worldpath(), "nokore"), "spawn"),
+  player_data_service = assert(nokore.player_data_service),
 }
+
+nokore.player_service:register_on_player_respawn(
+  "nokore_player_spawn:on_player_respawn",
+  nokore.player_spawn:method("on_player_respawn")
+)
