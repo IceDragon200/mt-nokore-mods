@@ -18,7 +18,6 @@ mod.enable_giant_mushrooms = false
 if mgname == "singlenode" then
   --
   mod.is_singlenode = true
-  core.register_mapgen_script(mod.modpath .. "/singlenode.lua")
 else
   mod.enable_trees = true
   mod.enable_giant_mushrooms = false
