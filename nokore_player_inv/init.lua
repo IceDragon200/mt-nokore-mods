@@ -14,7 +14,7 @@ mod:require("api.lua")
 
 nokore_proxy.register_globalstep("nokore_player_inv:update/2", mod.update)
 
-minetest.register_on_player_receive_fields(function (player, form_name, fields)
+core.register_on_player_receive_fields(function (player, form_name, fields)
   if form_name ~= "" then
     -- the player's main inventory formspec is represented by an empty form_name
     -- since this isn't that, we'll abandon this callback and let the system
@@ -70,7 +70,7 @@ if foundation.is_module_present("nokore_player_service") then
   nokore.player_service:register_on_player_join("nokore_player_inv:on_player_join", on_player_join)
   nokore.player_service:register_after_player_join("nokore_player_inv:after_player_join", register_after_player_join)
 else
-  minetest.register_on_joinplayer(on_player_join)
+  core.register_on_joinplayer(on_player_join)
 end
 
 nokore_player_inv.register_player_inventory_tab("default", {
