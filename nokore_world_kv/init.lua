@@ -15,9 +15,10 @@ local filename = path_join(path_join(core.get_worldpath(), "nokore"), "world_kv"
 local elapsed = 0.0
 
 nokore.world_kv = nokore.KVStore:new()
-do
+
+core.register_on_mods_loaded(function ()
   nokore.world_kv:marshall_load_file(filename)
-end
+end)
 
 nokore_proxy.register_globalstep(
   "nokore_world_kv:update/2",
