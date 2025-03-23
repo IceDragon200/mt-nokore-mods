@@ -34,6 +34,13 @@ function ic:mark_dirty()
   return self
 end
 
+--- @since "0.8.0"
+--- @spec #clear_dirty(): self
+function ic:clear_dirty()
+  self.dirty = false
+  return self
+end
+
 --- @spec #get(key: String, default: Value): Value
 function ic:get(key, default)
   local value = self.data[key]

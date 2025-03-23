@@ -144,6 +144,7 @@ if ByteBuf and MarshallValue then
     if span then
       span:span_end()
     end
+    return true
   end
 
   function ic:marshall_load_file(filename)
