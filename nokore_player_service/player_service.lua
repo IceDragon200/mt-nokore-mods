@@ -1,6 +1,6 @@
 --- @namespace nokore
-local get_connected_players = assert(minetest.get_connected_players)
-local get_player_by_name = assert(minetest.get_player_by_name)
+local get_connected_players = assert(core.get_connected_players)
+local get_player_by_name = assert(core.get_player_by_name)
 
 --- @class PlayerService
 local PlayerService = foundation.com.Class:extends("nokore_player_service.PlayerService")
@@ -123,7 +123,7 @@ do
     return self
   end
 
-  --- Callback used for minetest.on_joinplayer/2
+  --- Callback used for core.on_joinplayer/2
   ---
   --- @spec #on_player_join(Player, last_login: Any): self
   function ic:on_player_join(player, last_login)
@@ -140,7 +140,7 @@ do
     return self
   end
 
-  --- Callback used for minetest.on_leaveplayer/2
+  --- Callback used for core.on_leaveplayer/2
   ---
   --- @spec #on_player_leave(PlayerRef, timed_out: Boolean): self
   function ic:on_player_leave(player, timed_out)
@@ -156,7 +156,7 @@ do
     return self
   end
 
-  --- Callback used for minetest.on_respawnplayer/1
+  --- Callback used for core.on_respawnplayer/1
   ---
   --- @spec #on_player_respawn(PlayerRef): Boolean
   function ic:on_player_respawn(player)
