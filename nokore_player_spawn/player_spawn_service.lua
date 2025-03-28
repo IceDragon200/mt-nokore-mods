@@ -49,12 +49,13 @@ do
   --- @spec #get_default_spawn(name: String): Vector3
   function ic:get_default_spawn(name)
     local spawns = self.m_kv:get("default_spawns")
-    local spawn_pos = spawns[name]
-    if spawn_pos then
-      return Vector3.copy(spawn_pos)
-    else
-      return nil
+    if spawns then
+      local spawn_pos = spawns[name]
+      if spawn_pos then
+        return Vector3.copy(spawn_pos)
+      end
     end
+    return nil
   end
 
   --- @spec #get_player_domain_kv_by_name(player_name: String): nokore.KVStore
