@@ -4,12 +4,11 @@
 -- Creative
 foundation.new_module("nokore_creative", "0.1.0")
 
+local Groups = assert(foundation.com.Groups)
 local fspec = assert(foundation.com.formspec.api)
 
 local creative = {
   trash_inventory = nil,
-  normalized_terms = {},
-  registered_items = {},
   inventories = {},
 }
 
@@ -22,28 +21,27 @@ local function filter_player_creative_inventory(player, filter)
   local inv = creative.inventories[player:get_player_name()]
 
   local list = {}
-  local normalized_filter = filter:lower()
   local i = 0
-  for index,item_name in ipairs(creative.registered_items) do
-    -- local item = minetest.registered_items[item_name]
-    local term = creative.normalized_terms[item_name]
-    if filter == "" or
-       (term.name:find(normalized_filter, 1, true) or
-        term.description:find(normalized_filter, 1, true)) then
-      local stack = ItemStack(item_name)
-      stack:set_count(stack:get_stack_max())
+  local normalized_filter = filter:lower()
+  local itemdef
+  local item_stack
+  for _,item_name in nokore_item_index.filter_items(filter) do
+    itemdef = core.registered_items[item_name]
+    if itemdef and not Groups.has_group(itemdef.groups, "not_in_creative_inventory") then
+      item_stack = ItemStack(item_name)
+      item_stack:set_count(item_stack:get_stack_max())
       i = i + 1
-      list[i] = stack
+      list[i] = item_stack
     end
   end
 
-  inv:set_size("main", #list)
+  inv:set_size("main", i)
   inv:set_list("main", list)
 end
 
 local function create_player_creative_inventory(owning_player)
   creative.inventories[owning_player:get_player_name()] =
-    minetest.create_detached_inventory(
+    core.create_detached_inventory(
       creative.get_player_creative_inventory_name(owning_player),
       {
         allow_move = function (inv, from_list, from_index, to_list, to_index, count, player)
@@ -77,12 +75,12 @@ local function create_player_creative_inventory(owning_player)
 end
 
 local function remove_player_creative_inventory(player)
-  minetest.remove_detached_inventory(creative.get_player_creative_inventory_name(player))
+  core.remove_detached_inventory(creative.get_player_creative_inventory_name(player))
   creative.inventories[player:get_player_name()] = nil
 end
 
 local function on_mods_loaded()
-  creative.trash_inventory = minetest.create_detached_inventory("nokore_creative_trash", {
+  creative.trash_inventory = core.create_detached_inventory("nokore_creative_trash", {
     allow_put = function (inv, listname, index, stack, player)
       return stack:get_count()
     end,
@@ -92,37 +90,11 @@ local function on_mods_loaded()
     end,
   })
   creative.trash_inventory:set_size("main", 1)
-
-  creative.normalized_terms = {}
-  local registered_item_names = creative.registered_items
-  local i = 0
-  for name,def in pairs(minetest.registered_items) do
-    local should_include = true
-    if def.groups and
-       def.groups.not_in_creative_inventory and
-       def.groups.not_in_creative_inventory > 0 then
-      should_include = false
-    end
-
-    if name == "" then
-      should_include = false
-    end
-
-    if should_include then
-      i = i + 1
-      registered_item_names[i] = name
-      creative.normalized_terms[name] = {
-        name = name:lower(),
-        description = (def.description or ""):lower(),
-      }
-    end
-  end
-  table.sort(registered_item_names)
 end
 
-minetest.register_on_joinplayer(create_player_creative_inventory)
-minetest.register_on_leaveplayer(remove_player_creative_inventory)
-minetest.register_on_mods_loaded(on_mods_loaded)
+core.register_on_joinplayer(create_player_creative_inventory)
+core.register_on_leaveplayer(remove_player_creative_inventory)
+core.register_on_mods_loaded(on_mods_loaded)
 
 local function change_page(tab_state, amt)
   if tab_state.page_count > 0 then
@@ -136,7 +108,7 @@ end
 local function render_formspec(player, assigns, tab_state)
   local w = 0.25 + nokore_player_inv.player_hotbar_size * 1.25
 
-  if minetest.is_creative_enabled(player:get_player_name()) then
+  if core.is_creative_enabled(player:get_player_name()) then
     local inv_row_count = 6
     local page_size = nokore_player_inv.player_hotbar_size * inv_row_count
     local inventory_name = creative.get_player_creative_inventory_name(player)
@@ -227,7 +199,7 @@ nokore_player_inv.register_player_inventory_tab("creative", {
   end,
 
   check_player_enabled = function (player, _assigns, _tab_state)
-    return minetest.is_creative_enabled(player:get_player_name())
+    return core.is_creative_enabled(player:get_player_name())
   end,
 
   render_formspec = render_formspec,
