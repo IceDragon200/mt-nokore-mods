@@ -4,14 +4,14 @@ local is_blank = assert(foundation.com.is_blank)
 local InventorySerializer = assert(foundation.com.InventorySerializer)
 
 local function on_construct(pos)
-  local meta = minetest.get_meta(pos)
+  local meta = core.get_meta(pos)
   local inv = meta:get_inventory()
 
   inv:set_size("main", mod.get_backpack_inventory_size())
 end
 
 local function after_place_node(pos, placer, item_stack, pointed_thing)
-  local target_meta = minetest.get_meta(pos)
+  local target_meta = core.get_meta(pos)
   local source_meta = item_stack:get_meta()
 
   local target_inv = target_meta:get_inventory()
@@ -19,7 +19,7 @@ local function after_place_node(pos, placer, item_stack, pointed_thing)
   local source_inv_list = source_meta:get_string("inventory_dump")
 
   if not is_blank(source_inv_list) then
-    local dumped = minetest.deserialize(source_inv_list)
+    local dumped = core.deserialize(source_inv_list)
     local list = target_inv:get_list("main")
     list = InventorySerializer.load_list(dumped, list)
     target_inv:set_list("main", list)
@@ -29,7 +29,7 @@ end
 local function preserve_metadata(pos, _old_node, _old_meta_table, drops)
   local stack = drops[1]
 
-  local old_meta = minetest.get_meta(pos)
+  local old_meta = core.get_meta(pos)
   local new_meta = stack:get_meta()
 
   local old_inv = old_meta:get_inventory()
@@ -38,7 +38,7 @@ local function preserve_metadata(pos, _old_node, _old_meta_table, drops)
   local dumped = InventorySerializer.dump_list(list)
 
   --print("preserve_metadata", dump(dumped))
-  new_meta:set_string("inventory_dump", minetest.serialize(dumped))
+  new_meta:set_string("inventory_dump", core.serialize(dumped))
   local description = "Backpack (" .. InventorySerializer.description(dumped) .. ")"
   new_meta:set_string("description", description)
 end
@@ -47,7 +47,7 @@ local function on_blast(pos)
   local drops = {}
   drops[1] = mod:make_name("backpack")
   foundation.com.get_inventory_drops(pos, "main", drops)
-  minetest.remove_node(pos)
+  core.remove_node(pos)
   return drops
 end
 
