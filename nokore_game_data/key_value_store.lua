@@ -153,24 +153,28 @@ function ic:update_lazy(key, callback)
   return self
 end
 
--- Increment specified key by given amount, this is intended to replace use cases that would
--- do a get and put to increase a number field.
--- Note that is the field was not set, it will assume the value was zero to begin with.
---
---- @spec #increment(key: String, amount: Number): self
+--- Increment specified key by given amount, this is intended to replace use cases that would
+--- do a get and put to increase a number field.
+--- Note that is the field was not set, it will assume the value was zero to begin with.
+---
+--- @since "0.9.0"
+--- @spec #increment(key: String, amount: Number): (Number, self)
 function ic:increment(key, amount)
   self.data[key] = (self.data[key] or 0) + amount
-  return self
+  self.dirty = true
+  return self.data[key], self
 end
 
--- Decrement specified key by given amount, this is intended to replace use cases that would
--- do a get and put to decrease a number field.
--- Note that is the field was not set, it will assume the value was zero to begin with.
---
---- @spec #decrement(key: String, amount: Number): self
+--- Decrement specified key by given amount, this is intended to replace use cases that would
+--- do a get and put to decrease a number field.
+--- Note that is the field was not set, it will assume the value was zero to begin with.
+---
+--- @since "0.9.0"
+--- @spec #decrement(key: String, amount: Number): (Number, self)
 function ic:decrement(key, amount)
   self.data[key] = (self.data[key] or 0) - amount
-  return self
+  self.dirty = true
+  return self.data[key], self
 end
 
 --- @spec #delete(String): self
