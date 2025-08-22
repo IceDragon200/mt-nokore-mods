@@ -8,6 +8,8 @@
 --- @namespace nokore_player_stats_observer
 local mod = foundation.new_module("nokore_player_stats_observer", "1.0.0")
 
+local assertions = assert(foundation.com.assertions)
+
 local player_stats = assert(nokore.player_stats)
 local player_stat_cache = {}
 
@@ -37,9 +39,9 @@ mod.registered_observers = {}
 ---
 --- @spec register_on_stat_changed(name: String, stat_name: String, callback: Function/4): void
 function mod.register_on_stat_changed(name, stat_name, callback)
-  foundation.com.assert.is_string(name)
-  foundation.com.assert.is_string(stat_name)
-  foundation.com.assert.is_function(callback)
+  assertions.is_string(name)
+  assertions.is_string(stat_name)
+  assertions.is_function(callback)
 
   if mod.registered_observers[name] then
     error("callback already registered name="..name)
