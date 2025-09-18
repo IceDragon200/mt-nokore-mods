@@ -1,4 +1,4 @@
-local mod = nokore_world_quartz
+local mod = assert(nokore_world_quartz)
 
 mod:register_node("quartz_block", {
   description = mod.S("Quartz Block"),

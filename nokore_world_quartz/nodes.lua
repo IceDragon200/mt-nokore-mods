@@ -1,1 +1,2 @@
-dofile(nokore_world_quartz.modpath .. "/nodes/quartz.lua")
+nokore_world_quartz:require("nodes/quartz_ore.lua")
+nokore_world_quartz:require("nodes/quartz.lua")

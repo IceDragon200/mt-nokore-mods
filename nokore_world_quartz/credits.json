@@ -1,0 +1,48 @@
+{
+  "authors": {
+    "PixelPerfection": {
+      "url": "https://github.com/Wallbraker/PixelPerfection"
+    }
+  },
+  "licenses": {
+    "CC-BY-SA 4.0": {
+      "urls": [
+        "https://creativecommons.org/licenses/by-sa/4.0/"
+      ]
+    }
+  },
+  "files": {
+    "textures/quartz.png": {
+      "authors": ["PixelPerfection"],
+      "licenses": ["CC-BY-SA 4.0"]
+    },
+    "textures/quartz_block_bottom.png": {
+      "authors": ["PixelPerfection"],
+      "licenses": ["CC-BY-SA 4.0"]
+    },
+    "textures/quartz_block_chiseled.png": {
+      "authors": ["PixelPerfection"],
+      "licenses": ["CC-BY-SA 4.0"]
+    },
+    "textures/quartz_block_chiseled_top.png": {
+      "authors": ["PixelPerfection"],
+      "licenses": ["CC-BY-SA 4.0"]
+    },
+    "textures/quartz_block_lines.png": {
+      "authors": ["PixelPerfection"],
+      "licenses": ["CC-BY-SA 4.0"]
+    },
+    "textures/quartz_block_lines_top.png": {
+      "authors": ["PixelPerfection"],
+      "licenses": ["CC-BY-SA 4.0"]
+    },
+    "textures/quartz_block_side.png": {
+      "authors": ["PixelPerfection"],
+      "licenses": ["CC-BY-SA 4.0"]
+    },
+    "textures/quartz_block_top.png": {
+      "authors": ["PixelPerfection"],
+      "licenses": ["CC-BY-SA 4.0"]
+    }
+  }
+}
