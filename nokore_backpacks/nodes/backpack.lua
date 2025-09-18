@@ -2,16 +2,18 @@ local mod = assert(nokore_backpacks)
 
 local is_blank = assert(foundation.com.is_blank)
 local InventorySerializer = assert(foundation.com.InventorySerializer)
+local remove_node = assert(tetra.remove_node)
+local get_meta = assert(tetra.get_meta)
 
 local function on_construct(pos)
-  local meta = core.get_meta(pos)
+  local meta = get_meta(pos)
   local inv = meta:get_inventory()
 
   inv:set_size("main", mod.get_backpack_inventory_size())
 end
 
 local function after_place_node(pos, placer, item_stack, pointed_thing)
-  local target_meta = core.get_meta(pos)
+  local target_meta = get_meta(pos)
   local source_meta = item_stack:get_meta()
 
   local target_inv = target_meta:get_inventory()
@@ -29,7 +31,7 @@ end
 local function preserve_metadata(pos, _old_node, _old_meta_table, drops)
   local stack = drops[1]
 
-  local old_meta = core.get_meta(pos)
+  local old_meta = get_meta(pos)
   local new_meta = stack:get_meta()
 
   local old_inv = old_meta:get_inventory()
@@ -47,7 +49,7 @@ local function on_blast(pos)
   local drops = {}
   drops[1] = mod:make_name("backpack")
   foundation.com.get_inventory_drops(pos, "main", drops)
-  core.remove_node(pos)
+  remove_node(pos)
   return drops
 end
 
