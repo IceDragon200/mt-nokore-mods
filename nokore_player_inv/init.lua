@@ -6,7 +6,7 @@
 -- mods for messing with the player inventory (and creative inventory)
 --
 -- You may recognize this is similar to sfinv, and you'd be kind of right.
-local mod = foundation.new_module("nokore_player_inv", "0.4.0")
+local mod = foundation.new_module("nokore_player_inv", "0.5.0")
 
 local fspec = assert(foundation.com.formspec.api)
 

@@ -5,6 +5,14 @@ local fspec = assert(foundation.com.formspec.api)
 --- @namespace nokore_player_inv
 local mod = assert(nokore_player_inv)
 
+--- @const registered_on_inventory_tick: {
+---   [name: String]: (ItemStack, ObjectRef, Number) => ItemStack
+--- }
+mod.registered_on_inventory_tick = {}
+
+--- @const inventory_tick_interval: Number
+mod.INVENTORY_TICK_INTERVAL = 0.05
+
 -- Default minetest bar size
 --- @const player_hotbar_size: Integer
 mod.player_hotbar_size = mod.player_hotbar_size or 8
@@ -18,21 +26,75 @@ mod.tabs = {}
 --- @const ordered_tabs_index: { [tab_index: Integer]: (tab_name: String) }
 mod.ordered_tabs_index = {}
 
---- @spec update(dt, trace?: Trace)
+mod.elapsed = 0.0
+
+--- @since "0.5.0"
+--- @spec register_on_inventory_tick()
+function mod.register_on_inventory_tick(name, callback)
+  if mod.registered_on_inventory_tick[name] then
+    error("on_inventory_tick callback already registered name=" .. name)
+  end
+  mod.registered_on_inventory_tick[name] = callback
+end
+
+--- @spec update(dt: Number, trace?: Trace): void
 function mod.update(dt, trace)
+  mod.elapsed = mod.elapsed + dt
+
   local span
   if trace then
     span = trace:span_start("nokore_player_inv.update/2")
   end
 
   local player
+  local inv
+  local size
+  local list
+  local item_stack
+  local replacement
+  local item_def
+  local inv_name = "main"
   for player_name, data in pairs(mod.player_data) do
-    if data.refresh_on_next_tick then
-      player = nokore.player_service:get_player_by_name(player_name)
-      if player then
+    player = nokore.player_service:get_player_by_name(player_name)
+    if player then
+      if data.refresh_on_next_tick then
         mod.refresh_player_inventory_formspec(player)
+        data.refresh_on_next_tick = false
       end
-      data.refresh_on_next_tick = false
+      if data.next_inventory_tick <= mod.elapsed then
+        data.next_inventory_tick = data.next_inventory_tick + mod.INVENTORY_TICK_INTERVAL
+        inv = player:get_inventory()
+        size = inv:get_size(inv_name)
+        if size > 0 then
+          for i = 1,size do
+            item_stack = inv:get_stack(inv_name, i)
+            if item_stack and not item_stack:is_empty() then
+              item_def = item_stack:get_definition()
+              if item_def.on_inventory_tick then
+                replacement =
+                  item_def.on_inventory_tick(
+                    item_stack,
+                    player,
+                    mod.INVENTORY_TICK_INTERVAL
+                  )
+
+                if replacement then
+                  inv:set_stack(inv_name, i, replacement)
+                  item_stack = replacement
+                end
+              end
+
+              for _name, callback in pairs(mod.registered_on_inventory_tick)  do
+                replacement = callback(item_stack, player, mod.INVENTORY_TICK_INTERVAL)
+                if replacement then
+                  inv:set_stack(inv_name, i, replacement)
+                  item_stack = replacement
+                end
+              end
+            end
+          end
+        end
+      end
     end
   end
 
@@ -63,6 +125,8 @@ function mod.get_player_data(player)
       tabs_index = {},
       --
       refresh_on_next_tick = false,
+      --
+      next_inventory_tick = 0,
     }
 
     mod.on_player_data_initialize(player, mod.player_data[name])
@@ -96,15 +160,12 @@ function mod.unregister_player_inventory_tab(tab_name)
   assert(tab_name, "expected a tab name")
   mod.tabs[tab_name] = nil
 
-  local new_index = {}
-  local j = 0
-  for _index,old_tab_name in ipairs(mod.ordered_tabs_index) do
+  for index,old_tab_name in ipairs(mod.ordered_tabs_index) do
     if old_tab_name ~= tab_name then
-      j = j + 1
-      new_index[j] = old_tab_name
+      table.remove(mod.ordered_tabs_index, index)
+      break
     end
   end
-  mod.ordered_tabs_index = new_index
 end
 
 --- @spec refresh_player_tabs(PlayerRef): void
@@ -115,10 +176,12 @@ function mod.refresh_player_tabs(player)
   data.tabs_index = {}
 
   local j = 0
+  local tab
+  local is_enabled
 
   for _index,tab_name in ipairs(mod.ordered_tabs_index) do
-    local tab = mod.tabs[tab_name]
-    local is_enabled = true
+    tab = mod.tabs[tab_name]
+    is_enabled = true
 
     if tab.on_player_initialize then
       if not data.tabs[tab_name] then
@@ -154,15 +217,28 @@ function mod.make_player_inventory_formspec(player)
 
   for index,tab_name in ipairs(data.tabs_index) do
     local tab = mod.tabs[tab_name]
-    tab_captions[#tab_captions + 1] = minetest.formspec_escape(tab.description)
+    tab_captions[#tab_captions + 1] = core.formspec_escape(tab.description)
   end
 
   local header_config = fspec.formspec_version(6)
-  local header = fspec.tabheader(0, 0, nil, nil, "player_nav", tab_captions, data.current_tab_index)
+  local header = fspec.tabheader(
+    0,
+    0,
+    nil,
+    nil,
+    "player_nav",
+    tab_captions,
+    data.current_tab_index
+  )
   local tab_name = data.tabs_index[data.current_tab_index]
   local tab = mod.tabs[tab_name]
+  local tab_formspec
 
-  local tab_formspec = tab.render_formspec(player, data.assigns, data.tabs[tab_name])
+  if tab then
+    tab_formspec = tab.render_formspec(player, data.assigns, data.tabs[tab_name])
+  else
+    tab_formspec = ""
+  end
   local formspec = header_config .. tab_formspec .. header
 
   return formspec
