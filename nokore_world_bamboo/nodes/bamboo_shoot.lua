@@ -1,7 +1,7 @@
 local mod = nokore_world_bamboo
 
 mod:register_node("bamboo_shoot", {
-  description = mod.S("Acacia Shoot"),
+  description = mod.S("Bamboo Shoot"),
 
   groups = {
     snappy = nokore.dig_class("wme"),
