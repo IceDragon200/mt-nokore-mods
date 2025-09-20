@@ -1,0 +1,29 @@
+{
+  "authors": {
+    "PixelPerfection": {
+      "url": "https://github.com/Wallbraker/PixelPerfection"
+    },
+    "IceDragon200": {
+      "urls": [
+        "https://github.com/IceDragon200"
+      ]
+    }
+  },
+  "licenses": {
+    "CC-BY-SA 4.0": {
+      "urls": [
+        "https://creativecommons.org/licenses/by-sa/4.0/"
+      ]
+    }
+  },
+  "files": {
+    "textures/world_obsidian.png": {
+      "authors": ["PixelPerfection"],
+      "licenses": ["CC-BY-SA 4.0"]
+    },
+    "textures/world_obsidian_glass.png": {
+      "authors": ["IceDragon200"],
+      "licenses": ["CC-BY-SA 4.0"]
+    }
+  }
+}
