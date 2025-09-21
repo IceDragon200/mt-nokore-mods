@@ -1,4 +1,4 @@
-local mod = nokore_world_tin
+local mod = assert(nokore_world_tin)
 
 mod:register_node("stone_with_tin", {
   description = mod.S("Tin Ore"),

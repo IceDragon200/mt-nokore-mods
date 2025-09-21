@@ -1,1 +1,1 @@
-dofile(nokore_world_standard.modpath .. "/items/flint.lua")
+nokore_world_standard:require("items/flint.lua")

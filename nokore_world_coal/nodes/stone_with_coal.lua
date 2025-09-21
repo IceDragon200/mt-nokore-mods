@@ -1,4 +1,4 @@
-local mod = nokore_world_coal
+local mod = assert(nokore_world_coal)
 
 mod:register_node("stone_with_coal", {
   description = mod.S("Coal Ore"),
@@ -11,17 +11,5 @@ mod:register_node("stone_with_coal", {
 
   tiles = {
     "world_stone.png^world_mineral_coal.png",
-  },
-})
-
-mod:register_node("coal_block", {
-  description = mod.S("Coal Block"),
-
-  groups = {
-    cracky = nokore.dig_class("stone"),
-  },
-
-  tiles = {
-    "world_coal_block.png",
   },
 })

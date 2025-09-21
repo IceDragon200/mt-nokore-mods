@@ -1,7 +1,7 @@
-local mod = nokore_world_gold
+local mod = assert(nokore_world_gold)
 
 mod:register_node("stone_with_gold", {
-  description = mod.S("Gold Ore"),
+  description = mod.S("Stone with Gold"),
 
   groups = {
     cracky = nokore.dig_class("bronze"),

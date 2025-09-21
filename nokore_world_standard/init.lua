@@ -10,5 +10,5 @@ nokore.node_sounds:register("sand", {})
 nokore.node_sounds:register("leaves", {})
 nokore.node_sounds:register("wood", {})
 
-dofile(mod.modpath .. "/nodes.lua")
-dofile(mod.modpath .. "/items.lua")
+mod:require("nodes.lua")
+mod:require("items.lua")
