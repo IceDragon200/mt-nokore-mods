@@ -4,7 +4,7 @@ mod:register_node("rutile", {
   description = mod.S("Rutile"),
 
   groups = {
-    cracky = nokore.dig_class("steel"),
+    cracky = nokore.dig_class("carbon_steel"),
   },
 
   drop = "nokore_world_titanium:titanium_lump 4",

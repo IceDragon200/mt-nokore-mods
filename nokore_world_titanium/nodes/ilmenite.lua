@@ -5,7 +5,7 @@ mod:register_node("ilmenite", {
   description = mod.S("Ilmenite"),
 
   groups = {
-    cracky = nokore.dig_class("steel"),
+    cracky = nokore.dig_class("carbon_steel"),
   },
 
   drop = "nokore_world_titanium:titanium_lump 4",
