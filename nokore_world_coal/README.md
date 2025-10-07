@@ -1,1 +1,0 @@
-# Nokore World Coal

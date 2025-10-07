@@ -1,3 +1,0 @@
-# NoKore Player HUD
-
-## API

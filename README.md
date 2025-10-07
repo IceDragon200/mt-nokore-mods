@@ -1,21 +1,11 @@
 # NoKore Mods
 
-These are mods for NoKore styled games, they try to close to no depedency on 'core' or 'default' features.
+Formerly the mono-repo for NoKore mods, this repo now only contains feature mods for NoKore.
 
-Most of these are copies or rewrites of minetest_game mods.
+If you only needed NoKore's service modules, see the [related](#related) section.
 
-## Mod Convention
+## Related
 
-* `nokore_world_*`
-
-  'world' mods add new base material nodes to the game.
-
-* `nokore_biome_*`
-
-  'biome' mods build upon world mods to add worldgen that utilize the nodes added by the world
-
-## Goal
-
-The goal of the NoKore mods project is to create a framework and base for building games in minetest, mods will attempt to be granular allowing players and developers alike to build their own experience.
-
-For example nodes are decoupled from their worldgen and biomes, instead nokore provides various biome mods that will build upon the world mod's nodes
+* [NoKore Mods](https://github.com/IceDragon200/mt-nokore-mods) - If you're interested in NoKore's feature mods
+* [NoKore Dimension/Worldgen Mods](https://github.com/IceDragon200/mt-nokore-dim) - You are here.
+* [NoKore Service Mods](https://github.com/IceDragon200/mt-nokore-srv) - Contains the NoKore service modules, these provide various utilties used by other mods such as entity walkover callbacks.
