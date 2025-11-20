@@ -1,5 +1,9 @@
 --- @namespace nokore_chest
 local mod = assert(nokore_chest)
+local get_meta = assert(tetra.get_meta)
+local node_dig = assert(tetra.node_dig)
+local get_node_or_nil = assert(tetra.get_node_or_nil)
+local swap_node = assert(tetra.swap_node)
 
 local fspec = assert(foundation.com.formspec.api)
 
@@ -14,7 +18,7 @@ end
 
 --- @spec chest_on_construct(pos): void
 function mod.chest_on_construct(pos)
-  local meta = minetest.get_meta(pos)
+  local meta = get_meta(pos)
   local inv = meta:get_inventory()
 
   inv:set_size("main", mod.get_chest_inventory_size())
@@ -25,34 +29,58 @@ function mod.chest_after_destruct(pos)
 end
 
 function mod.chest_can_dig(pos)
-  local meta = minetest.get_meta(pos)
+  local meta = get_meta(pos)
   local inv = meta:get_inventory()
 
   if not inv:is_empty("main") then
     return false
   end
 
-  return minetest.node_dig(pos, node, puncher)
+  return node_dig(pos, node, puncher)
 end
 
 --- @overridable
 --- @spec render_formspec(pos: Vector3, PlayerRef): String
 function mod.render_formspec(pos, player)
-  local spos = pos.x .. "," .. pos.y .. "," .. pos.z
+  local spos = pos.x..","..pos.y..","..pos.z
 
-  local meta = minetest.get_meta(pos)
+  local pinv = player:get_inventory()
+
+  local meta = get_meta(pos)
   local inv = meta:get_inventory()
   local inv_size = inv:get_size("main")
 
+  local cio = fspec.calc_inventory_offset
+  local cis = fspec.calc_inventory_size
+
+  local padding = 0.5
+
   local cols = nokore_player_inv.player_hotbar_size
-  local rows = math.ceil(inv_size / cols)
+  local cw = cis(cols)
+
+  local irows = math.ceil(inv_size / cols)
+  local prows = math.ceil(pinv:get_size("main") / cols)
+
+  local fw = cw + padding * 2
+  local fh = cis(irows + prows) + padding * 4
 
   local formspec =
-    fspec.formspec_version(6) ..
-    fspec.size(cols, rows) ..
-    fspec.list("nodemeta:" .. spos, "main", 0, 0, cols, rows) ..
-    nokore_player_inv.player_inventory_lists_fragment(player, 0, 5.85) ..
-    fspec.list_ring()
+    fspec.formspec_version(6)
+    .. fspec.size(fw, fh)
+    .. fspec.list(
+      "nodemeta:" .. spos,
+      "main",
+      padding,
+      padding,
+      cols,
+      irows
+    )
+    .. nokore_player_inv.player_inventory_lists_fragment(
+      player,
+      padding,
+      cis(irows) + padding * 3
+    )
+    .. fspec.list_ring()
 
   return formspec
 end
@@ -67,12 +95,12 @@ function mod.on_formspec_quit(player, form_name, fields, state)
     if not next(mod.open_chests[chest_id]) then
       mod.open_chests[chest_id] = nil
 
-      local node = minetest.get_node_or_nil(state.pos)
+      local node = get_node_or_nil(state.pos)
       if node then
-        local nodedef = minetest.registered_nodes[node.name]
-        minetest.swap_node(state.pos, { name = nodedef.node_states.closed, param2 = node.param2 })
+        local nodedef = core.registered_nodes[node.name]
+        swap_node(state.pos, { name = nodedef.node_states.closed, param2 = node.param2 })
 
-        minetest.log("action", player:get_player_name() .. " closed chest at=" .. chest_id)
+        core.log("action", player:get_player_name() .. " closed chest at=" .. chest_id)
       end
     else
       -- there are still
@@ -82,17 +110,17 @@ function mod.on_formspec_quit(player, form_name, fields, state)
 end
 
 function mod.maybe_open_chest(pos, player)
-  local chest_id = minetest.pos_to_string(pos)
+  local chest_id = core.pos_to_string(pos)
 
   if not mod.open_chests[chest_id] then
     mod.open_chests[chest_id] = {}
 
-    local node = minetest.get_node_or_nil(pos)
+    local node = get_node_or_nil(pos)
     if node then
-      local nodedef = minetest.registered_nodes[node.name]
-      minetest.swap_node(pos, { name = nodedef.node_states.opened, param2 = node.param2 })
+      local nodedef = core.registered_nodes[node.name]
+      swap_node(pos, { name = nodedef.node_states.opened, param2 = node.param2 })
 
-      minetest.log("action", player:get_player_name() .. " opened chest at=" .. chest_id)
+      core.log("action", player:get_player_name() .. " opened chest at=" .. chest_id)
     end
   end
   mod.open_chests[chest_id][player:get_player_name()] = true
@@ -100,7 +128,7 @@ end
 
 function mod.chest_on_rightclick(pos, _node, player, item_stack, _pointed_thing)
   --
-  local chest_id = minetest.pos_to_string(pos)
+  local chest_id = core.pos_to_string(pos)
   local options = {
     state = {
       pos = pos,
@@ -116,8 +144,10 @@ function mod.chest_on_rightclick(pos, _node, player, item_stack, _pointed_thing)
   )
 
   mod.maybe_open_chest(pos, player)
+  return item_stack
 end
 
+--- @spec #register_chest(name: String, base: Table): void
 function mod:register_chest(name, base)
   local def = table.copy(base)
 
@@ -176,6 +206,6 @@ function mod:register_chest(name, base)
   closed_def.tiles[5] = def.tiles[3] -- drawtype to make them match the mesh
   closed_def.tiles[3] = def.tiles[3].."^[transformFX"
 
-  minetest.register_node(def.node_states.closed, closed_def)
-  minetest.register_node(def.node_states.opened, opened_def)
+  core.register_node(def.node_states.closed, closed_def)
+  core.register_node(def.node_states.opened, opened_def)
 end
