@@ -2,6 +2,6 @@
 -- NoKore - Apple
 --
 -- Apples
-local mod = foundation.new_module("nokore_apple", "0.1.0")
+local mod = foundation.new_module("nokore_apple", "0.1.1")
 
-dofile(mod.modpath .. "/items/apple.lua")
+mod:require("/items/apple.lua")
