@@ -9,7 +9,7 @@ local function on_construct(pos)
   local meta = get_meta(pos)
   local inv = meta:get_inventory()
 
-  inv:set_size("main", mod.get_backpack_inventory_size())
+  inv:set_size("main", mod.get_backpack_inventory_size(pos))
 end
 
 local function after_place_node(pos, placer, item_stack, pointed_thing)
@@ -54,10 +54,18 @@ local function on_blast(pos)
 end
 
 local function on_rightclick(pos, node, player, itemstack, pointed_thing)
+  local id = core.pos_to_string(pos)
+  local options = {
+    state = {
+      pos = pos,
+      id = id,
+    },
+  }
   nokore.formspec_bindings:show_formspec(
     player:get_player_name(),
     "nokore_backpacks:backpack",
-    mod.render_formspec(pos, player)
+    mod.render_formspec(pos, player),
+    options
   )
   return itemstack
 end
