@@ -53,7 +53,7 @@ local function on_blast(pos)
   return drops
 end
 
-local function on_rightclick(pos, node, player, itemstack, pointed_thing)
+local function on_rightclick(pos, node, player, item_stack, pointed_thing)
   local id = core.pos_to_string(pos)
   local options = {
     state = {
@@ -67,7 +67,7 @@ local function on_rightclick(pos, node, player, itemstack, pointed_thing)
     mod.render_formspec(pos, player),
     options
   )
-  return itemstack
+  return item_stack
 end
 
 -- Just a general purpose backpack
