@@ -4,6 +4,18 @@ Formerly the mono-repo for NoKore mods, this repo now only contains feature mods
 
 If you only needed NoKore's service modules, see the [related](#related) section.
 
+## Requirements
+
+* [Foundation](https://github.com/IceDragon200/mt-foundation)
+
+### Choose your Prelude
+
+Preludes are small mods that preconfigure NoKore and related mods for specific games.
+
+You are free to fork and rewrite the preludes to your liking if you want to customize things.
+
+* [Minetest Game](https://github.com/IceDragon200/mtg-nokore_prelude)
+
 ## Related
 
 * [NoKore Mods](https://github.com/IceDragon200/mt-nokore-mods) - You are here.
