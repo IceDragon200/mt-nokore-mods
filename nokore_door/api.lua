@@ -9,6 +9,15 @@ local Vector3 = assert(foundation.com.Vector3)
 local Groups = assert(foundation.com.Groups)
 local Cuboid = assert(foundation.com.Cuboid)
 local ng = assert(Cuboid.new_fast_node_box)
+local get_node_or_nil = assert(tetra.get_node_or_nil)
+local get_meta = assert(tetra.get_meta)
+local get_node = assert(tetra.get_node)
+local set_node = assert(tetra.set_node)
+local remove_node = assert(tetra.remove_node)
+local swap_node = assert(tetra.swap_node)
+local check_for_falling = assert(tetra.check_for_falling)
+local is_protected = assert(tetra.is_protected)
+local sound_play = assert(tetra.sound_play)
 
 function nokore_door.is_opposite_segment(my_segment, sibling_segment)
   if my_segment == "top" then
@@ -26,8 +35,8 @@ function nokore_door.door_on_place(item_stack, placer, pointed_thing)
 
   local itemdef = item_stack:get_definition()
   -- local doorname = item_stack:get_name()
-  local node = minetest.get_node(pointed_thing.under)
-  local pdef = minetest.registered_nodes[node.name]
+  local node = get_node(pointed_thing.under)
+  local pdef = core.registered_nodes[node.name]
   if pdef and pdef.on_rightclick and
       not (placer and placer:is_player() and
       placer:get_player_control().sneak) then
@@ -44,39 +53,39 @@ function nokore_door.door_on_place(item_stack, placer, pointed_thing)
     pos = pointed_thing.under
   else
     pos = pointed_thing.above
-    node = minetest.get_node(pos)
-    pdef = minetest.registered_nodes[node.name]
+    node = get_node(pos)
+    pdef = core.registered_nodes[node.name]
     if not pdef or not pdef.buildable_to then
       return item_stack
     end
   end
 
   local above = {x = pos.x, y = pos.y + 1, z = pos.z}
-  local top_node = minetest.get_node_or_nil(above)
-  local topdef = top_node and minetest.registered_nodes[top_node.name]
+  local top_node = get_node_or_nil(above)
+  local topdef = top_node and core.registered_nodes[top_node.name]
 
   if not topdef or not topdef.buildable_to then
     return item_stack
   end
 
   local pn = placer and placer:get_player_name() or ""
-  if minetest.is_protected(pos, pn) or minetest.is_protected(above, pn) then
+  if is_protected(pos, pn) or is_protected(above, pn) then
     return item_stack
   end
 
-  local dir = placer and minetest.dir_to_facedir(placer:get_look_dir()) or 0
+  local dir = placer and core.dir_to_facedir(placer:get_look_dir()) or 0
 
   -- check the left hand if a door is present
   local aside_check_dir = Directions.D_WEST
   local aside_dir = Directions.facedir_to_face(dir, aside_check_dir)
   local aside_vec = Directions.DIR6_TO_VEC3[aside_dir]
   local aside_pos = Vector3.add({}, pos, aside_vec)
-  local aside_node = minetest.get_node_or_nil(aside_pos)
-  local aside_nodedef = minetest.registered_nodes[aside_node.name]
+  local aside_node = get_node_or_nil(aside_pos)
+  local aside_nodedef = core.registered_nodes[aside_node.name]
 
   local mirror_state = 0
   if Groups.has_group(aside_nodedef, "door") then
-    local aside_meta = minetest.get_meta(aside_pos)
+    local aside_meta = get_meta(aside_pos)
     local aside_mirror_state = aside_meta:get_int("mirror_state")
     if aside_mirror_state > 0 then
       mirror_state = 0
@@ -87,15 +96,15 @@ function nokore_door.door_on_place(item_stack, placer, pointed_thing)
 
   if mirror_state > 0 then
     -- a door is present on the left hand, this door needs to be mirrored
-    minetest.set_node(pos, {name = itemdef.door_item.bottom .. "_mirror", param2 = dir})
-    minetest.set_node(above, {name = itemdef.door_item.top .. "_mirror", param2 = dir})
+    set_node(pos, {name = itemdef.door_item.bottom .. "_mirror", param2 = dir})
+    set_node(above, {name = itemdef.door_item.top .. "_mirror", param2 = dir})
   else
-    minetest.set_node(pos, {name = itemdef.door_item.bottom, param2 = dir})
-    minetest.set_node(above, {name = itemdef.door_item.top, param2 = dir})
+    set_node(pos, {name = itemdef.door_item.bottom, param2 = dir})
+    set_node(above, {name = itemdef.door_item.top, param2 = dir})
   end
 
   for _,vec in ipairs({pos, above}) do
-    local meta = minetest.get_meta(vec)
+    local meta = get_meta(vec)
 
     meta:set_int("mirror_state", mirror_state)
     if itemdef.protected then
@@ -104,17 +113,17 @@ function nokore_door.door_on_place(item_stack, placer, pointed_thing)
     end
   end
 
-  if not minetest.is_creative_enabled(pn) then
+  if not core.is_creative_enabled(pn) then
     item_stack:take_item()
   end
 
   if itemdef.sounds and itemdef.sounds.place then
-    minetest.sound_play(itemdef.sounds.place, {pos = pos}, true)
+    sound_play(itemdef.sounds.place, {pos = pos}, true)
   end
 
   -- on_place_node(
   --   pos,
-  --   minetest.get_node(pos),
+  --   get_node(pos),
   --   placer,
   --   node,
   --   item_stack,
@@ -127,7 +136,7 @@ end
 local function get_sibling_node(my_pos, my_node)
   local dir = Directions.D_UP
 
-  local nodedef = minetest.registered_nodes[my_node.name]
+  local nodedef = core.registered_nodes[my_node.name]
 
   if nodedef.door.segment == "top" then
     dir = Directions.D_DOWN
@@ -136,12 +145,12 @@ local function get_sibling_node(my_pos, my_node)
   local sibling_segment_dir = Directions.facedir_to_face(my_node.param2, dir)
   local sibling_vec = Directions.DIR6_TO_VEC3[sibling_segment_dir]
   local sibling_pos = Vector3.add({}, my_pos, sibling_vec)
-  local sibling_node = minetest.get_node_or_nil(sibling_pos)
+  local sibling_node = get_node_or_nil(sibling_pos)
   if not sibling_node then
     return nil, nil, nil
   end
 
-  local sibling_nodedef = minetest.registered_nodes[sibling_node.name]
+  local sibling_nodedef = core.registered_nodes[sibling_node.name]
   if not sibling_nodedef or not sibling_nodedef.door then
     return nil, nil, nil
   end
@@ -154,18 +163,18 @@ local function get_sibling_node(my_pos, my_node)
 end
 
 local function trigger_door(pos, node, clicker, item_stack, pointed_thing, trigger_aside)
-  local nodedef = minetest.registered_nodes[node.name]
+  local nodedef = core.registered_nodes[node.name]
   if not nodedef.door then
     return
   end
 
-  local meta = minetest.get_meta(pos)
+  local meta = get_meta(pos)
 
   local sibling_pos, sibling_node, sibling_nodedef = get_sibling_node(pos, node)
   if not sibling_pos then
     return
   end
-  local sibling_meta = minetest.get_meta(sibling_pos)
+  local sibling_meta = get_meta(sibling_pos)
 
   local new_param2
 
@@ -189,8 +198,8 @@ local function trigger_door(pos, node, clicker, item_stack, pointed_thing, trigg
   new_sibling_node.name = sibling_nodedef.door.mirror_name
   new_sibling_node.param2 = new_node.param2
 
-  minetest.swap_node(pos, new_node)
-  minetest.swap_node(sibling_pos, new_sibling_node)
+  swap_node(pos, new_node)
+  swap_node(sibling_pos, new_sibling_node)
 
   if not trigger_aside then
     return
@@ -206,13 +215,13 @@ local function trigger_door(pos, node, clicker, item_stack, pointed_thing, trigg
   local aside_dir = Directions.facedir_to_face(node.param2, aside_check_dir)
   local aside_vec = Directions.DIR6_TO_VEC3[aside_dir]
   local aside_pos = Vector3.add({}, pos, aside_vec)
-  local aside_node = minetest.get_node_or_nil(aside_pos)
+  local aside_node = get_node_or_nil(aside_pos)
 
   if not aside_node then
     return
   end
 
-  local aside_nodedef = minetest.registered_nodes[aside_node.name]
+  local aside_nodedef = core.registered_nodes[aside_node.name]
   if not aside_nodedef then
     return
   end
@@ -232,38 +241,38 @@ function nokore_door.door_after_destruct(my_pos, my_node)
   local sibling_pos = get_sibling_node(my_pos, my_node)
 
   if sibling_pos then
-    minetest.remove_node(sibling_pos)
+    remove_node(sibling_pos)
   end
 end
 
 function nokore_door.door_on_blast(my_pos, intensity)
-  local my_node = minetest.get_node(my_pos)
+  local my_node = get_node(my_pos)
   local sibling_pos = get_sibling_node(my_pos, my_node)
 
-  minetest.remove_node(my_pos)
+  remove_node(my_pos)
   if sibling_pos then
-    minetest.remove_node(sibling_pos)
+    remove_node(sibling_pos)
   end
 
-  local nodedef = minetest.registered_nodes[my_node.name]
+  local nodedef = core.registered_nodes[my_node.name]
 
   return {nodedef.drop}
 end
 
 function nokore_door.door_after_dig_node(my_pos, my_node, old_meta, digger)
-  local my_nodedef = minetest.registered_nodes[my_node.name]
+  local my_nodedef = core.registered_nodes[my_node.name]
   if my_nodedef then
     if my_nodedef.door and my_nodedef.door.segment == "top" then
-      minetest.check_for_falling(my_pos)
+      check_for_falling(my_pos)
     end
   end
 
   local sibling_pos, sibling_node, sibling_nodedef = get_sibling_node(my_pos, my_node)
 
   if sibling_pos and sibling_node then
-    minetest.remove_node(sibling_pos)
+    remove_node(sibling_pos)
     if sibling_nodedef.door.segment == "top" then
-      minetest.check_for_falling(sibling_pos)
+      check_for_falling(sibling_pos)
     end
   end
 end
@@ -307,16 +316,25 @@ local function register_door_segment(name, base)
     door = door,
   }, new_base)
 
-  minetest.register_node(name, def)
+  core.register_node(name, def)
 
   local mirror_def = table_copy(def)
   mirror_def.tiles = {}
 
   for i, texture in pairs(def.tiles) do
-    mirror_def.tiles[i] = texture .. "^[transformFX"
+    local ty = type(texture)
+    if ty == "string" then
+      mirror_def.tiles[i] = texture .. "^[transformFX"
+    elseif ty == "table" then
+      local new_texture = table_copy(texture)
+      new_texture.name = new_texture.name .. "^[transformFX"
+      mirror_def.tiles[i] = new_texture
+    else
+      error("unexpected texture type=" .. ty)
+    end
   end
 
-  minetest.register_node(mirror_name, table_deep_merge(mirror_def, {
+  core.register_node(mirror_name, table_deep_merge(mirror_def, {
     door = {
       is_mirror = true,
       mirror_name = name,
@@ -369,7 +387,7 @@ function nokore_door:register_door(basename, base)
     )
   )
 
-  minetest.register_craftitem(basename, table_deep_merge({
+  core.register_craftitem(basename, table_deep_merge({
     on_place = nokore_door.door_on_place,
 
     door_item = {

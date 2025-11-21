@@ -20,32 +20,45 @@ for wood_name, description in pairs(wood) do
       description = mod.S(description .. " Door"),
 
       groups = {
-        choppy = 1,
+        choppy = nokore.dig_class("wme"),
         wood_door = 1,
       },
+      use_texture_alpha = "clip",
     },
     bottom = {
       tiles = {
-        "nokore_door_" .. wood_name .. "_top.png",
-        "nokore_door_" .. wood_name .. "_top.png",
+        "nokore_door_" .. wood_name .. "_side.png",
+        "nokore_door_" .. wood_name .. "_side.png",
         "nokore_door_" .. wood_name .. "_side.png^[transformFX",
         "nokore_door_" .. wood_name .. "_side.png",
-        "nokore_door_" .. wood_name .. "_bottom_front.png^[transformFX",
-        "nokore_door_" .. wood_name .. "_bottom_front.png",
+        {
+          name = "nokore_door_" .. wood_name .. "_bottom_front.png^[transformFX",
+          backface_culling = false,
+        },
+        {
+          name = "nokore_door_" .. wood_name .. "_bottom_front.png",
+          backface_culling = false,
+        },
       },
     },
     top = {
       tiles = {
-        "nokore_door_" .. wood_name .. "_top.png",
-        "nokore_door_" .. wood_name .. "_top.png",
+        "nokore_door_" .. wood_name .. "_side.png",
+        "nokore_door_" .. wood_name .. "_side.png",
         "nokore_door_" .. wood_name .. "_side.png^[transformFX",
         "nokore_door_" .. wood_name .. "_side.png",
-        "nokore_door_" .. wood_name .. "_top_front.png^[transformFX",
-        "nokore_door_" .. wood_name .. "_top_front.png",
+        {
+          name = "nokore_door_" .. wood_name .. "_top_front.png^[transformFX",
+          backface_culling = false,
+        },
+        {
+          name = "nokore_door_" .. wood_name .. "_top_front.png",
+          backface_culling = false,
+        },
       },
     },
     item = {
-      inventory_image = "nokore_door_" .. wood_name .. ".png",
+      inventory_image = "nokore_door_" .. wood_name .. ".item.png",
 
       description = mod.S(description .. " Door"),
     },
