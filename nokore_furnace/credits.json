@@ -1,0 +1,59 @@
+{
+  "authors": {
+    "PixelPerfection": {
+      "url": "https://github.com/Wallbraker/PixelPerfection"
+    },
+    "minetest_game": {
+      "url": "https://github.com/luanti-org/minetest_game"
+    }
+  },
+  "licenses": {
+    "CC-BY-SA 4.0": {
+      "urls": [
+        "https://creativecommons.org/licenses/by-sa/4.0/"
+      ]
+    },
+    "CC BY-SA 3.0": {
+      "urls": [
+        "https://creativecommons.org/licenses/by-sa/3.0/"
+      ]
+    }
+  },
+  "files": {
+    "sounds/furnace_active.ogg": {
+      "authors": ["minetest_game"],
+      "licenses": ["CC-BY-SA 3.0"]
+    },
+    "sounds/furnace_on_cooked.1.ogg": {
+      "authors": ["minetest_game"],
+      "licenses": ["CC-BY-SA 3.0"],
+      "note": "Copied from the cooling lava sounds"
+    },
+    "sounds/furnace_on_cooked.2.ogg": {
+      "authors": ["minetest_game"],
+      "licenses": ["CC-BY-SA 3.0"],
+      "note": "Copied from the cooling lava sounds"
+    },
+    "sounds/furnace_on_cooked.3.ogg": {
+      "authors": ["minetest_game"],
+      "licenses": ["CC-BY-SA 3.0"],
+      "note": "Copied from the cooling lava sounds"
+    },
+    "textures/nokore_furnace_front_off.png": {
+      "authors": ["PixelPerfection"],
+      "licenses": ["CC-BY-SA 4.0"]
+    },
+    "textures/nokore_furnace_front_on.png": {
+      "authors": ["PixelPerfection"],
+      "licenses": ["CC-BY-SA 4.0"]
+    },
+    "textures/nokore_furnace_side.png": {
+      "authors": ["PixelPerfection"],
+      "licenses": ["CC-BY-SA 4.0"]
+    },
+    "textures/nokore_furnace_top.png": {
+      "authors": ["PixelPerfection"],
+      "licenses": ["CC-BY-SA 4.0"]
+    }
+  }
+}
